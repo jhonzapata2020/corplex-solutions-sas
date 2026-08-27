@@ -1,6 +1,7 @@
 import React from 'react';
-import { Network, ShieldCheck, Mail, MapPin, Phone, ChevronRight } from 'lucide-react';
+import { ShieldCheck, Mail, MapPin, Phone, ChevronRight } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
+import { Logo } from './Logo';
 
 export const Footer: React.FC = () => {
   return (
@@ -11,18 +12,9 @@ export const Footer: React.FC = () => {
         {/* 3-Column Minimalist Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-gray-800">
           
-          {/* Column 1: Brand & Legal Registration */}
+          {/* Column 1: Official Logo & Legal Registration */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-400 to-cyan-400 p-[1px] flex items-center justify-center">
-                <div className="w-full h-full bg-gray-950 rounded-[11px] flex items-center justify-center">
-                  <Network className="w-4 h-4 text-sky-400 stroke-[1.75]" />
-                </div>
-              </div>
-              <span className="font-extrabold text-lg text-white tracking-tight">
-                CORPLEX <span className="text-sky-400">SOLUTIONS</span> <span className="text-xs text-sky-400 font-mono">S.A.S.</span>
-              </span>
-            </div>
+            <Logo size="lg" />
 
             <p className="text-xs text-gray-300 leading-relaxed max-w-sm">
               Empresa de ingeniería de software, arquitectura cloud AWS e innovación tecnológica con sede en Urabá, Colombia.
@@ -34,11 +26,11 @@ export const Footer: React.FC = () => {
                 <span>NIT: {LEGAL_INFO.nit}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
                 <span>Matrícula Mercantil: {LEGAL_INFO.mercantileRegistration}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
                 <span>{LEGAL_INFO.chamberOfCommerce}</span>
               </div>
             </div>
@@ -49,32 +41,32 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs font-mono text-white font-bold uppercase tracking-wider mb-4">Navegación Institucional</h4>
             <ul className="space-y-2.5 text-xs">
               <li>
-                <a href="#inicio" className="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+                <a href="#inicio" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-gray-600 stroke-[1.75]" /> Inicio
                 </a>
               </li>
               <li>
-                <a href="#servicios" className="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+                <a href="#servicios" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-gray-600 stroke-[1.75]" /> Servicios Bento Grid
                 </a>
               </li>
               <li>
-                <a href="#enfoque-academico" className="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+                <a href="#enfoque-academico" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-gray-600 stroke-[1.75]" /> Sector Educativo (UNAD)
                 </a>
               </li>
               <li>
-                <a href="#arquitectura-cloud" className="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+                <a href="#arquitectura-cloud" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-gray-600 stroke-[1.75]" /> Arquitectura Cloud AWS
                 </a>
               </li>
               <li>
-                <a href="#metodologia" className="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+                <a href="#metodologia" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-gray-600 stroke-[1.75]" /> Metodología por Fases
                 </a>
               </li>
               <li>
-                <a href="#cumplimiento" className="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+                <a href="#cumplimiento" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-gray-600 stroke-[1.75]" /> Credencial Legal
                 </a>
               </li>
@@ -92,14 +84,14 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-sky-400 shrink-0 stroke-[1.75]" />
+                <Mail className="w-4 h-4 text-cyan-400 shrink-0 stroke-[1.75]" />
                 <a href={`mailto:${LEGAL_INFO.institutionalEmail}`} className="hover:underline font-mono text-[11px]">
                   {LEGAL_INFO.institutionalEmail}
                 </a>
               </div>
 
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-cyan-400 shrink-0 stroke-[1.75]" />
+                <Phone className="w-4 h-4 text-sky-400 shrink-0 stroke-[1.75]" />
                 <span className="font-mono">{LEGAL_INFO.phone1Display}</span>
               </div>
             </div>

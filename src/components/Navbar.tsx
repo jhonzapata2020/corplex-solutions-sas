@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Network, Menu, X, ArrowRight, MessageSquareCode, MessageCircle } from 'lucide-react';
+import { Menu, X, ArrowRight, MessageSquareCode, MessageCircle } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
+import { Logo } from './Logo';
 
 interface NavbarProps {
   onOpenQuoteModal: () => void;
@@ -56,29 +57,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             : 'bg-gray-950/60 backdrop-blur-xl border border-gray-800/60 shadow-xl'
         }`}>
           
-          {/* Logo & Node Icon */}
-          <a href="#inicio" className="flex items-center gap-3 group">
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 via-sky-400 to-blue-600 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full bg-gray-950 rounded-full flex items-center justify-center">
-                <Network className="w-4 h-4 text-cyan-400 group-hover:rotate-45 transition-transform duration-500 stroke-[1.75]" />
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-cyan-300 transition-colors">
-                  CORPLEX <span className="text-cyan-400 font-bold">SOLUTIONS</span>
-                </span>
-                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                  S.A.S.
-                </span>
-              </div>
-
-              <div className="hidden sm:flex items-center gap-1.5 text-[10px] text-gray-400 font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>NIT {LEGAL_INFO.nit}</span>
-              </div>
-            </div>
+          {/* Official Logo */}
+          <a href="#inicio" className="group">
+            <Logo size="md" />
           </a>
 
           {/* Central Floating Menu */}

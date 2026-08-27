@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Network, Sparkles, Power, ArrowRight, ShieldCheck, Cpu } from 'lucide-react';
+import { Sparkles, ArrowRight, ShieldCheck, Cpu } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 
 interface SplashIntroProps {
@@ -53,25 +53,30 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
           <span>SYSTEM READY // SYSTEM BOOT 2026</span>
         </div>
 
-        <div className="hidden sm:flex items-center gap-3 text-sky-400">
+        <div className="hidden sm:flex items-center gap-3 text-cyan-400">
           <ShieldCheck className="w-3.5 h-3.5 stroke-[1.75]" />
           <span>NIT {LEGAL_INFO.nit} • Urabá, Colombia</span>
         </div>
       </div>
 
-      {/* Central Content Box with Energy Orb Backdrop */}
+      {/* Central Content Box with Energy Orb Backdrop & Official Logo */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-2xl my-auto">
         
-        {/* Animated Quantango Energy Orb */}
-        <div className="relative flex items-center justify-center w-36 h-36 mb-8">
+        {/* Animated Quantango Energy Orb with Official Logo Inside */}
+        <div className="relative flex items-center justify-center w-44 h-44 mb-8">
           <div className="absolute inset-0 energy-orb-glow rounded-full pointer-events-none" />
           <svg className="absolute inset-0 w-full h-full text-cyan-400/40 animate-spin-slow" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" fill="none" />
             <circle cx="50" cy="50" r="35" stroke="currentColor" strokeWidth="1.5" fill="none" />
           </svg>
 
-          <div className="w-16 h-16 rounded-2xl bg-gray-950/90 border border-cyan-500/50 flex items-center justify-center shadow-2xl shadow-cyan-500/40">
-            <Network className="w-8 h-8 text-cyan-400 animate-pulse stroke-[1.75]" />
+          {/* Official Logo Card Badge */}
+          <div className="w-24 h-24 rounded-2xl bg-white p-2 border border-cyan-400/60 flex items-center justify-center shadow-2xl shadow-cyan-500/50 hover:scale-105 transition-transform duration-300">
+            <img
+              src="/logo.jpg"
+              alt="CORPLEX SOLUTIONS S.A.S. Logo Oficial"
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
 
