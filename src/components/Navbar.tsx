@@ -53,8 +53,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
         {/* Floating Glass Island Nav Pill */}
         <div className={`w-full flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full transition-all duration-300 ${
           isScrolled 
-            ? 'bg-gray-950/85 backdrop-blur-2xl border border-gray-800/80 shadow-2xl shadow-black/90' 
-            : 'bg-gray-950/60 backdrop-blur-xl border border-gray-800/60 shadow-xl'
+            ? 'bg-zinc-950/85 backdrop-blur-2xl border border-zinc-800/80 shadow-2xl shadow-black/90' 
+            : 'bg-zinc-950/60 backdrop-blur-xl border border-zinc-800/60 shadow-xl'
         }`}>
           
           {/* Official Logo */}
@@ -63,19 +63,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           </a>
 
           {/* Central Floating Menu */}
-          <nav className="hidden xl:flex items-center gap-1 bg-gray-900/80 px-2.5 py-1 rounded-full border border-gray-800 shadow-inner">
+          <nav className="hidden xl:flex items-center gap-1 bg-zinc-900/80 px-2.5 py-1 rounded-full border border-zinc-800 shadow-inner">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={link.href}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 flex items-center gap-1.5 ${
                   activeSection === link.id
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold shadow-sm'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold shadow-sm'
+                    : 'text-zinc-300 hover:text-white hover:bg-zinc-800/50'
                 }`}
               >
                 {activeSection === link.id && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400"></span>
                 )}
                 <span>{link.label}</span>
               </a>
@@ -109,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-full bg-gray-900 text-gray-300 hover:text-white border border-gray-800"
+              className="p-2 rounded-full bg-zinc-900 text-zinc-300 hover:text-white border border-zinc-800"
               aria-label="Abrir Menú"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 stroke-[1.75]" /> : <Menu className="w-5 h-5 stroke-[1.75]" />}
@@ -123,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="xl:hidden mt-2 max-w-7xl mx-auto px-4 sm:px-6 pointer-events-auto">
-          <div className="bg-gray-950/95 backdrop-blur-2xl rounded-3xl p-5 border border-gray-800 shadow-2xl animate-in slide-in-from-top-3 duration-200">
+          <div className="bg-zinc-950/95 backdrop-blur-2xl rounded-3xl p-5 border border-zinc-800 shadow-2xl animate-in slide-in-from-top-3 duration-200">
             <div className="flex flex-col space-y-1.5">
               {navLinks.map((link) => (
                 <a
@@ -132,16 +132,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-4 py-2.5 rounded-2xl text-xs font-medium transition-colors flex items-center justify-between ${
                     activeSection === link.id
-                      ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-semibold'
-                      : 'text-gray-300 hover:bg-gray-900 hover:text-white'
+                      ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold'
+                      : 'text-zinc-300 hover:bg-zinc-900 hover:text-white'
                   }`}
                 >
                   <span>{link.label}</span>
-                  {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>}
+                  {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>}
                 </a>
               ))}
 
-              <div className="pt-4 mt-2 border-t border-gray-800/80 flex flex-col gap-2">
+              <div className="pt-4 mt-2 border-t border-zinc-800/80 flex flex-col gap-2">
                 <a
                   href="https://wa.me/573207105618"
                   target="_blank"
