@@ -26,7 +26,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
           {/* Minimalist Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-900/90 border border-cyan-500/40 text-cyan-300 text-xs font-mono font-medium shadow-2xl mb-6 backdrop-blur-2xl hover:border-cyan-500/60 transition-colors">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400 stroke-[1.75]" />
-            <span>AGROTECH, SOFTWARE & CLOUD INFRASTRUCTURE 2026</span>
+            <span>SOFTWARE, AI & CLOUD INFRASTRUCTURE 2026</span>
           </div>
 
           {/* H1 Dominant Headline */}
@@ -39,7 +39,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg text-gray-300 max-w-3xl leading-relaxed mb-10 font-normal">
-            Ingeniería de Software a la Medida, Agrotech con IA, Arquitectura Cloud AWS y Simuladores Interactivos para instituciones educativas, agroindustria y empresas.
+            Ingeniería de Software a la Medida, Inteligencia Artificial, Arquitectura Cloud y Transformación Digital.
           </p>
 
           {/* Action CTAs */}
