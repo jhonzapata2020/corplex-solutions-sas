@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MessageCircle, Menu, X, ShieldCheck, Heart } from 'lucide-react';
+import { Search, MessageCircle, Menu, X, Heart } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 import { Logo } from './Logo';
 
@@ -46,28 +46,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   ];
 
   const topTabs = [
-    { label: 'CORPLEX', color: 'border-t-2 border-cyan-600', active: true, href: '#inicio' },
-    { label: 'UNAD / ECBTI', color: 'border-t-2 border-emerald-600', active: false, href: '#enfoque-academico' },
-    { label: 'Cloud AWS', color: 'border-t-2 border-sky-600', active: false, href: '#arquitectura-cloud' },
-    { label: 'Agrotech & IA', color: 'border-t-2 border-amber-600', active: false, href: '#servicios' },
-    { label: 'Ficha Legal', color: 'border-t-2 border-rose-600', active: false, href: '#cumplimiento' },
-    { label: 'Contacto', color: 'border-t-2 border-teal-600', active: false, href: '#contacto' },
+    { label: 'CORPLEX', color: 'border-t-4 border-[#ffd343]', active: true, href: '#inicio' },
+    { label: 'UNAD / ECBTI', color: 'border-t-4 border-emerald-400', active: false, href: '#enfoque-academico' },
+    { label: 'Cloud AWS', color: 'border-t-4 border-sky-400', active: false, href: '#arquitectura-cloud' },
+    { label: 'Agrotech & IA', color: 'border-t-4 border-amber-400', active: false, href: '#servicios' },
+    { label: 'Ficha Legal', color: 'border-t-4 border-rose-400', active: false, href: '#cumplimiento' },
+    { label: 'Contacto', color: 'border-t-4 border-teal-400', active: false, href: '#contacto' },
   ];
 
   return (
-    <header className="w-full bg-white font-tech text-slate-800 shadow-sm relative z-40 border-b border-slate-200/80">
+    <header className="w-full bg-[#111d28] font-tech text-slate-100 shadow-2xl relative z-40 border-b border-[#2b5b84]/50">
       
-      {/* 1. Top Utility Header Bar */}
-      <div className="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-6 text-xs bg-slate-50 border-b border-slate-200">
+      {/* 1. Top Utility Header Bar (Python.org style top tabs) */}
+      <div className="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-6 text-xs border-b border-[#2b5b84]/30">
         <div className="flex items-center font-mono-tech">
           {topTabs.map((tab, idx) => (
             <a
               key={idx}
               href={tab.href}
-              className={`px-4 py-2 transition-colors flex items-center gap-1.5 ${tab.color} ${
+              className={`px-4 py-2.5 transition-colors flex items-center gap-1.5 ${tab.color} ${
                 tab.active
-                  ? 'bg-white text-cyan-700 font-bold border-b-0'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner'
+                  : 'bg-[#111d28] text-slate-400 hover:text-white hover:bg-[#1b3852]/60'
               }`}
             >
               <span>{tab.label}</span>
@@ -75,38 +75,38 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           ))}
         </div>
 
-        <div className="flex items-center gap-4 text-[11px] font-mono-tech text-slate-500">
-          <span className="flex items-center gap-1 text-emerald-600 font-bold">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <div className="flex items-center gap-4 text-[11px] font-mono-tech text-slate-400">
+          <span className="flex items-center gap-1 text-emerald-400 font-bold">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             NIT {LEGAL_INFO.nit}
           </span>
           <span>Turbo, Urabá, Colombia</span>
         </div>
       </div>
 
-      {/* 2. Main Brand Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* 2. Main Brand & Search Bar (Python.org style logo + Donate/Search bar) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
         
         {/* Official Logo */}
         <a href="#inicio" className="flex items-center gap-3 group">
           <Logo size="lg" />
         </a>
 
-        {/* Action Controls & Search Box */}
+        {/* Action Controls & Search Box (Python.org style) */}
         <div className="flex flex-wrap items-center gap-3">
           
-          {/* Quote Button */}
+          {/* Quote Button (Donate button style in Python.org) */}
           <button
             onClick={onOpenQuoteModal}
-            className="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs shadow-sm transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+            className="px-4 py-2 rounded-md bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
           >
-            <Heart className="w-3.5 h-3.5 fill-current text-white" />
+            <Heart className="w-3.5 h-3.5 fill-current text-[#111d28]" />
             <span>Cotizar Proyecto</span>
           </button>
 
-          {/* Search Input Box */}
-          <div className="hidden sm:flex items-center bg-slate-100 rounded-lg p-1 border border-slate-300 text-slate-900">
-            <Search className="w-4 h-4 text-slate-400 ml-2 mr-1" />
+          {/* Search Box Input */}
+          <div className="hidden sm:flex items-center bg-white rounded-md p-1 border border-slate-300 text-slate-900 shadow-inner">
+            <Search className="w-4 h-4 text-slate-500 ml-2 mr-1" />
             <input
               type="text"
               placeholder="Buscar servicios, cloud..."
@@ -121,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                   if (elem) elem.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="bg-slate-800 hover:bg-slate-900 text-white font-bold text-[11px] px-3 py-1 rounded-md"
+              className="bg-[#2b5b84] hover:bg-[#1e415e] text-white font-bold text-[11px] px-3 py-1 rounded"
             >
               IR
             </button>
@@ -132,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             href="https://wa.me/573207105618"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 p-2 rounded-full transition-all shadow-sm"
+            className="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/40 p-2 rounded-full transition-all shadow"
             title="Escríbenos por WhatsApp"
           >
             <MessageCircle className="w-4 h-4 stroke-[2]" />
@@ -141,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           {/* Mobile Drawer Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-md bg-slate-100 text-slate-700 border border-slate-300"
+            className="md:hidden p-2 rounded-md bg-[#1b3852] text-slate-300 border border-[#2b5b84]"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -150,17 +150,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
       </div>
 
-      {/* 3. Main Navigation Tab Bar */}
+      {/* 3. Main Navigation Tab Bar (Python.org rounded gradient blue bar) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3">
-        <nav className="hidden md:flex items-center justify-around bg-slate-900 text-white rounded-xl px-2 py-1.5 border border-slate-800 text-xs font-medium shadow-sm">
+        <nav className="hidden md:flex items-center justify-around bg-python-nav-gradient rounded-xl px-2 py-1.5 border border-[#4b7da5]/40 text-xs font-medium shadow-lg">
           {navLinks.map((link) => (
             <a
               key={link.id}
               href={link.href}
               className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
                 activeSection === link.id
-                  ? 'bg-cyan-600 text-white font-bold shadow-sm'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                  ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner border border-[#ffd343]/30'
+                  : 'text-slate-200 hover:text-white hover:bg-[#1b3852]/50'
               }`}
             >
               <span>{link.label}</span>
@@ -171,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-200 p-4 font-tech">
+        <div className="md:hidden bg-[#1b3852] border-t border-[#2b5b84] p-4 font-tech">
           <div className="flex flex-col space-y-2">
             {navLinks.map((link) => (
               <a
@@ -180,22 +180,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center justify-between ${
                   activeSection === link.id
-                    ? 'bg-cyan-50 text-cyan-700 font-bold border border-cyan-200'
-                    : 'text-slate-700 hover:bg-slate-100'
+                    ? 'bg-[#2b5b84] text-[#ffd343] font-bold'
+                    : 'text-slate-300 hover:bg-[#111d28]'
                 }`}
               >
                 <span>{link.label}</span>
-                {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-cyan-600"></span>}
+                {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-[#ffd343]"></span>}
               </a>
             ))}
 
-            <div className="pt-3 border-t border-slate-200 flex flex-col gap-2">
+            <div className="pt-3 border-t border-[#2b5b84] flex flex-col gap-2">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenQuoteModal();
                 }}
-                className="w-full py-2.5 rounded-lg bg-cyan-600 text-white font-bold text-xs text-center shadow-sm"
+                className="w-full py-2.5 rounded-md bg-[#ffd343] text-[#111d28] font-bold text-xs text-center"
               >
                 Cotizar Proyecto
               </button>
