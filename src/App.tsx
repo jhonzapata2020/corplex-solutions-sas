@@ -36,7 +36,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-cyan-500 selection:text-white font-sans antialiased">
+    <div className="min-h-screen bg-[#1b3852] text-slate-100 selection:bg-[#ffd343] selection:text-black font-sans antialiased">
       
       {/* Interactive System Boot Splash Screen */}
       <SplashIntro
@@ -47,12 +47,12 @@ export function App() {
       {/* Main Platform (Navbar & Body revealed upon entry) */}
       {isEntered && (
         <div className="animate-in fade-in duration-700">
-          {/* Light Enterprise Navbar */}
+          {/* Python.org Style Header & Navigation */}
           <Navbar onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
           {/* Main Content Sections */}
           <main>
-            {/* Hero Section */}
+            {/* Hero Section Python.org Style */}
             <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
             {/* Educational & UNAD Section */}
@@ -74,7 +74,7 @@ export function App() {
             <ContactSection />
           </main>
 
-          {/* Footer */}
+          {/* Footer Python.org Style */}
           <Footer />
 
           {/* Floating Scroll-To-Top Button */}
