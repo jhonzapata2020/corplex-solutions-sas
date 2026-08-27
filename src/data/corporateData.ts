@@ -26,112 +26,76 @@ export const LEGAL_INFO: LegalData = {
 
 export const SERVICES_DATA: ServiceItem[] = [
   {
-    id: "soft-1",
-    category: "software",
-    categoryLabel: "Desarrollo & Web Apps",
-    title: "Plataformas Web a la Medida & Portales Interactivos",
-    shortDesc: "Diseño y desarrollo de sistemas web escalables, simuladores interactivos y portales institucionales en React & TypeScript.",
-    fullDesc: "Creamos software robusto enfocado en experiencia de usuario fluida, arquitectura limpia de componentes, optimización de velocidad de carga y total adaptabilidad a procesos institucionales o empresariales.",
-    icon: "Code2",
+    id: "agrotech-1",
+    category: "ai",
+    categoryLabel: "Agrotech & IA",
+    title: "Agrotech, IoT & IA para Agricultura de Precisión",
+    shortDesc: "Software inteligente para gestión y monitoreo de cultivos (plátano, café, cítricos, frutales) con sensores IoT y modelos predictivos de IA.",
+    fullDesc: "Desarrollamos soluciones agrotech diseñadas para el campo colombiano. Integración con sensores de humedad de suelo, estaciones meteorológicas y pluviómetros. Algoritmos de IA para recomendaciones de riego, prevención de plagas/clima y trazabilidad de cosechas.",
+    icon: "Sprout",
     features: [
-      "Frontend interactivo con React & TypeScript",
-      "Backend estructurado y REST APIs en Node.js / Python",
-      "Simuladores web y entornos de prueba interactivos",
-      "Diseño adaptativo (Mobile First) con animaciones fluidas",
-      "Panel de administración a la medida"
+      "Monitoreo inteligente de cultivos (plátano, café, cítricos y frutales)",
+      "Integración IoT con sensores de suelo, humedad y pluviómetros",
+      "Modelos predictivos de IA para sugerencias de riego y nutrición",
+      "Alertas tempranas de prevención climática y fitosanitaria",
+      "Trazabilidad de cosecha y paneles de rendimiento por hectárea"
     ],
-    techBadges: ["React", "TypeScript", "Node.js", "Python", "Tailwind CSS", "REST API"],
-    recommendedFor: "Instituciones de Educación Superior, Entidades Públicas y Empresas"
+    techBadges: ["Agrotech", "IoT Sensors", "AI Models", "Python", "React", "FastAPI"],
+    recommendedFor: "Productores agrícolas, Fincas bananeras/cafeteras, Asociaciones y Agroindustrias"
   },
   {
-    id: "soft-2",
+    id: "soft-1",
     category: "software",
-    categoryLabel: "Desarrollo & Web Apps",
-    title: "Modernización & Refactorización de Código",
-    shortDesc: "Migración de plataformas legacy a arquitecturas modernas con código limpio, patrones ágiles y estándares de seguridad.",
-    fullDesc: "Auditamos, optimizamos y reestructuramos bases de código heredadas para garantizar mantenibilidad a largo plazo, eliminar deuda técnica y acelerar el tiempo de respuesta.",
-    icon: "Terminal",
+    categoryLabel: "Software Empresarial",
+    title: "Desarrollo de Software Empresarial & Web Apps a la Medida",
+    shortDesc: "Sistemas de gestión interna, inventarios, logística, tableros gerenciales (BI) y APIs RESTful en React, TypeScript y Node.js/Python.",
+    fullDesc: "Creamos software corporativo robusto para optimizar operaciones críticas, automatizar flujos de trabajo empresariales y conectar sistemas legados mediante APIs escalables.",
+    icon: "Code2",
     features: [
-      "Auditoría técnica de código fuente y rendimiento",
-      "Refactorización hacia arquitecturas basadas en componentes",
-      "Optimización de consumo de memoria y tiempo de render",
-      "Implementación de TypeScript para tipado estricto",
-      "Pruebas unitarias e integración continua"
+      "Frontend interactivo moderno con React & TypeScript",
+      "Backend estructurado y REST APIs en Node.js / Python",
+      "Módulos de gestión de inventarios, logística y facturación",
+      "Tableros de control gerencial BI en tiempo real",
+      "Diseño adaptativo con altos estándares de seguridad"
     ],
-    techBadges: ["Refactoring", "TypeScript", "Clean Code", "Jest", "Git"],
-    recommendedFor: "Plataformas web consolidadas que requieren actualización tecnológica"
+    techBadges: ["React", "TypeScript", "Node.js", "Python", "PostgreSQL", "REST API"],
+    recommendedFor: "Empresas, Pymes, Comercializadoras y Entidades Administrativas"
   },
   {
     id: "cloud-1",
     category: "cloud",
     categoryLabel: "Cloud AWS & DevOps",
-    title: "Arquitectura Cloud AWS Escalable & Alta Disponibilidad",
-    shortDesc: "Despliegue y orquestación de infraestructura en Amazon Web Services (AWS) con balanceo de carga y aislamiento VPC.",
-    fullDesc: "Diseñamos entornos de nube diseñados para soportar picos masivos de tráfico en matrículas, evaluaciones o lanzamientos comerciales con 99.9% de disponibilidad.",
+    title: "Arquitectura Cloud AWS, DevOps & Monitoreo 24/7",
+    shortDesc: "Despliegue de alta disponibilidad en Amazon Web Services (EC2 Auto Scaling, RDS PostgreSQL, S3, ALB) y monitoreo continuo.",
+    fullDesc: "Diseñamos e implementamos infraestructura en la nube respaldada por AWS con 99.9% de disponibilidad, balanceo automático de carga y políticas de seguridad KMS.",
     icon: "Cloud",
     features: [
-      "Instancias Amazon EC2 con Auto Scaling",
-      "Bases de datos administradas RDS (PostgreSQL / MySQL)",
-      "Almacenamiento seguro Amazon S3 y distribuciones CloudFront CDN",
-      "VPC privadas, subredes, Security Groups y WAF",
-      "Balanceadores de Carga Elastic Load Balancer (ALB)"
+      "Clusters Amazon EC2 con Auto Scaling dinámico",
+      "Bases de datos administradas RDS (PostgreSQL / MySQL) cifradas",
+      "Almacenamiento Amazon S3 y distribución CDN CloudFront",
+      "Balanceadores de carga Elastic Load Balancer (ALB)",
+      "Monitoreo continuo 24/7 y optimización de costos AWS"
     ],
-    techBadges: ["AWS EC2", "AWS RDS", "Amazon S3", "AWS ALB", "Route 53", "VPC"],
-    recommendedFor: "Comités de Proyectos TI y Compras Institucionales"
+    techBadges: ["AWS EC2", "AWS RDS", "Amazon S3", "AWS ALB", "Route 53", "Docker"],
+    recommendedFor: "Comités de Proyectos TI, Plataformas de Tráfico Masivo y Empresas"
   },
   {
-    id: "cloud-2",
-    category: "cloud",
-    categoryLabel: "Cloud AWS & DevOps",
-    title: "Pipelines CI/CD & Monitoreo 24/7",
-    shortDesc: "Automatización de despliegues continuos, integración Git y supervisión de salud de servidores en tiempo real.",
-    fullDesc: "Implementamos flujos automáticos para que cada actualización de software pase por pruebas de calidad y se despliegue sin interrumpir la operación de los usuarios.",
-    icon: "Cpu",
+    id: "edu-1",
+    category: "software",
+    categoryLabel: "Sector Educativo",
+    title: "Simuladores Interactivos & Sector Educativo / Institucional",
+    shortDesc: "Entornos web interactivos, simuladores de código, laboratorios virtuales y módulos académicos para universidades (UNAD) y sector público.",
+    fullDesc: "Construimos laboratorios virtuales y plataformas de formación práctica para la Escuela de Ciencias Básicas, Tecnología e Ingeniería (ECBTI - UNAD), semilleros de investigación y entes gubernamentales.",
+    icon: "GraduationCap",
     features: [
-      "Integración y Despliegue Continuos con GitHub Actions",
-      "Monitoreo de métricas CPU, RAM e I/O con CloudWatch",
-      "Certificados SSL/TLS automatizados y gestión DNS",
-      "Estrategias de Backup automatizadas con rotación",
-      "Planes de recuperación ante desastres (Disaster Recovery)"
+      "Simuladores web de conceptos de ingeniería y programación",
+      "Visualizaciones 2D/3D interactivas en canvas ejecutable",
+      "Módulos de trazabilidad para semilleros de investigación I+D+i",
+      "Integrable en LMS mediante estándares LTI / Web Embed",
+      "Soporte a picos masivos de estudiantes durante exámenes"
     ],
-    techBadges: ["GitHub Actions", "Docker", "AWS CloudWatch", "Nginx", "SSL"],
-    recommendedFor: "Equipos de desarrollo y proyectos institucionales en evolución"
-  },
-  {
-    id: "ai-1",
-    category: "ai",
-    categoryLabel: "Automatización & IA",
-    title: "Agentes Inteligentes & Automatización de Procesos",
-    shortDesc: "Soluciones de procesamiento inteligente de datos, asistentes conversacionales y automatización de tareas repetitivas.",
-    fullDesc: "Integramos capacidades de inteligencia artificial aplicada y automatización mediante flujos que reducen tiempos de respuesta administrativa y análisis documental.",
-    icon: "Zap",
-    features: [
-      "Integración de LLMs para asistencia técnica e institucional",
-      "Tableros de control e indicadores gerenciales en tiempo real",
-      "Extracción y estructuración automática de documentos PDF/Excel",
-      "Integración con APIs institucionales y bots de atención",
-      "Automatización de notificaciones y recordatorios"
-    ],
-    techBadges: ["Python", "OpenAI / Claude API", "FastAPI", "Pandas", "Webhooks"],
-    recommendedFor: "Semilleros de investigación, áreas de planeación y servicio al cliente"
-  },
-  {
-    id: "infra-1",
-    category: "infrastructure",
-    categoryLabel: "Infraestructura & Soporte",
-    title: "Soporte Especializado TI & Mantenimiento Preventivo",
-    shortDesc: "Gestión integral de parque informático, mantenimiento físico/lógico, diagnóstico de hardware y cableado estructurado.",
-    fullDesc: "Ofrecemos cobertura presencial y remota para asegurar el funcionamiento óptimo de redes corporativas, servidores locales, estaciones de trabajo y periféricos (CIIU S9511 / G4651).",
-    icon: "Server",
-    features: [
-      "Mantenimiento preventivo y correctivo de hardware (CIIU S9511)",
-      "Estructuración de redes LAN / WiFi de alta velocidad",
-      "Configuración de firewalls y seguridad de red local",
-      "Asesoría y suministro de licencias y equipamiento TI (CIIU G4651)",
-      "SLA de atención prioritaria para emergencias técnicas"
-    ],
-    techBadges: ["Redes LAN/WiFi", "Hardware Diagnostic", "Firewalls", "SLA Priority", "Windows/Linux Server"],
-    recommendedFor: "Sedes administrativas, colegios, laboratorios y Pymes en Urabá"
+    techBadges: ["UNAD ECBTI", "Simuladores Web", "LTI Standard", "React", "Canvas 2D/3D"],
+    recommendedFor: "Universidades (UNAD), Institutos Técnicos, Grupos I+D+i y Entidades Públicas"
   }
 ];
 

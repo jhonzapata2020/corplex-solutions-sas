@@ -85,8 +85,9 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
           CORPLEX <span className="text-cyan-400">SOLUTIONS</span> <span className="text-xs text-cyan-400 font-mono">S.A.S.</span>
         </h1>
 
-        <p className="text-gray-300 text-xs sm:text-sm max-w-md leading-relaxed mb-8 font-mono">
-          Ecosistema Institucional de Ingeniería de Software, Simuladores Educativos UNAD & Infraestructura Cloud AWS.
+        {/* Updated Subtitle */}
+        <p className="text-gray-300 text-xs sm:text-sm max-w-lg leading-relaxed mb-8 font-mono">
+          Ingeniería de Software a la Medida, Plataformas Cloud AWS, Agrotech con IA & Ecosistemas Digitales de Alto Impacto.
         </p>
 
         {/* Central Action Button */}
@@ -108,7 +109,7 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
       {/* Bottom Footer Info */}
       <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full max-w-7xl font-mono text-[11px] text-gray-400 pt-4 border-t border-gray-800/80 gap-2">
         <div>
-          Tecnología, Software & Nube AWS • Turbo, Urabá, Colombia
+          Agrotech, Software & Nube AWS • Turbo, Urabá, Colombia
         </div>
 
         <div className="flex items-center gap-2 text-emerald-400">

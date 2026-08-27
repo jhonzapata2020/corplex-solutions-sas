@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, MessageCircle } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 import { Logo } from './Logo';
 
@@ -16,7 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ['inicio', 'servicios', 'enfoque-academico', 'arquitectura-cloud', 'metodologia', 'cumplimiento', 'contacto'];
+      const sections = ['inicio', 'servicios', 'agrotech', 'enfoque-academico', 'arquitectura-cloud', 'cumplimiento', 'contacto'];
       const scrollPosition = window.scrollY + 180;
 
       for (const section of sections) {
@@ -39,9 +39,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const navLinks = [
     { href: '#inicio', label: 'Inicio', id: 'inicio' },
     { href: '#servicios', label: 'Servicios', id: 'servicios' },
+    { href: '#agrotech', label: 'Agrotech & IA', id: 'agrotech' },
     { href: '#enfoque-academico', label: 'Sector Educativo', id: 'enfoque-academico' },
     { href: '#arquitectura-cloud', label: 'Arquitectura Cloud', id: 'arquitectura-cloud' },
-    { href: '#metodologia', label: 'Metodología', id: 'metodologia' },
     { href: '#cumplimiento', label: 'Ficha Legal', id: 'cumplimiento' },
     { href: '#contacto', label: 'Contacto', id: 'contacto' }
   ];
@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             ))}
           </nav>
 
-          {/* Action Group: Polished Circular WhatsApp Button */}
+          {/* Action Group: Polished Circular Emerald WhatsApp Button */}
           <div className="hidden sm:flex items-center">
             <a
               href="https://wa.me/573207105618"
