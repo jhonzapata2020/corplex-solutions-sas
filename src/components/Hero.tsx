@@ -37,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.12] mb-6">
               Desarrollo de Software a la Medida,{' '}
-              <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">
+              <span className="text-sky-400">
                 Arquitectura Cloud
               </span>{' '}
               e Innovación Digital
@@ -52,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
               <button
                 onClick={onOpenQuoteModal}
-                className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-cyan-500 to-sky-600 text-white font-semibold text-sm shadow-xl shadow-sky-500/25 hover:shadow-sky-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2.5 group"
+                className="px-7 py-3.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-black font-extrabold text-sm shadow-xl shadow-sky-500/20 hover:shadow-sky-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2.5 group"
               >
                 <span>Cotizar Proyecto</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -115,11 +115,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               </div>
 
               {/* Selector Tabs */}
-              <div className="flex rounded-xl bg-slate-900/90 p-1 border border-slate-800 mb-5">
+              <div className="flex rounded-xl bg-slate-900 p-1 border border-slate-800 mb-5">
                 <button
                   onClick={() => setActiveHeroTab('software')}
                   className={`flex-1 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
-                    activeHeroTab === 'software' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'text-slate-400 hover:text-white'
+                    activeHeroTab === 'software' ? 'bg-sky-500 text-slate-950 font-bold' : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   Software Dev
@@ -127,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 <button
                   onClick={() => setActiveHeroTab('cloud')}
                   className={`flex-1 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
-                    activeHeroTab === 'cloud' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'text-slate-400 hover:text-white'
+                    activeHeroTab === 'cloud' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   Cloud AWS
@@ -135,7 +135,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 <button
                   onClick={() => setActiveHeroTab('unad')}
                   className={`flex-1 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
-                    activeHeroTab === 'unad' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'text-slate-400 hover:text-white'
+                    activeHeroTab === 'unad' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   UNAD ECBTI
@@ -146,15 +146,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               {activeHeroTab === 'software' && (
                 <div className="space-y-3 font-mono text-xs">
                   <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-slate-300">
-                    <span className="text-slate-500">// Stack Frontend</span>
+                    <span className="text-slate-400">// Stack Frontend</span>
                     <div className="text-sky-300 font-bold mt-1">React 18 + TypeScript + Tailwind CSS</div>
-                    <div className="text-[11px] text-slate-400 mt-1">Componentes reutilizables, tipado estricto, 0 deuda técnica.</div>
+                    <div className="text-[11px] text-slate-300 mt-1">Componentes reutilizables, tipado estricto, 0 deuda técnica.</div>
                   </div>
 
                   <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-slate-300">
-                    <span className="text-slate-500">// Stack Backend & APIs</span>
+                    <span className="text-slate-400">// Stack Backend & APIs</span>
                     <div className="text-emerald-400 font-bold mt-1">Node.js / Python REST APIs</div>
-                    <div className="text-[11px] text-slate-400 mt-1">Autenticación JWT, arquitectura limpia y ORM relacional.</div>
+                    <div className="text-[11px] text-slate-300 mt-1">Autenticación JWT, arquitectura limpia y ORM relacional.</div>
                   </div>
                 </div>
               )}
@@ -163,15 +163,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               {activeHeroTab === 'cloud' && (
                 <div className="space-y-3 font-mono text-xs">
                   <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-slate-300">
-                    <span className="text-slate-500">// Amazon Web Services</span>
+                    <span className="text-slate-400">// Amazon Web Services</span>
                     <div className="text-cyan-300 font-bold mt-1">EC2 Auto Scaling + RDS PostgreSQL</div>
-                    <div className="text-[11px] text-slate-400 mt-1">Balanceadores de carga ALB, almacenamiento S3 y CDN CloudFront.</div>
+                    <div className="text-[11px] text-slate-300 mt-1">Balanceadores de carga ALB, almacenamiento S3 y CDN CloudFront.</div>
                   </div>
 
                   <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-slate-300">
-                    <span className="text-slate-500">// Seguridad & VPC</span>
+                    <span className="text-slate-400">// Seguridad & VPC</span>
                     <div className="text-emerald-400 font-bold mt-1">AWS WAF + Route 53 DNS</div>
-                    <div className="text-[11px] text-slate-400 mt-1">Protección DDoS y aislamiento en subredes privadas.</div>
+                    <div className="text-[11px] text-slate-300 mt-1">Protección DDoS y aislamiento en subredes privadas.</div>
                   </div>
                 </div>
               )}
@@ -180,15 +180,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               {activeHeroTab === 'unad' && (
                 <div className="space-y-3 font-mono text-xs">
                   <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-slate-300">
-                    <span className="text-slate-500">// Articulación Académica</span>
+                    <span className="text-slate-400">// Articulación Académica</span>
                     <div className="text-emerald-300 font-bold mt-1">Simuladores Web & Semilleros</div>
-                    <div className="text-[11px] text-slate-400 mt-1">Laboratorios virtuales interactivos para prácticas de ingeniería.</div>
+                    <div className="text-[11px] text-slate-300 mt-1">Laboratorios virtuales interactivos para prácticas de ingeniería.</div>
                   </div>
 
                   <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-slate-300">
-                    <span className="text-slate-500">// Picos Masivos</span>
+                    <span className="text-slate-400">// Picos Masivos</span>
                     <div className="text-sky-300 font-bold mt-1">Respuesta a Exámenes Nacionales</div>
-                    <div className="text-[11px] text-slate-400 mt-1">Soporte a más de 5,000 estudiantes concurrentes sin caídas.</div>
+                    <div className="text-[11px] text-slate-300 mt-1">Soporte a más de 5,000 estudiantes concurrentes sin caídas.</div>
                   </div>
                 </div>
               )}
