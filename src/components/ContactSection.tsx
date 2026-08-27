@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, ExternalLink, Clock, Building2, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, ExternalLink } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 import type { ContactFormData } from '../types';
 
@@ -44,42 +44,39 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contacto" className="py-24 relative bg-slate-950 border-t border-slate-800/80">
+    <section id="contacto" className="py-24 relative bg-gray-950 border-t border-gray-800/80">
       
-      {/* Glow Effects */}
-      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-sky-500/5 blur-[120px] rounded-full pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs font-mono font-semibold mb-4">
-            <MessageSquare className="w-4 h-4 text-sky-400" />
-            <span>ATENCIÓN TÉCNICA & COMERCIAL</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs font-mono font-medium mb-4">
+            <MessageSquare className="w-4 h-4 text-sky-400 stroke-[1.75]" />
+            <span>ATENCIÓN INSTITUCIONAL & PROYECTOS TI</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Contacto e Iniciar Proyecto
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">
+            Inicia tu Proyecto Tecnológico
           </h2>
 
-          <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-            Estamos listos para evaluar sus requerimientos de software, nube o infraestructura. Comuníquese directamente con la dirección técnica de CORPLEX SOLUTIONS S.A.S.
+          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+            Comunícate directamente con la dirección técnica de CORPLEX SOLUTIONS S.A.S. para cotizaciones, convenios o consultas de infraestructura.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Direct Communication Channels (Left 5 Cols) */}
+          {/* Direct Communication Channels (5 Cols) */}
           <div className="lg:col-span-5 space-y-6">
             
-            {/* WhatsApp Direct Card */}
-            <div className="glass-card p-6 rounded-3xl border border-emerald-500/30 bg-emerald-950/20 relative overflow-hidden">
+            {/* WhatsApp Priority Card */}
+            <div className="glass-card-pro p-6 rounded-3xl border border-emerald-500/30 bg-emerald-950/20 relative overflow-hidden">
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400">
-                  <MessageSquare className="w-6 h-6" />
+                  <MessageSquare className="w-6 h-6 stroke-[1.75]" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">Canal Prioritario WhatsApp</h3>
+                  <h3 className="text-lg font-bold text-white">Canal WhatsApp Prioritario</h3>
                   <span className="text-xs font-mono text-emerald-400 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     Respuesta Inmediata
@@ -87,42 +84,41 @@ export const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-300 mb-6 leading-relaxed">
-                Inicie una conversación instantánea con nuestro equipo para cotizaciones rápidas, dudas técnicas o agendamiento de reuniones.
+              <p className="text-xs text-gray-300 mb-6 leading-relaxed">
+                Inicia una conversación instantánea para agendar reuniones técnicas o validar factibilidad de proyectos.
               </p>
 
               <div className="flex flex-col gap-2">
                 <a
-                  href={`https://wa.me/${LEGAL_INFO.whatsapp1}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS, deseo información para un proyecto de software/nube.')}`}
+                  href={`https://wa.me/${LEGAL_INFO.whatsapp1}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS, deseo información sobre proyectos de software.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition-colors"
                 >
                   <span>WhatsApp Principal ({LEGAL_INFO.phone1Display})</span>
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-4 h-4 stroke-[1.75]" />
                 </a>
 
                 <a
-                  href={`https://wa.me/${LEGAL_INFO.whatsapp2}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS, deseo información sobre servicios de ingeniería TI.')}`}
+                  href={`https://wa.me/${LEGAL_INFO.whatsapp2}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS, me comunico sobre infraestructura TI.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-mono text-xs flex items-center justify-center gap-2 transition-colors"
+                  className="w-full py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-emerald-300 border border-emerald-500/40 font-mono text-xs flex items-center justify-center gap-2 transition-colors"
                 >
                   <span>WhatsApp Secundario ({LEGAL_INFO.phone2Display})</span>
                 </a>
               </div>
             </div>
 
-            {/* Direct Channels Cards */}
-            <div className="glass-card p-6 rounded-3xl border border-slate-800 space-y-5">
+            {/* Direct Telephone & Email Cards */}
+            <div className="glass-card-pro p-6 rounded-3xl border border-gray-800 space-y-5">
               
-              {/* Telephone */}
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-sky-400 shrink-0">
-                  <Phone className="w-5 h-5" />
+                <div className="p-3 rounded-xl bg-gray-950 border border-gray-800 text-sky-400 shrink-0">
+                  <Phone className="w-5 h-5 stroke-[1.75]" />
                 </div>
                 <div>
-                  <span className="text-xs font-mono text-slate-400 block">LÍNEAS DIRECTAS TELÉFONOS</span>
+                  <span className="text-xs font-mono text-gray-400 block">LÍNEAS DIRECTAS</span>
                   <div className="flex flex-col gap-1 mt-1 font-mono text-sm font-bold text-white">
                     <a href={`tel:${LEGAL_INFO.whatsapp1}`} className="hover:text-sky-400 transition-colors">
                       {LEGAL_INFO.phone1Display}
@@ -134,28 +130,26 @@ export const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Email */}
-              <div className="flex items-start gap-4 pt-4 border-t border-slate-800/80">
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-cyan-400 shrink-0">
-                  <Mail className="w-5 h-5" />
+              <div className="flex items-start gap-4 pt-4 border-t border-gray-800">
+                <div className="p-3 rounded-xl bg-gray-950 border border-gray-800 text-cyan-400 shrink-0">
+                  <Mail className="w-5 h-5 stroke-[1.75]" />
                 </div>
                 <div>
-                  <span className="text-xs font-mono text-slate-400 block">CORREO INSTITUCIONAL & JUDICIAL</span>
+                  <span className="text-xs font-mono text-gray-400 block">CORREO INSTITUCIONAL & JUDICIAL</span>
                   <a href={`mailto:${LEGAL_INFO.institutionalEmail}`} className="text-sm font-bold font-mono text-sky-400 hover:underline block mt-1">
                     {LEGAL_INFO.institutionalEmail}
                   </a>
                 </div>
               </div>
 
-              {/* Address */}
-              <div className="flex items-start gap-4 pt-4 border-t border-slate-800/80">
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400 shrink-0">
-                  <MapPin className="w-5 h-5" />
+              <div className="flex items-start gap-4 pt-4 border-t border-gray-800">
+                <div className="p-3 rounded-xl bg-gray-950 border border-gray-800 text-emerald-400 shrink-0">
+                  <MapPin className="w-5 h-5 stroke-[1.75]" />
                 </div>
                 <div>
-                  <span className="text-xs font-mono text-slate-400 block">SEDE FISICA Y ATENCIÓN</span>
+                  <span className="text-xs font-mono text-gray-400 block">SEDE PRINCIPAL</span>
                   <div className="text-sm font-bold text-white mt-1">{LEGAL_INFO.address}</div>
-                  <div className="text-xs text-slate-400">{LEGAL_INFO.city}, {LEGAL_INFO.department} - Colombia</div>
+                  <div className="text-xs text-gray-400">{LEGAL_INFO.city}, {LEGAL_INFO.department} - Colombia</div>
                 </div>
               </div>
 
@@ -163,19 +157,19 @@ export const ContactSection: React.FC = () => {
 
           </div>
 
-          {/* Contact Interactive Form (Right 7 Cols) */}
-          <div className="lg:col-span-7 glass-panel p-6 sm:p-10 rounded-3xl border border-slate-800 relative">
+          {/* Formulario de Contacto Pulido (7 Cols) */}
+          <div className="lg:col-span-7 glass-card-pro p-6 sm:p-10 rounded-3xl border border-gray-800">
             
             {isSubmitted ? (
               <div className="text-center py-12 space-y-6">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8" />
+                  <CheckCircle2 className="w-8 h-8 stroke-[1.75]" />
                 </div>
 
-                <h3 className="text-2xl font-bold text-white">¡Mensaje Preparado y Registrado!</h3>
+                <h3 className="text-2xl font-bold text-white">¡Solicitud Preparada Exitosamente!</h3>
                 
-                <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-                  Gracias por comunicarse con CORPLEX SOLUTIONS S.A.S. Para acelerar la atención, puede enviar la solicitud procesada directamente a nuestro WhatsApp.
+                <p className="text-gray-300 text-sm max-w-md mx-auto leading-relaxed">
+                  Para agilizar la atención, puedes enviar la solicitud procesada directamente a nuestro WhatsApp oficial.
                 </p>
 
                 <div className="flex flex-col sm:flex-row justify-center gap-3 pt-4">
@@ -184,12 +178,12 @@ export const ContactSection: React.FC = () => {
                     className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20"
                   >
                     <span>Enviar a WhatsApp Ahora</span>
-                    <Send className="w-4 h-4" />
+                    <Send className="w-4 h-4 stroke-[1.75]" />
                   </button>
 
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold"
+                    className="px-6 py-3 rounded-xl bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold"
                   >
                     Redactar otro Mensaje
                   </button>
@@ -198,16 +192,14 @@ export const ContactSection: React.FC = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 
-                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-                  <span className="text-xs font-mono text-sky-400 font-semibold">FORMULARIO DE SOLICITUD TI</span>
-                  <span className="text-xs text-slate-400 font-mono">* Campos requeridos</span>
+                <div className="flex items-center justify-between border-b border-gray-800 pb-4">
+                  <span className="text-xs font-mono text-sky-400 font-bold">FORMULARIO INSTITUCIONAL TI</span>
+                  <span className="text-xs text-gray-400 font-mono">* Campos obligatorios</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  
-                  {/* Full Name */}
                   <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-2">Nombre Completo *</label>
+                    <label className="block text-xs font-mono text-gray-300 mb-2">Nombre Completo *</label>
                     <input
                       type="text"
                       name="fullName"
@@ -215,13 +207,12 @@ export const ContactSection: React.FC = () => {
                       value={formData.fullName}
                       onChange={handleChange}
                       placeholder="Ej. Ing. Carlos Ramírez"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 text-xs focus:outline-none focus:border-sky-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-800 text-gray-100 placeholder-gray-500 text-xs focus:outline-none focus:border-sky-500 transition-colors"
                     />
                   </div>
 
-                  {/* Email */}
                   <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-2">Correo Electrónico *</label>
+                    <label className="block text-xs font-mono text-gray-300 mb-2">Correo Electrónico *</label>
                     <input
                       type="email"
                       name="email"
@@ -229,17 +220,14 @@ export const ContactSection: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="carlos@institucion.edu.co"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 text-xs focus:outline-none focus:border-sky-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-800 text-gray-100 placeholder-gray-500 text-xs focus:outline-none focus:border-sky-500 transition-colors"
                     />
                   </div>
-
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  
-                  {/* Institution or Company */}
                   <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-2">Institución / Empresa *</label>
+                    <label className="block text-xs font-mono text-gray-300 mb-2">Institución / Empresa *</label>
                     <input
                       type="text"
                       name="institutionOrCompany"
@@ -247,32 +235,29 @@ export const ContactSection: React.FC = () => {
                       value={formData.institutionOrCompany}
                       onChange={handleChange}
                       placeholder="Ej. UNAD / Alcaldía / Empresa S.A.S."
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 text-xs focus:outline-none focus:border-sky-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-800 text-gray-100 placeholder-gray-500 text-xs focus:outline-none focus:border-sky-500 transition-colors"
                     />
                   </div>
 
-                  {/* Request Type */}
                   <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-2">Tipo de Solicitud *</label>
+                    <label className="block text-xs font-mono text-gray-300 mb-2">Tipo de Solicitud *</label>
                     <select
                       name="requestType"
                       value={formData.requestType}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-sky-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-800 text-gray-100 text-xs focus:outline-none focus:border-sky-500 transition-colors"
                     >
                       <option value="Desarrollo de Software & Web Apps">Desarrollo de Software & Web Apps</option>
-                      <option value="Cloud Computing AWS & DevOps">Cloud Computing AWS & DevOps</option>
+                      <option value="Arquitectura Cloud AWS & DevOps">Arquitectura Cloud AWS & DevOps</option>
                       <option value="Simuladores Educativos UNAD">Simuladores Educativos UNAD</option>
                       <option value="Consultoría e Infraestructura TI">Consultoría e Infraestructura TI</option>
                       <option value="Soporte y Mantenimiento (CIIU S9511)">Soporte y Mantenimiento (CIIU S9511)</option>
                     </select>
                   </div>
-
                 </div>
 
-                {/* Message */}
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 mb-2">Mensaje / Requerimiento del Proyecto *</label>
+                  <label className="block text-xs font-mono text-gray-300 mb-2">Mensaje o Requerimientos *</label>
                   <textarea
                     name="message"
                     rows={4}
@@ -280,7 +265,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Describa brevemente los objetivos, tecnologías esperadas o requerimientos institucionales..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 text-xs focus:outline-none focus:border-sky-500 transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-800 text-gray-100 placeholder-gray-500 text-xs focus:outline-none focus:border-sky-500 transition-colors resize-none"
                   />
                 </div>
 
@@ -288,14 +273,14 @@ export const ContactSection: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 text-white font-semibold text-xs shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full sm:w-auto px-8 py-3.5 rounded-full glow-button text-white font-bold text-xs flex items-center justify-center gap-2 disabled:opacity-50"
                   >
-                    <span>{isSubmitting ? 'Procesando Solicitud...' : 'Enviar Solicitud Institucional'}</span>
-                    <Send className="w-4 h-4" />
+                    <span>{isSubmitting ? 'Procesando...' : 'Enviar Solicitud Institucional'}</span>
+                    <Send className="w-4 h-4 stroke-[1.75]" />
                   </button>
 
-                  <span className="text-[11px] font-mono text-slate-400 text-center">
-                    Respuesta garantizada en menos de 24 horas hábiles.
+                  <span className="text-[11px] font-mono text-gray-400 text-center">
+                    Respuesta garantizada en menos de 24 horas.
                   </span>
                 </div>
 
