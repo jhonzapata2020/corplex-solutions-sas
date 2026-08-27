@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Sparkles, ArrowRight, ShieldCheck, Cpu } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Cpu } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 
 interface SplashIntroProps {
@@ -33,7 +33,8 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-[#030712] flex flex-col items-center justify-between p-6 sm:p-12 overflow-hidden transition-all duration-700 ${
+      onClick={handleStart}
+      className={`fixed inset-0 z-50 bg-[#030712] flex flex-col items-center justify-between p-6 sm:p-12 overflow-hidden transition-all duration-700 cursor-pointer ${
         isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
     >
@@ -47,7 +48,7 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
       </div>
 
       {/* Top Header Status */}
-      <div className="relative z-10 flex items-center justify-between w-full max-w-7xl font-mono text-xs text-gray-400 border-b border-gray-800/80 pb-4">
+      <div className="relative z-10 flex items-center justify-between w-full max-w-7xl font-mono text-xs text-gray-400 border-b border-gray-800/80 pb-4 pointer-events-auto">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           <span>SYSTEM READY // SYSTEM BOOT 2026</span>
@@ -60,7 +61,7 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
       </div>
 
       {/* Central Content Box with Energy Orb Backdrop & Official Logo */}
-      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl my-auto">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl my-auto pointer-events-auto">
         
         {/* Animated Quantango Energy Orb with Official Logo Inside */}
         <div className="relative flex items-center justify-center w-44 h-44 mb-8">
@@ -90,24 +91,26 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
           Ingeniería de Software a la Medida, Inteligencia Artificial, Arquitectura Cloud y Transformación Digital.
         </p>
 
-        {/* Central Action Button */}
+        {/* Minimalist Interactive Neon Amber/Orange Text Link CTA */}
         <button
-          onClick={handleStart}
-          className="glow-pill-button px-8 py-4 rounded-full text-white font-bold text-xs sm:text-sm shadow-2xl shadow-cyan-500/40 flex items-center gap-3 group transition-transform active:scale-95 cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleStart();
+          }}
+          className="group inline-flex items-center gap-2.5 text-base md:text-lg font-medium tracking-wide text-amber-400 hover:text-orange-400 drop-shadow-[0_0_12px_rgba(251,146,60,0.4)] transition-all duration-300 cursor-pointer active:scale-95 py-2 px-5 rounded-full hover:bg-amber-500/10 border border-amber-500/20 hover:border-orange-500/40"
         >
-          <Sparkles className="w-4 h-4 text-cyan-200 group-hover:rotate-12 transition-transform stroke-[1.75]" />
-          <span>✨ HAZ CLIC PARA INICIALIZAR EL ECOSISTEMA</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[1.75]" />
+          <span className="animate-pulse">Explorar plataforma</span>
+          <ArrowRight className="w-4.5 h-4.5 text-amber-400 group-hover:text-orange-400 group-hover:translate-x-1.5 transition-transform duration-300 stroke-[2]" />
         </button>
 
         <span className="text-[10px] font-mono text-gray-500 mt-4">
-          Presiona cualquier tecla o haz clic para ingresar
+          Presiona cualquier tecla o haz clic en cualquier lugar para ingresar
         </span>
 
       </div>
 
       {/* Bottom Footer Info */}
-      <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full max-w-7xl font-mono text-[11px] text-gray-400 pt-4 border-t border-gray-800/80 gap-2">
+      <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full max-w-7xl font-mono text-[11px] text-gray-400 pt-4 border-t border-gray-800/80 gap-2 pointer-events-auto">
         <div>
           Tecnología, Software & Nube • Turbo, Urabá, Colombia
         </div>
