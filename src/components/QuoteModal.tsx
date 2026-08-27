@@ -54,12 +54,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
 
         {/* Modal Header */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-2xl bg-[#ffd343] text-[#111d28] shadow-md font-bold">
-            <Calculator className="w-6 h-6" />
+          <div className="p-3 rounded-2xl bg-[#142332] border border-cyan-500/40 text-cyan-400 shadow-md">
+            <Calculator className="w-6 h-6 stroke-[1.75]" />
           </div>
           <div>
             <h3 className="text-xl font-bold text-white">Cotizador de Proyectos TI</h3>
-            <span className="text-xs font-mono-tech text-[#ffd343] font-bold">CORPLEX SOLUTIONS S.A.S. • Respuesta Inmediata</span>
+            <span className="text-xs font-mono-tech text-cyan-300 font-medium">CORPLEX SOLUTIONS S.A.S. • Respuesta Inmediata</span>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
             <select
               value={projectType}
               onChange={(e) => setProjectType(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 text-xs focus:outline-none focus:border-[#ffd343] font-sans"
+              className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 text-xs focus:outline-none focus:border-cyan-400 font-sans"
             >
               <option value="Desarrollo de Software & Web Apps">Desarrollo de Software & Web Apps</option>
               <option value="Arquitectura Cloud AWS & DevOps">Arquitectura Cloud AWS & DevOps</option>
@@ -90,9 +90,9 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
                   key={level}
                   type="button"
                   onClick={() => setScope(level)}
-                  className={`p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                  className={`p-3 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
                     scope === level
-                      ? 'bg-[#3775a9] border-[#ffd343] text-[#ffd343] shadow-md'
+                      ? 'bg-cyan-500/20 border-cyan-400/80 text-cyan-300 shadow-sm font-bold'
                       : 'bg-[#142332] border-[#2b5b84] text-slate-300 hover:bg-[#2b5b84]'
                   }`}
                 >
@@ -120,14 +120,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
                     key={addon}
                     type="button"
                     onClick={() => toggleAddon(addon)}
-                    className={`p-2.5 rounded-xl border text-left text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
+                    className={`p-2.5 rounded-xl border text-left text-xs font-medium transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? 'bg-[#3775a9] border-[#ffd343] text-[#ffd343]'
+                        ? 'bg-cyan-500/20 border-cyan-400/80 text-cyan-300 font-bold'
                         : 'bg-[#142332] border-[#2b5b84] text-slate-300 hover:bg-[#2b5b84]'
                     }`}
                   >
                     <span>{addon}</span>
-                    <CheckCircle2 className={`w-4 h-4 ${isSelected ? 'text-[#ffd343]' : 'text-slate-500'}`} />
+                    <CheckCircle2 className={`w-4 h-4 ${isSelected ? 'text-cyan-400' : 'text-slate-500'}`} />
                   </button>
                 );
               })}
@@ -141,14 +141,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
               placeholder="Su Nombre Completo"
               value={clientInfo.name}
               onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
-              className="px-3.5 py-2.5 rounded-xl bg-[#142332] border border-[#2b5b84] text-xs text-slate-100 focus:outline-none focus:border-[#ffd343]"
+              className="px-3.5 py-2.5 rounded-xl bg-[#142332] border border-[#2b5b84] text-xs text-slate-100 focus:outline-none focus:border-cyan-400"
             />
             <input
               type="text"
               placeholder="Institución o Empresa"
               value={clientInfo.org}
               onChange={(e) => setClientInfo({ ...clientInfo, org: e.target.value })}
-              className="px-3.5 py-2.5 rounded-xl bg-[#142332] border border-[#2b5b84] text-xs text-slate-100 focus:outline-none focus:border-[#ffd343]"
+              className="px-3.5 py-2.5 rounded-xl bg-[#142332] border border-[#2b5b84] text-xs text-slate-100 focus:outline-none focus:border-cyan-400"
             />
           </div>
 
@@ -158,15 +158,15 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
               href={generateWhatsAppMessage()}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all"
+              className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md transition-all"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-4 h-4 stroke-[1.75]" />
               <span>Enviar Cotización a WhatsApp ({LEGAL_INFO.phone1Display})</span>
             </a>
 
             <button
               onClick={onClose}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#142332] hover:bg-[#2b5b84] text-slate-300 text-xs font-bold border border-[#2b5b84] cursor-pointer"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#142332] hover:bg-[#2b5b84] text-slate-300 text-xs font-medium border border-[#2b5b84] cursor-pointer"
             >
               Cancelar
             </button>

@@ -38,35 +38,35 @@ export const Footer: React.FC = () => {
 
           {/* Column 2: Navigation Links */}
           <div>
-            <h4 className="text-xs font-mono-tech text-[#ffd343] font-bold uppercase tracking-wider mb-4">Navegación Institucional</h4>
+            <h4 className="text-xs font-mono-tech text-cyan-300 font-bold uppercase tracking-wider mb-4">Navegación Institucional</h4>
             <ul className="space-y-2.5 text-xs">
               <li>
-                <a href="#inicio" className="hover:text-[#ffd343] transition-colors flex items-center gap-1.5 font-medium">
+                <a href="#inicio" className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-medium">
                   <ChevronRight className="w-3 h-3 text-slate-500 stroke-[1.75]" /> Inicio
                 </a>
               </li>
               <li>
-                <a href="#servicios" className="hover:text-[#ffd343] transition-colors flex items-center gap-1.5 font-medium">
+                <a href="#servicios" className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-medium">
                   <ChevronRight className="w-3 h-3 text-slate-500 stroke-[1.75]" /> Servicios Bento Grid
                 </a>
               </li>
               <li>
-                <a href="#soluciones" className="hover:text-[#ffd343] transition-colors flex items-center gap-1.5 font-medium">
+                <a href="#soluciones" className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-medium">
                   <ChevronRight className="w-3 h-3 text-slate-500 stroke-[1.75]" /> Solución a la Medida
                 </a>
               </li>
               <li>
-                <a href="#arquitectura-cloud" className="hover:text-[#ffd343] transition-colors flex items-center gap-1.5 font-medium">
+                <a href="#arquitectura-cloud" className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-medium">
                   <ChevronRight className="w-3 h-3 text-slate-500 stroke-[1.75]" /> Arquitectura Cloud AWS
                 </a>
               </li>
               <li>
-                <a href="#metodologia" className="hover:text-[#ffd343] transition-colors flex items-center gap-1.5 font-medium">
+                <a href="#metodologia" className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-medium">
                   <ChevronRight className="w-3 h-3 text-slate-500 stroke-[1.75]" /> Metodología por Fases
                 </a>
               </li>
               <li>
-                <a href="#cumplimiento" className="hover:text-[#ffd343] transition-colors flex items-center gap-1.5 font-medium">
+                <a href="#cumplimiento" className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-medium">
                   <ChevronRight className="w-3 h-3 text-slate-500 stroke-[1.75]" /> Credencial Legal
                 </a>
               </li>
@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
 
           {/* Column 3: Sede & Judicial Notification Legal Disclaimer */}
           <div className="space-y-4">
-            <h4 className="text-xs font-mono-tech text-[#ffd343] font-bold uppercase tracking-wider mb-4">Sede & Notificaciones</h4>
+            <h4 className="text-xs font-mono-tech text-cyan-300 font-bold uppercase tracking-wider mb-4">Sede & Notificaciones</h4>
             
             <div className="space-y-2 text-xs">
               <div className="flex items-start gap-2 text-slate-300">
@@ -85,7 +85,7 @@ export const Footer: React.FC = () => {
 
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-sky-400 shrink-0 stroke-[1.75]" />
-                <a href={`mailto:${LEGAL_INFO.institutionalEmail}`} className="hover:underline font-mono-tech text-[11px] text-[#ffd343] font-bold">
+                <a href={`mailto:${LEGAL_INFO.institutionalEmail}`} className="hover:underline font-mono-tech text-[11px] text-cyan-300 font-bold">
                   {LEGAL_INFO.institutionalEmail}
                 </a>
               </div>
@@ -97,7 +97,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="p-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-[10px] font-mono-tech text-slate-300 leading-relaxed">
-              Autorizado para Notificaciones Judiciales y DIAN en Colombia: <strong className="text-[#ffd343]">{LEGAL_INFO.institutionalEmail}</strong>
+              Autorizado para Notificaciones Judiciales y DIAN en Colombia: <strong className="text-cyan-300">{LEGAL_INFO.institutionalEmail}</strong>
             </div>
           </div>
 

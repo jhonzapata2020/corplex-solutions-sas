@@ -50,12 +50,12 @@ export const ContactSection: React.FC = () => {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#142332] border border-[#ffd343]/50 text-[#ffd343] text-xs font-mono-tech font-bold mb-4 shadow-md">
-            <MessageSquare className="w-4 h-4 text-[#ffd343] stroke-[1.75]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#142332] border border-cyan-500/40 text-cyan-300 text-xs font-mono-tech font-medium mb-4 shadow-sm">
+            <MessageSquare className="w-4 h-4 text-cyan-400 stroke-[1.75]" />
             <span>ATENCIÓN INSTITUCIONAL & PROYECTOS TI</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#ffd343] tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
             Inicia tu Proyecto Tecnológico
           </h2>
 
@@ -77,7 +77,7 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">Canal WhatsApp Prioritario</h3>
-                  <span className="text-xs font-mono-tech text-emerald-400 flex items-center gap-1 font-bold">
+                  <span className="text-xs font-mono-tech text-emerald-400 flex items-center gap-1 font-medium">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     Respuesta Inmediata
                   </span>
@@ -93,7 +93,7 @@ export const ContactSection: React.FC = () => {
                   href={`https://wa.me/${LEGAL_INFO.whatsapp1}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS, deseo información sobre proyectos de software.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-colors"
+                  className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md transition-colors"
                 >
                   <span>WhatsApp Principal ({LEGAL_INFO.phone1Display})</span>
                   <ExternalLink className="w-4 h-4 stroke-[1.75]" />
@@ -103,7 +103,7 @@ export const ContactSection: React.FC = () => {
                   href={`https://wa.me/${LEGAL_INFO.whatsapp2}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS, me comunico sobre infraestructura TI.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 rounded-xl bg-[#1b3852] hover:bg-[#2b5b84] text-emerald-300 border border-emerald-500/40 font-mono-tech text-xs flex items-center justify-center gap-2 transition-colors font-bold"
+                  className="w-full py-2.5 rounded-xl bg-[#1b3852] hover:bg-[#2b5b84] text-emerald-300 border border-emerald-500/40 font-mono-tech text-xs flex items-center justify-center gap-2 transition-colors font-medium"
                 >
                   <span>WhatsApp Secundario ({LEGAL_INFO.phone2Display})</span>
                 </a>
@@ -114,16 +114,16 @@ export const ContactSection: React.FC = () => {
             <div className="bg-[#142332] p-6 rounded-2xl border border-[#2b5b84] shadow-xl space-y-5 text-slate-100">
               
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-[#1b3852] border border-[#4b7da5]/40 text-[#ffd343] shrink-0">
+                <div className="p-3 rounded-xl bg-[#1b3852] border border-[#4b7da5]/40 text-cyan-400 shrink-0">
                   <Phone className="w-5 h-5 stroke-[1.75]" />
                 </div>
                 <div>
                   <span className="text-xs font-mono-tech text-slate-400 font-bold block">LÍNEAS DIRECTAS</span>
                   <div className="flex flex-col gap-1 mt-1 font-mono-tech text-sm font-bold text-white">
-                    <a href={`tel:${LEGAL_INFO.whatsapp1}`} className="hover:text-[#ffd343] transition-colors">
+                    <a href={`tel:${LEGAL_INFO.whatsapp1}`} className="hover:text-cyan-300 transition-colors">
                       {LEGAL_INFO.phone1Display}
                     </a>
-                    <a href={`tel:${LEGAL_INFO.whatsapp2}`} className="hover:text-[#ffd343] transition-colors">
+                    <a href={`tel:${LEGAL_INFO.whatsapp2}`} className="hover:text-cyan-300 transition-colors">
                       {LEGAL_INFO.phone2Display}
                     </a>
                   </div>
@@ -136,7 +136,7 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-xs font-mono-tech text-slate-400 font-bold block">CORREO INSTITUCIONAL & JUDICIAL</span>
-                  <a href={`mailto:${LEGAL_INFO.institutionalEmail}`} className="text-sm font-bold font-mono-tech text-[#ffd343] hover:underline block mt-1">
+                  <a href={`mailto:${LEGAL_INFO.institutionalEmail}`} className="text-sm font-bold font-mono-tech text-cyan-300 hover:underline block mt-1">
                     {LEGAL_INFO.institutionalEmail}
                   </a>
                 </div>
@@ -175,7 +175,7 @@ export const ContactSection: React.FC = () => {
                 <div className="flex flex-col sm:flex-row justify-center gap-3 pt-4">
                   <button
                     onClick={handleSendWhatsAppDirect}
-                    className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md"
+                    className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md"
                   >
                     <span>Enviar a WhatsApp Ahora</span>
                     <Send className="w-4 h-4 stroke-[1.75]" />
@@ -183,7 +183,7 @@ export const ContactSection: React.FC = () => {
 
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="px-6 py-3 rounded-xl bg-[#142332] hover:bg-[#2b5b84] text-slate-300 text-xs font-bold border border-[#2b5b84]"
+                    className="px-6 py-3 rounded-xl bg-[#142332] hover:bg-[#2b5b84] text-slate-300 text-xs font-medium border border-[#2b5b84]"
                   >
                     Redactar otro Mensaje
                   </button>
@@ -193,7 +193,7 @@ export const ContactSection: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 
                 <div className="flex items-center justify-between border-b border-[#2b5b84] pb-4">
-                  <span className="text-xs font-mono-tech text-[#ffd343] font-bold">FORMULARIO INSTITUCIONAL TI</span>
+                  <span className="text-xs font-mono-tech text-cyan-300 font-bold">FORMULARIO INSTITUCIONAL TI</span>
                   <span className="text-xs text-slate-400 font-mono-tech">* Campos obligatorios</span>
                 </div>
 
@@ -207,7 +207,7 @@ export const ContactSection: React.FC = () => {
                       value={formData.fullName}
                       onChange={handleChange}
                       placeholder="Ej. Ing. Carlos Ramírez"
-                      className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 placeholder:text-slate-500 text-xs focus:outline-none focus:border-[#ffd343] focus:ring-1 focus:ring-[#ffd343] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 placeholder:text-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
                     />
                   </div>
 
@@ -220,7 +220,7 @@ export const ContactSection: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="carlos@institucion.edu.co"
-                      className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 placeholder:text-slate-500 text-xs focus:outline-none focus:border-[#ffd343] focus:ring-1 focus:ring-[#ffd343] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 placeholder:text-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
                     />
                   </div>
                 </div>
@@ -235,7 +235,7 @@ export const ContactSection: React.FC = () => {
                       value={formData.institutionOrCompany}
                       onChange={handleChange}
                       placeholder="Ej. UNAD / Alcaldía / Empresa S.A.S."
-                      className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 placeholder:text-slate-500 text-xs focus:outline-none focus:border-[#ffd343] focus:ring-1 focus:ring-[#ffd343] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 placeholder:text-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
                     />
                   </div>
 
@@ -245,13 +245,13 @@ export const ContactSection: React.FC = () => {
                       name="requestType"
                       value={formData.requestType}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 text-xs focus:outline-none focus:border-[#ffd343] focus:ring-1 focus:ring-[#ffd343] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
                     >
                       <option value="Desarrollo de Software & Web Apps">Desarrollo de Software & Web Apps</option>
                       <option value="Arquitectura Cloud AWS & DevOps">Arquitectura Cloud AWS & DevOps</option>
                       <option value="Simuladores Educativos UNAD">Simuladores Educativos UNAD</option>
-                      <option value="Consultoría e Infraestructura TI">Consultoría e Infraestructura TI</option>
-                      <option value="Soporte y Mantenimiento (CIIU S9511)">Soporte y Mantenimiento (CIIU S9511)</option>
+                      <option value="Automatización e Inteligencia Artificial">Automatización e Inteligencia Artificial</option>
+                      <option value="Infraestructura & Soporte Técnico TI">Infraestructura & Soporte Técnico TI</option>
                     </select>
                   </div>
                 </div>
@@ -265,7 +265,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Describa brevemente los objetivos, tecnologías esperadas o requerimientos institucionales..."
-                    className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 placeholder:text-slate-500 text-xs focus:outline-none focus:border-[#ffd343] focus:ring-1 focus:ring-[#ffd343] transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 placeholder:text-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none"
                   />
                 </div>
 
@@ -273,10 +273,10 @@ export const ContactSection: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs flex items-center justify-center gap-2 shadow-md disabled:opacity-50 cursor-pointer"
+                    className="w-full sm:w-auto px-8 py-3 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 font-medium text-xs flex items-center justify-center gap-2 shadow-sm disabled:opacity-50 cursor-pointer"
                   >
                     <span>{isSubmitting ? 'Procesando...' : 'Enviar Solicitud Institucional'}</span>
-                    <Send className="w-4 h-4 stroke-[2]" />
+                    <Send className="w-4 h-4 text-cyan-400 stroke-[2]" />
                   </button>
 
                   <span className="text-[11px] font-mono-tech text-slate-400 text-center">

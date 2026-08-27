@@ -12,7 +12,7 @@ export const Methodology: React.FC = () => {
       case 'Code2': return <Code2 className="w-5 h-5 text-emerald-400 stroke-[1.75]" />;
       case 'ShieldCheck': return <ShieldCheck className="w-5 h-5 text-sky-400 stroke-[1.75]" />;
       case 'Cloud': return <Cloud className="w-5 h-5 text-cyan-400 stroke-[1.75]" />;
-      default: return <Zap className="w-5 h-5 text-[#ffd343] stroke-[1.75]" />;
+      default: return <Zap className="w-5 h-5 text-cyan-400 stroke-[1.75]" />;
     }
   };
 
@@ -23,12 +23,12 @@ export const Methodology: React.FC = () => {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#142332] border border-[#ffd343]/50 text-[#ffd343] text-xs font-mono-tech font-bold mb-4 shadow-md">
-            <Terminal className="w-4 h-4 text-[#ffd343] stroke-[1.75]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#142332] border border-cyan-500/40 text-cyan-300 text-xs font-mono-tech font-medium mb-4 shadow-sm">
+            <Terminal className="w-4 h-4 text-cyan-400 stroke-[1.75]" />
             <span>METODOLOGÍA DE ENTREGA Y CICLO DE VIDA DE SOFTWARE</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#ffd343] tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
             Proceso Ágil de 6 Hitos de Ingeniería
           </h2>
 
@@ -47,12 +47,12 @@ export const Methodology: React.FC = () => {
                 onClick={() => setActiveStep(idx)}
                 className={`p-4 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? 'bg-[#3775a9] border-[#ffd343] shadow-md ring-1 ring-[#ffd343]/50'
-                    : 'bg-[#142332] border-[#2b5b84] hover:bg-[#1b3852] hover:border-[#ffd343]'
+                    ? 'bg-[#1b3852] border-cyan-400/80 shadow-md ring-1 ring-cyan-500/40'
+                    : 'bg-[#142332] border-[#2b5b84] hover:bg-[#1b3852] hover:border-cyan-400/60'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`text-xs font-mono-tech font-bold ${isActive ? 'text-[#ffd343]' : 'text-slate-400'}`}>
+                  <span className={`text-xs font-mono-tech font-bold ${isActive ? 'text-cyan-300' : 'text-slate-400'}`}>
                     0{idx + 1}
                   </span>
                   {getStepIcon(step.icon)}
@@ -68,7 +68,7 @@ export const Methodology: React.FC = () => {
           
           <div className="lg:col-span-7">
             <div className="flex items-center gap-3 mb-3">
-              <span className="px-3 py-1 rounded-full bg-[#142332] border border-[#ffd343]/40 text-[#ffd343] text-xs font-mono-tech font-bold">
+              <span className="px-3 py-1 rounded-full bg-[#142332] border border-cyan-500/30 text-cyan-300 text-xs font-mono-tech font-medium">
                 HITO 0{activeStep + 1} // {METHODOLOGY_STEPS[activeStep].phaseCode}
               </span>
               <span className="text-xs text-slate-300 font-mono-tech">
@@ -107,7 +107,7 @@ export const Methodology: React.FC = () => {
               
               <div className="space-y-3 mb-6 font-mono-tech text-xs">
                 <div className="p-3 bg-[#1b3852] rounded-xl border border-[#4b7da5]/30 text-slate-200">
-                  <span className="text-[#ffd343] font-bold block mb-1">✓ Repositorios Git Privados</span>
+                  <span className="text-cyan-300 font-bold block mb-1">✓ Repositorios Git Privados</span>
                   Flujo GitFlow con ramas aisladas y Code Reviews requeridos.
                 </div>
                 <div className="p-3 bg-[#1b3852] rounded-xl border border-[#4b7da5]/30 text-slate-200">
@@ -119,10 +119,10 @@ export const Methodology: React.FC = () => {
 
             <button
               onClick={() => setActiveStep((prev) => (prev + 1) % METHODOLOGY_STEPS.length)}
-              className="w-full py-3 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer"
+              className="w-full py-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 font-medium text-xs transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
             >
               <span>Avanzar al Siguiente Hito</span>
-              <ArrowRight className="w-4 h-4 stroke-[2]" />
+              <ArrowRight className="w-4 h-4 text-cyan-400 stroke-[2]" />
             </button>
           </div>
 

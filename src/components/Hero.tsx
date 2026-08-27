@@ -70,28 +70,28 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
                     <span className="ml-2 font-bold text-slate-300">corplex_core.py — Python 3.12</span>
                   </div>
-                  <span className="text-[#ffd343] font-bold">AWS Cluster :: ONLINE</span>
+                  <span className="text-cyan-400 font-bold">AWS Cluster :: ONLINE</span>
                 </div>
 
                 {/* Interactive Code Snippet */}
                 <div className="space-y-1.5 text-xs sm:text-sm">
                   <p className="text-slate-500"># CORPLEX SOLUTIONS S.A.S. - Mission Critical Architecture</p>
                   <p className="text-emerald-400 font-bold">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>from corplex.cloud import AWSInfrastructure, AgrotechAI
+                    <span className="text-cyan-400">&gt;&gt;&gt; </span>from corplex.cloud import AWSInfrastructure, AgrotechAI
                   </p>
                   <p className="text-emerald-400 font-bold">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>app = AWSInfrastructure(region="sa-east-1", auto_scaling=True)
+                    <span className="text-cyan-400">&gt;&gt;&gt; </span>app = AWSInfrastructure(region="sa-east-1", auto_scaling=True)
                   </p>
                   <p className="text-[#38bdf8]">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>app.deploy_cluster(nodes=5, db="RDS PostgreSQL KMS")
+                    <span className="text-cyan-400">&gt;&gt;&gt; </span>app.deploy_cluster(nodes=5, db="RDS PostgreSQL KMS")
                   </p>
                   <p className="text-slate-300">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agrotech = AgrotechAI(crop="Plátano Urabá", sensors="IoT Soil Moisture")
+                    <span className="text-cyan-400">&gt;&gt;&gt; </span>agrotech = AgrotechAI(crop="Plátano Urabá", sensors="IoT Soil Moisture")
                   </p>
                   <p className="text-slate-300">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agrotech.predict_irrigation()
+                    <span className="text-cyan-400">&gt;&gt;&gt; </span>agrotech.predict_irrigation()
                   </p>
-                  <p className="text-[#ffd343] font-bold pt-1">
+                  <p className="text-cyan-300 font-bold pt-1">
                     'Status: Optimal • 99.9% Uptime Active • Latency &lt; 20ms'
                   </p>
                 </div>
@@ -105,7 +105,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 </span>
                 <button
                   onClick={onOpenQuoteModal}
-                  className="text-[#ffd343] hover:underline font-bold cursor-pointer"
+                  className="text-cyan-400 hover:underline font-bold cursor-pointer"
                 >
                   Ejecutar Proyecto →
                 </button>
@@ -113,12 +113,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
 
             </div>
 
-            {/* Right Column (5 cols): Featured Topic Box with Python.org Pagination Tabs 1 2 3 4 5 */}
+            {/* Right Column (5 cols): Featured Topic Box */}
             <div className="lg:col-span-5 flex flex-col justify-between p-2">
               
               <div>
-                {/* Topic Gold Yellow Title */}
-                <h2 className="text-2xl sm:text-3xl font-bold text-[#ffd343] mb-4">
+                {/* Topic Title in Titanium White */}
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 tracking-tight">
                   {currentTopic.title}
                 </h2>
 
@@ -130,14 +130,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 {/* Feature Highlight Link */}
                 <a
                   href={currentTopic.href}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ffd343] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-cyan-300 hover:text-white transition-colors"
                 >
                   <span>{currentTopic.linkText}</span>
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-cyan-400" />
                 </a>
               </div>
 
-              {/* Python.org Style Slide Pagination Numbers (1 2 3 4 5) */}
+              {/* Refined Slide Pagination Numbers (1 2 3 4 5) */}
               <div className="pt-8 flex items-center gap-2">
                 {slideTopics.map((topic) => (
                   <button
@@ -145,7 +145,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                     onClick={() => setActiveSlide(topic.id)}
                     className={`w-9 h-9 rounded-md text-xs font-bold font-mono-tech transition-all cursor-pointer ${
                       activeSlide === topic.id
-                        ? 'bg-[#3775a9] text-[#ffd343] border border-[#ffd343]/60 shadow-md scale-105'
+                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/80 shadow-sm scale-105'
                         : 'bg-[#142332] text-slate-300 hover:bg-[#2b5b84] border border-[#2b5b84]'
                     }`}
                   >
@@ -167,7 +167,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
           </span>
           <a
             href="#cumplimiento"
-            className="text-[#ffd343] hover:underline font-bold inline-flex items-center gap-1"
+            className="text-cyan-400 hover:underline font-bold inline-flex items-center gap-1"
           >
             <span>&gt;&gt;&gt; Ver Ficha Legal</span>
           </a>

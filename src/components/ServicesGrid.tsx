@@ -11,9 +11,9 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
   const getTabClass = (key: 'erp' | 'telemetry' | 'ai' | 'sim') => {
     const isSelected = selectedModule === key;
     if (isSelected) {
-      return 'bg-[#3775a9] text-[#ffd343] border border-[#ffd343]/60 shadow-md font-bold px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer';
+      return 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/80 shadow-sm font-bold px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer';
     }
-    return 'bg-[#1b3852] text-slate-200 hover:bg-[#2b5b84] border border-[#4b7da5]/40 font-bold px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer';
+    return 'bg-[#1b3852] text-slate-200 hover:bg-[#2b5b84] border border-[#4b7da5]/40 font-medium px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer';
   };
 
   return (
@@ -23,12 +23,12 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#142332] border border-[#ffd343]/50 text-[#ffd343] text-xs font-mono-tech font-bold mb-4 shadow-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#ffd343] stroke-[1.75]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#142332] border border-cyan-500/40 text-cyan-300 text-xs font-mono-tech font-medium mb-4 shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400 stroke-[1.75]" />
             <span>SOLUCIONES Y PORTAFOLIO DE INGENIERÍA CORPORATIVA</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#ffd343] tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
             Catálogo Bento de Servicios Tecnológicos
           </h2>
 
@@ -41,18 +41,18 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
         <div id="soluciones" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 items-stretch">
           
           {/* Card 1: Desarrollo de Software a la Medida */}
-          <div className="bg-[#1b3852] p-8 rounded-2xl border border-[#4b7da5]/40 shadow-2xl hover:border-[#ffd343] transition-all duration-300 flex flex-col justify-between group">
+          <div className="bg-[#1b3852] p-8 rounded-2xl border border-[#4b7da5]/40 shadow-2xl hover:border-cyan-400/60 transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
-                <div className="p-3.5 rounded-2xl bg-[#142332] border border-[#2b5b84] text-[#ffd343]">
+                <div className="p-3.5 rounded-2xl bg-[#142332] border border-[#2b5b84] text-cyan-400">
                   <Code2 className="w-7 h-7 stroke-[1.75]" />
                 </div>
-                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-[#142332] text-[#ffd343] border border-[#ffd343]/40 font-bold">
+                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-[#142332] text-cyan-300 border border-cyan-500/30 font-medium">
                   CIIU J6201 // Core Software
                 </span>
               </div>
 
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-[#ffd343] transition-colors">
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
                 1. Desarrollo de Software a la Medida
               </h3>
 
@@ -91,7 +91,7 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
 
                 {selectedModule === 'erp' && (
                   <div className="space-y-1.5 text-slate-100">
-                    <div className="text-[#ffd343] font-bold">✓ Sistemas de Gestión, Inventarios & Logística</div>
+                    <div className="text-cyan-300 font-bold">✓ Sistemas de Gestión, Inventarios & Logística</div>
                     <div className="text-[11px] text-slate-300">Arquitectura modular limpia en React 18, TypeScript y REST APIs.</div>
                   </div>
                 )}
@@ -105,37 +105,38 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
 
                 {selectedModule === 'ai' && (
                   <div className="space-y-1.5 text-slate-100">
-                    <div className="text-amber-400 font-bold">✓ Inteligencia Artificial Aplicada & BI</div>
+                    <div className="text-amber-300 font-bold">✓ Inteligencia Artificial Aplicada & BI</div>
                     <div className="text-[11px] text-slate-300">Algoritmos predictivos, análisis documental e integración LLM.</div>
                   </div>
                 )}
 
                 {selectedModule === 'sim' && (
                   <div className="space-y-1.5 text-slate-100">
-                    <div className="text-[#ffd343] font-bold">✓ Simuladores Interactivos & Entornos UNAD</div>
+                    <div className="text-cyan-300 font-bold">✓ Simuladores Interactivos & Entornos UNAD</div>
                     <div className="text-[11px] text-slate-300">Laboratorios virtuales docentes con soporte a picos de concurrencia.</div>
                   </div>
                 )}
               </div>
             </div>
 
+            {/* Refined Cyan Glass Button */}
             <button
               onClick={() => onSelectServiceForQuote('Desarrollo de Software a la Medida')}
-              className="w-full py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+              className="w-full py-3 rounded-xl bg-[#142332] hover:bg-cyan-950/60 text-cyan-300 hover:text-white border border-cyan-500/40 hover:border-cyan-400/80 font-medium text-xs transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm group"
             >
               <span>Cotizar Desarrollo de Software</span>
-              <ArrowRight className="w-4 h-4 stroke-[2]" />
+              <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform stroke-[2]" />
             </button>
           </div>
 
           {/* Card 2: Arquitectura Cloud AWS & DevOps */}
-          <div className="bg-[#1b3852] p-8 rounded-2xl border border-[#4b7da5]/40 shadow-2xl hover:border-[#ffd343] transition-all duration-300 flex flex-col justify-between group">
+          <div className="bg-[#1b3852] p-8 rounded-2xl border border-[#4b7da5]/40 shadow-2xl hover:border-cyan-400/60 transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
                 <div className="p-3.5 rounded-2xl bg-[#142332] border border-[#2b5b84] text-sky-400">
                   <Cloud className="w-7 h-7 stroke-[1.75]" />
                 </div>
-                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-[#142332] text-sky-400 border border-sky-400/40 font-bold">
+                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-[#142332] text-sky-300 border border-sky-400/30 font-medium">
                   CIIU J6202 // Cloud AWS
                 </span>
               </div>
@@ -154,7 +155,7 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
                   <span className="text-slate-400">Load Balancer</span>
                 </div>
                 <div className="p-2 rounded-lg bg-[#1b3852] text-center border border-[#4b7da5]/30">
-                  <span className="text-[#ffd343] block font-bold">EC2 Auto</span>
+                  <span className="text-cyan-300 block font-bold">EC2 Auto</span>
                   <span className="text-slate-400">Scaling</span>
                 </div>
                 <div className="p-2 rounded-lg bg-[#1b3852] text-center border border-[#4b7da5]/30">
@@ -164,23 +165,24 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
               </div>
             </div>
 
+            {/* Refined Cyan Glass Button */}
             <button
               onClick={() => onSelectServiceForQuote('Arquitectura Cloud AWS & DevOps')}
-              className="w-full py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+              className="w-full py-3 rounded-xl bg-[#142332] hover:bg-cyan-950/60 text-cyan-300 hover:text-white border border-cyan-500/40 hover:border-cyan-400/80 font-medium text-xs transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm group"
             >
               <span>Cotizar Arquitectura AWS</span>
-              <ArrowRight className="w-4 h-4 stroke-[2]" />
+              <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform stroke-[2]" />
             </button>
           </div>
 
           {/* Card 3: Agentes de Inteligencia Artificial & Automatización */}
-          <div className="bg-[#1b3852] p-8 rounded-2xl border border-[#4b7da5]/40 shadow-2xl hover:border-[#ffd343] transition-all duration-300 flex flex-col justify-between group">
+          <div className="bg-[#1b3852] p-8 rounded-2xl border border-[#4b7da5]/40 shadow-2xl hover:border-cyan-400/60 transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
                 <div className="p-3.5 rounded-2xl bg-[#142332] border border-[#2b5b84] text-amber-400">
                   <Zap className="w-7 h-7 stroke-[1.75]" />
                 </div>
-                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-[#142332] text-amber-400 border border-amber-400/40 font-bold">
+                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-[#142332] text-amber-300 border border-amber-400/30 font-medium">
                   AI & Automation
                 </span>
               </div>
@@ -199,23 +201,24 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
               </div>
             </div>
 
+            {/* Refined Cyan Glass Button */}
             <button
               onClick={() => onSelectServiceForQuote('Agentes de Inteligencia Artificial & Automatización')}
-              className="w-full py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+              className="w-full py-3 rounded-xl bg-[#142332] hover:bg-cyan-950/60 text-cyan-300 hover:text-white border border-cyan-500/40 hover:border-cyan-400/80 font-medium text-xs transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm group"
             >
               <span>Cotizar Automatización con IA</span>
-              <ArrowRight className="w-4 h-4 stroke-[2]" />
+              <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform stroke-[2]" />
             </button>
           </div>
 
           {/* Card 4: Soporte Técnico Especializado TI & Consultoría */}
-          <div className="bg-[#1b3852] p-8 rounded-2xl border border-[#4b7da5]/40 shadow-2xl hover:border-[#ffd343] transition-all duration-300 flex flex-col justify-between group">
+          <div className="bg-[#1b3852] p-8 rounded-2xl border border-[#4b7da5]/40 shadow-2xl hover:border-cyan-400/60 transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
                 <div className="p-3.5 rounded-2xl bg-[#142332] border border-[#2b5b84] text-emerald-400">
                   <Server className="w-7 h-7 stroke-[1.75]" />
                 </div>
-                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-[#142332] text-emerald-400 border border-emerald-400/40 font-bold">
+                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-[#142332] text-emerald-300 border border-emerald-400/30 font-medium">
                   CIIU S9511 / G4651
                 </span>
               </div>
@@ -230,16 +233,17 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
 
               <div className="p-3.5 rounded-xl bg-[#142332] border border-[#2b5b84] text-xs font-mono-tech text-emerald-300 flex items-center justify-between mb-6">
                 <span>Atención Continuidad:</span>
-                <span className="font-bold text-[#ffd343]">SLA Prioritario</span>
+                <span className="font-bold text-cyan-300">SLA Prioritario</span>
               </div>
             </div>
 
+            {/* Refined Cyan Glass Button */}
             <button
               onClick={() => onSelectServiceForQuote('Soporte Técnico Especializado TI & Consultoría')}
-              className="w-full py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+              className="w-full py-3 rounded-xl bg-[#142332] hover:bg-cyan-950/60 text-cyan-300 hover:text-white border border-cyan-500/40 hover:border-cyan-400/80 font-medium text-xs transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm group"
             >
               <span>Cotizar Soporte TI & Consultoría</span>
-              <ArrowRight className="w-4 h-4 stroke-[2]" />
+              <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform stroke-[2]" />
             </button>
           </div>
 

@@ -54,7 +54,7 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
           <span>SYSTEM READY // SYSTEM BOOT 2026</span>
         </div>
 
-        <div className="hidden sm:flex items-center gap-3 text-[#ffd343] font-bold">
+        <div className="hidden sm:flex items-center gap-3 text-cyan-400 font-bold">
           <ShieldCheck className="w-3.5 h-3.5 stroke-[1.75]" />
           <span>NIT {LEGAL_INFO.nit} • Urabá, Colombia</span>
         </div>
@@ -66,13 +66,13 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
         {/* Animated Energy Orb with Official Logo Inside */}
         <div className="relative flex items-center justify-center w-44 h-44 mb-8">
           <div className="absolute inset-0 energy-orb-glow rounded-full pointer-events-none opacity-80" />
-          <svg className="absolute inset-0 w-full h-full text-[#ffd343]/50 animate-spin-slow" viewBox="0 0 100 100">
+          <svg className="absolute inset-0 w-full h-full text-cyan-400/40 animate-spin-slow" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" fill="none" />
             <circle cx="50" cy="50" r="35" stroke="currentColor" strokeWidth="1.5" fill="none" />
           </svg>
 
           {/* Official Logo Card Badge */}
-          <div className="w-24 h-24 rounded-2xl bg-white p-2 border-2 border-[#ffd343] flex items-center justify-center shadow-2xl shadow-[#ffd343]/30 hover:scale-105 transition-transform duration-300">
+          <div className="w-24 h-24 rounded-2xl bg-white p-2 border border-cyan-500/40 flex items-center justify-center shadow-xl shadow-black/50 hover:scale-105 transition-transform duration-300">
             <img
               src="/logo.jpg"
               alt="CORPLEX SOLUTIONS S.A.S. Logo Oficial"
@@ -83,7 +83,7 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
 
         {/* Brand Title */}
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-3">
-          CORPLEX <span className="text-[#ffd343]">SOLUTIONS</span> <span className="text-xs text-[#ffd343] font-mono-tech">S.A.S.</span>
+          CORPLEX <span className="text-cyan-400">SOLUTIONS</span> <span className="text-xs text-slate-400 font-mono-tech">S.A.S.</span>
         </h1>
 
         {/* General Corporate Subtitle */}
@@ -91,19 +91,19 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
           Ingeniería de Software a la Medida, Inteligencia Artificial, Arquitectura Cloud y Transformación Digital.
         </p>
 
-        {/* Python.org Style Gold Yellow CTA Button */}
+        {/* Elegant Cyan Translucent Glass Pill CTA */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             handleStart();
           }}
-          className="group inline-flex items-center gap-2.5 text-base md:text-lg font-bold tracking-wide text-[#111d28] bg-[#ffd343] hover:bg-[#ffc520] border border-[#ffd343] transition-all duration-300 cursor-pointer active:scale-95 py-2.5 px-6 rounded-md shadow-xl shadow-black/40"
+          className="group inline-flex items-center gap-2.5 text-sm md:text-base font-medium tracking-wide text-cyan-300 hover:text-white bg-[#142332] hover:bg-cyan-950/60 border border-cyan-500/40 hover:border-cyan-400/80 transition-all duration-300 cursor-pointer active:scale-95 py-2.5 px-6 rounded-full shadow-lg shadow-black/40"
         >
           <span className="animate-pulse">Explorar plataforma</span>
-          <ArrowRight className="w-4.5 h-4.5 text-[#111d28] group-hover:translate-x-1.5 transition-transform duration-300 stroke-[2.5]" />
+          <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:text-white group-hover:translate-x-1.5 transition-transform duration-300 stroke-[2]" />
         </button>
 
-        <span className="text-[10px] font-mono-tech text-slate-300 mt-4">
+        <span className="text-[10px] font-mono-tech text-slate-400 mt-4">
           Presiona cualquier tecla o haz clic en cualquier lugar para ingresar
         </span>
 

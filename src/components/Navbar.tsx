@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MessageCircle, Menu, X, Heart } from 'lucide-react';
+import { Search, MessageCircle, Menu, X, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 import { Logo } from './Logo';
 
@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   ];
 
   const topTabs = [
-    { label: 'CORPLEX', color: 'border-t-4 border-[#ffd343]', active: true, href: '#inicio' },
+    { label: 'CORPLEX', color: 'border-t-4 border-cyan-400', active: true, href: '#inicio' },
     { label: 'UNAD / ECBTI', color: 'border-t-4 border-emerald-400', active: false, href: '#enfoque-academico' },
     { label: 'Cloud AWS', color: 'border-t-4 border-sky-400', active: false, href: '#arquitectura-cloud' },
     { label: 'Agrotech & IA', color: 'border-t-4 border-amber-400', active: false, href: '#servicios' },
@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   return (
     <header className="w-full bg-[#111d28] font-tech text-slate-100 shadow-2xl relative z-40 border-b border-[#2b5b84]/50">
       
-      {/* 1. Top Utility Header Bar (Python.org style top tabs) */}
+      {/* 1. Top Utility Header Bar */}
       <div className="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-6 text-xs border-b border-[#2b5b84]/30">
         <div className="flex items-center font-mono-tech">
           {topTabs.map((tab, idx) => (
@@ -66,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               href={tab.href}
               className={`px-4 py-2.5 transition-colors flex items-center gap-1.5 ${tab.color} ${
                 tab.active
-                  ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner'
+                  ? 'bg-[#1b3852] text-cyan-300 font-bold shadow-inner'
                   : 'bg-[#111d28] text-slate-400 hover:text-white hover:bg-[#1b3852]/60'
               }`}
             >
@@ -84,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
         </div>
       </div>
 
-      {/* 2. Main Brand & Search Bar (Python.org style logo + Donate/Search bar) */}
+      {/* 2. Main Brand & Search Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
         
         {/* Official Logo */}
@@ -92,15 +92,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           <Logo size="lg" />
         </a>
 
-        {/* Action Controls & Search Box (Python.org style) */}
+        {/* Action Controls & Search Box */}
         <div className="flex flex-wrap items-center gap-3">
           
-          {/* Quote Button (Donate button style in Python.org) */}
+          {/* Quote Button (Refined Cyan Glass Pill) */}
           <button
             onClick={onOpenQuoteModal}
-            className="px-4 py-2 rounded-md bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+            className="px-4 py-2 rounded-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 hover:text-white border border-cyan-500/40 font-medium text-xs shadow-sm transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
           >
-            <Heart className="w-3.5 h-3.5 fill-current text-[#111d28]" />
+            <Heart className="w-3.5 h-3.5 stroke-[1.75]" />
             <span>Cotizar Proyecto</span>
           </button>
 
@@ -150,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
       </div>
 
-      {/* 3. Main Navigation Tab Bar (Python.org rounded gradient blue bar) */}
+      {/* 3. Main Navigation Tab Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3">
         <nav className="hidden md:flex items-center justify-around bg-python-nav-gradient rounded-xl px-2 py-1.5 border border-[#4b7da5]/40 text-xs font-medium shadow-lg">
           {navLinks.map((link) => (
@@ -159,7 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               href={link.href}
               className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
                 activeSection === link.id
-                  ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner border border-[#ffd343]/30'
+                  ? 'bg-[#1b3852] text-cyan-300 font-bold shadow-inner border border-cyan-500/40'
                   : 'text-slate-200 hover:text-white hover:bg-[#1b3852]/50'
               }`}
             >
@@ -180,12 +180,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center justify-between ${
                   activeSection === link.id
-                    ? 'bg-[#2b5b84] text-[#ffd343] font-bold'
+                    ? 'bg-[#2b5b84] text-cyan-300 font-bold'
                     : 'text-slate-300 hover:bg-[#111d28]'
                 }`}
               >
                 <span>{link.label}</span>
-                {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-[#ffd343]"></span>}
+                {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>}
               </a>
             ))}
 
@@ -195,7 +195,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                   setMobileMenuOpen(false);
                   onOpenQuoteModal();
                 }}
-                className="w-full py-2.5 rounded-md bg-[#ffd343] text-[#111d28] font-bold text-xs text-center"
+                className="w-full py-2.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-medium text-xs text-center"
               >
                 Cotizar Proyecto
               </button>
