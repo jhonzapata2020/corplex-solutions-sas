@@ -9,10 +9,20 @@ import { LegalCompliance } from './components/LegalCompliance';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
+import { SplashIntro } from './components/SplashIntro';
 
 export function App() {
+  const [isEntered, setIsEntered] = useState<boolean>(() => {
+    return sessionStorage.getItem('corplex_entered') === 'true';
+  });
+
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [selectedServiceTitle, setSelectedServiceTitle] = useState<string | undefined>(undefined);
+
+  const handleEnter = () => {
+    sessionStorage.setItem('corplex_entered', 'true');
+    setIsEntered(true);
+  };
 
   const handleOpenQuoteModal = (serviceTitle?: string) => {
     setSelectedServiceTitle(serviceTitle);
@@ -25,9 +35,15 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-sky-500 selection:text-white font-sans antialiased">
+    <div className="min-h-screen bg-[#030712] text-white selection:bg-cyan-500 selection:text-black font-sans antialiased">
       
-      {/* Fixed Navbar */}
+      {/* Interactive System Boot Splash Screen */}
+      <SplashIntro
+        isOpen={!isEntered}
+        onEnter={handleEnter}
+      />
+
+      {/* Fixed Island Navbar */}
       <Navbar onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
       {/* Main Content Sections */}
@@ -38,7 +54,7 @@ export function App() {
         {/* Educational & UNAD Section */}
         <AcademicCapabilities />
 
-        {/* Services & Solutions Catalog */}
+        {/* Services & Solutions Catalog Bento Grid */}
         <ServicesGrid onSelectServiceForQuote={(title) => handleOpenQuoteModal(title)} />
 
         {/* AWS Cloud Architecture Visualizer */}
