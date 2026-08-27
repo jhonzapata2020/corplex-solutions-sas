@@ -27,13 +27,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-16">
           
           {/* Superior Micro-Pill Badge */}
-          <div className="inline-flex items-center gap-2 text-[11px] font-medium text-slate-400 bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full tracking-widest uppercase mb-6 backdrop-blur-xl">
+          <div className="inline-flex items-center gap-2 text-[11px] font-mono-tech font-medium text-slate-400 bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full tracking-widest uppercase mb-6 backdrop-blur-xl">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400 stroke-[1.75]" />
             <span>SOFTWARE, AI & CLOUD INFRASTRUCTURE 2026</span>
           </div>
 
-          {/* Refined H1 Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] mb-6 text-white">
+          {/* High-Tech Space Grotesk H1 Headline */}
+          <h1 className="font-tech text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] mb-6 text-white">
             Ingeniería de Software de Misión Crítica y{' '}
             <span className="text-cyan-400 font-bold">
               Arquitectura Cloud Escalable.
@@ -41,12 +41,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed mb-10 font-normal">
+          <p className="font-tech text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed mb-10 font-normal">
             Ingeniería de Software a la Medida, Inteligencia Artificial, Arquitectura Cloud y Transformación Digital.
           </p>
 
           {/* Minimalist Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16">
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16 font-tech">
             {/* Primary Orange Accent Pill Button */}
             <button
               onClick={onOpenQuoteModal}
@@ -69,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
         </div>
 
         {/* Quantango Central Energy Orb Visual & 3 High-Availability Metric Cards */}
-        <div className="relative max-w-5xl mx-auto">
+        <div className="relative max-w-5xl mx-auto font-tech">
           
           {/* Energy Orb Backdrop SVG */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 energy-orb-glow rounded-full pointer-events-none flex items-center justify-center">
@@ -88,13 +88,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 mb-4">
                 <Activity className="w-6 h-6 stroke-[1.75]" />
               </div>
-              <div className="text-3xl font-black text-white font-mono mb-1 group-hover:text-cyan-300 transition-colors">
+              <div className="text-3xl font-black text-white font-mono-tech mb-1 group-hover:text-cyan-300 transition-colors">
                 99.9% Uptime
               </div>
-              <div className="text-xs font-mono text-cyan-400 font-bold mb-2">
+              <div className="text-xs font-mono-tech text-cyan-400 font-bold mb-2">
                 AWS Auto-Scaling Activo
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
+              <p className="text-xs text-gray-300 leading-relaxed font-tech">
                 Infraestructura elástica preparada para responder a picos masivos de tráfico e interacciones.
               </p>
             </div>
@@ -104,13 +104,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               <div className="p-3 rounded-2xl bg-sky-500/10 border border-sky-500/30 text-sky-400 mb-4">
                 <Zap className="w-6 h-6 stroke-[1.75]" />
               </div>
-              <div className="text-3xl font-black text-white font-mono mb-1 group-hover:text-sky-300 transition-colors">
+              <div className="text-3xl font-black text-white font-mono-tech mb-1 group-hover:text-sky-300 transition-colors">
                 &lt; 20ms Latencia
               </div>
-              <div className="text-xs font-mono text-sky-400 font-bold mb-2">
+              <div className="text-xs font-mono-tech text-sky-400 font-bold mb-2">
                 Elastic Load Balancer (ALB)
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
+              <p className="text-xs text-gray-300 leading-relaxed font-tech">
                 Enrutamiento inteligente con balanceo de cargas HTTP/HTTPS multi-zona de disponibilidad.
               </p>
             </div>
@@ -120,13 +120,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mb-4">
                 <Lock className="w-6 h-6 stroke-[1.75]" />
               </div>
-              <div className="text-3xl font-black text-white font-mono mb-1 group-hover:text-emerald-300 transition-colors">
+              <div className="text-3xl font-black text-white font-mono-tech mb-1 group-hover:text-emerald-300 transition-colors">
                 RDS Cifrado
               </div>
-              <div className="text-xs font-mono text-emerald-400 font-bold mb-2">
+              <div className="text-xs font-mono-tech text-emerald-400 font-bold mb-2">
                 PostgreSQL AES-256 KMS
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
+              <p className="text-xs text-gray-300 leading-relaxed font-tech">
                 Bases de datos relacionales administradas con backups automatizados en Amazon S3.
               </p>
             </div>
