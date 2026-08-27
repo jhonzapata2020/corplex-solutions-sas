@@ -43,35 +43,40 @@ export function App() {
         onEnter={handleEnter}
       />
 
-      {/* Fixed Island Navbar */}
-      <Navbar onOpenQuoteModal={() => handleOpenQuoteModal()} />
+      {/* Main Platform (Navbar & Body revealed upon entry) */}
+      {isEntered && (
+        <div className="animate-in fade-in duration-700">
+          {/* Fixed Island Navbar */}
+          <Navbar onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
-      {/* Main Content Sections */}
-      <main>
-        {/* Hero Section */}
-        <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
+          {/* Main Content Sections */}
+          <main>
+            {/* Hero Section */}
+            <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
-        {/* Educational & UNAD Section */}
-        <AcademicCapabilities />
+            {/* Educational & UNAD Section */}
+            <AcademicCapabilities />
 
-        {/* Services & Solutions Catalog Bento Grid */}
-        <ServicesGrid onSelectServiceForQuote={(title) => handleOpenQuoteModal(title)} />
+            {/* Services & Solutions Catalog Bento Grid */}
+            <ServicesGrid onSelectServiceForQuote={(title) => handleOpenQuoteModal(title)} />
 
-        {/* AWS Cloud Architecture Visualizer */}
-        <CloudArchitecture />
+            {/* AWS Cloud Architecture Visualizer */}
+            <CloudArchitecture />
 
-        {/* Engineering Methodology Timeline */}
-        <Methodology />
+            {/* Engineering Methodology Timeline */}
+            <Methodology />
 
-        {/* Legal Transparency & Compliance Datasheet */}
-        <LegalCompliance />
+            {/* Legal Transparency & Compliance Datasheet */}
+            <LegalCompliance />
 
-        {/* Contact Form & Direct Channels */}
-        <ContactSection />
-      </main>
+            {/* Contact Form & Direct Channels */}
+            <ContactSection />
+          </main>
 
-      {/* Footer */}
-      <Footer />
+          {/* Footer */}
+          <Footer />
+        </div>
+      )}
 
       {/* Interactive Quote Modal */}
       <QuoteModal
