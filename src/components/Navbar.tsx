@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Network, Menu, X, ArrowRight, MessageSquareCode, MessageCircle, ShieldCheck } from 'lucide-react';
+import { Network, Menu, X, ArrowRight, MessageSquareCode, MessageCircle } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 
 interface NavbarProps {
@@ -46,30 +46,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 pt-3 px-4 sm:px-6 pointer-events-none">
+    <header className="fixed top-0 left-0 right-0 z-50 pt-4 px-4 sm:px-6 pointer-events-none">
       <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
         
-        {/* Floating Island Navigation Pill Bar */}
+        {/* Floating Glass Island Nav Pill */}
         <div className={`w-full flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full transition-all duration-300 ${
           isScrolled 
-            ? 'glass-nav-pill shadow-2xl shadow-black/80 border border-gray-800/80 bg-gray-950/80' 
-            : 'glass-nav-pill border border-gray-800/60 bg-gray-950/60'
+            ? 'bg-gray-950/85 backdrop-blur-2xl border border-gray-800/80 shadow-2xl shadow-black/90' 
+            : 'bg-gray-950/60 backdrop-blur-xl border border-gray-800/60 shadow-xl'
         }`}>
           
-          {/* Logotipo Oficial Interactivo */}
+          {/* Logo & Node Icon */}
           <a href="#inicio" className="flex items-center gap-3 group">
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-sky-400 via-cyan-400 to-emerald-400 p-[1px] shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full bg-gray-950 rounded-[11px] flex items-center justify-center">
-                <Network className="w-4 h-4 text-sky-400 group-hover:rotate-45 transition-transform duration-500 stroke-[1.75]" />
+            <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 via-sky-400 to-blue-600 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300">
+              <div className="w-full h-full bg-gray-950 rounded-full flex items-center justify-center">
+                <Network className="w-4 h-4 text-cyan-400 group-hover:rotate-45 transition-transform duration-500 stroke-[1.75]" />
               </div>
             </div>
 
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-sky-300 transition-colors">
-                  CORPLEX <span className="text-sky-400 font-bold">SOLUTIONS</span>
+                <span className="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+                  CORPLEX <span className="text-cyan-400 font-bold">SOLUTIONS</span>
                 </span>
-                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
                   S.A.S.
                 </span>
               </div>
@@ -81,52 +81,52 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             </div>
           </a>
 
-          {/* Menú Minimalista con Indicador Activo Luminoso */}
-          <nav className="hidden xl:flex items-center gap-1 bg-gray-900/80 px-2 py-1 rounded-full border border-gray-800/80 shadow-inner">
+          {/* Central Floating Menu */}
+          <nav className="hidden xl:flex items-center gap-1 bg-gray-900/80 px-2.5 py-1 rounded-full border border-gray-800 shadow-inner">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={link.href}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 flex items-center gap-1.5 ${
                   activeSection === link.id
-                    ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40 font-semibold shadow-sm'
+                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold shadow-sm'
                     : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
                 }`}
               >
                 {activeSection === link.id && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-sm shadow-sky-400"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400"></span>
                 )}
                 <span>{link.label}</span>
               </a>
             ))}
           </nav>
 
-          {/* Action Group: Glow Button & Direct WhatsApp */}
+          {/* Action Group: Perimeter Glow CTA Button & Direct WhatsApp */}
           <div className="hidden sm:flex items-center gap-2.5">
             <a
-              href={`https://wa.me/${LEGAL_INFO.whatsapp1}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS S.A.S., deseo consultar sobre proyectos de software e ingeniería.')}`}
+              href={`https://wa.me/${LEGAL_INFO.whatsapp1}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS S.A.S., me comunico desde la plataforma.')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full bg-gray-900/80 hover:bg-emerald-950/50 text-emerald-400 border border-gray-800 hover:border-emerald-500/40 transition-all duration-200 group"
-              title="Chat Directo WhatsApp (+57 3207105618)"
+              className="p-2 rounded-full bg-gray-900 hover:bg-emerald-950/50 text-emerald-400 border border-gray-800 hover:border-emerald-500/40 transition-all duration-200 group"
+              title="Chat Directo WhatsApp (+57 320 710 5618)"
             >
               <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform stroke-[1.75]" />
             </a>
 
             <button
               onClick={onOpenQuoteModal}
-              className="glow-button px-4 py-2 text-xs font-bold rounded-full text-white shadow-lg flex items-center gap-2"
+              className="glow-pill-button px-4 py-2 text-xs font-bold rounded-full text-white shadow-lg flex items-center gap-2"
             >
               <MessageSquareCode className="w-3.5 h-3.5 stroke-[1.75]" />
-              <span>Cotizar Proyecto</span>
+              <span>Cotizar Proyecto / WhatsApp</span>
             </button>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Drawer Button */}
           <div className="flex xl:hidden items-center gap-2">
             <button
               onClick={onOpenQuoteModal}
-              className="sm:hidden text-[11px] px-3 py-1.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 font-semibold"
+              className="sm:hidden text-[11px] px-3 py-1.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold"
             >
               Cotizar
             </button>
@@ -141,26 +141,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           </div>
 
         </div>
+
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="xl:hidden mt-2 max-w-7xl mx-auto px-4 sm:px-6 pointer-events-auto">
-          <div className="glass-nav-pill rounded-2xl p-4 bg-gray-950/95 border border-gray-800 shadow-2xl animate-in slide-in-from-top-3 duration-200">
+          <div className="bg-gray-950/95 backdrop-blur-2xl rounded-3xl p-5 border border-gray-800 shadow-2xl animate-in slide-in-from-top-3 duration-200">
             <div className="flex flex-col space-y-1.5">
               {navLinks.map((link) => (
                 <a
                   key={link.id}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-2.5 rounded-xl text-xs font-medium transition-colors flex items-center justify-between ${
+                  className={`px-4 py-2.5 rounded-2xl text-xs font-medium transition-colors flex items-center justify-between ${
                     activeSection === link.id
-                      ? 'bg-sky-500/15 text-sky-300 border border-sky-500/30 font-semibold'
+                      ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-semibold'
                       : 'text-gray-300 hover:bg-gray-900 hover:text-white'
                   }`}
                 >
                   <span>{link.label}</span>
-                  {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>}
+                  {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>}
                 </a>
               ))}
 
@@ -170,21 +171,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                     setMobileMenuOpen(false);
                     onOpenQuoteModal();
                   }}
-                  className="w-full py-3 rounded-xl glow-button text-white font-semibold text-xs flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-full glow-pill-button text-white font-semibold text-xs flex items-center justify-center gap-2"
                 >
-                  <span>Cotizar Proyecto</span>
+                  <span>Cotizar Proyecto / WhatsApp</span>
                   <ArrowRight className="w-4 h-4 stroke-[1.75]" />
                 </button>
-
-                <a
-                  href={`https://wa.me/${LEGAL_INFO.whatsapp1}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS S.A.S., me comunico desde la plataforma.')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 rounded-xl bg-gray-900 text-emerald-400 border border-emerald-500/30 font-mono text-xs text-center flex items-center justify-center gap-2"
-                >
-                  <MessageCircle className="w-4 h-4 stroke-[1.75]" />
-                  <span>WhatsApp (+57 320 710 5618)</span>
-                </a>
               </div>
             </div>
           </div>
