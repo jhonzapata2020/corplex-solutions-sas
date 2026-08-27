@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, MessageSquareCode, MessageCircle } from 'lucide-react';
+import { Menu, X, ArrowRight, MessageCircle } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 import { Logo } from './Logo';
 
@@ -82,35 +82,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             ))}
           </nav>
 
-          {/* Action Group: Perimeter Glow CTA Button & Direct WhatsApp */}
-          <div className="hidden sm:flex items-center gap-2.5">
+          {/* Action Group: Polished Circular WhatsApp Button */}
+          <div className="hidden sm:flex items-center">
             <a
-              href={`https://wa.me/${LEGAL_INFO.whatsapp1}?text=${encodeURIComponent('Hola CORPLEX SOLUTIONS S.A.S., me comunico desde la plataforma.')}`}
+              href="https://wa.me/573207105618"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full bg-gray-900 hover:bg-emerald-950/50 text-emerald-400 border border-gray-800 hover:border-emerald-500/40 transition-all duration-200 group"
-              title="Chat Directo WhatsApp (+57 320 710 5618)"
+              className="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 hover:border-emerald-400/60 p-2.5 rounded-full transition-all duration-300 shadow-lg shadow-emerald-950/40 group flex items-center justify-center"
+              title="Escríbenos por WhatsApp"
             >
               <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform stroke-[1.75]" />
             </a>
-
-            <button
-              onClick={onOpenQuoteModal}
-              className="glow-pill-button px-4 py-2 text-xs font-bold rounded-full text-white shadow-lg flex items-center gap-2"
-            >
-              <MessageSquareCode className="w-3.5 h-3.5 stroke-[1.75]" />
-              <span>Cotizar Proyecto / WhatsApp</span>
-            </button>
           </div>
 
           {/* Mobile Drawer Button */}
           <div className="flex xl:hidden items-center gap-2">
-            <button
-              onClick={onOpenQuoteModal}
-              className="sm:hidden text-[11px] px-3 py-1.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold"
+            <a
+              href="https://wa.me/573207105618"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sm:hidden bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 p-2 rounded-full"
+              title="Escríbenos por WhatsApp"
             >
-              Cotizar
-            </button>
+              <MessageCircle className="w-4 h-4 stroke-[1.75]" />
+            </a>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -147,16 +142,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               ))}
 
               <div className="pt-4 mt-2 border-t border-gray-800/80 flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenQuoteModal();
-                  }}
-                  className="w-full py-3 rounded-full glow-pill-button text-white font-semibold text-xs flex items-center justify-center gap-2"
+                <a
+                  href="https://wa.me/573207105618"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-full bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-xs font-semibold flex items-center justify-center gap-2"
                 >
-                  <span>Cotizar Proyecto / WhatsApp</span>
-                  <ArrowRight className="w-4 h-4 stroke-[1.75]" />
-                </button>
+                  <MessageCircle className="w-4 h-4 stroke-[1.75]" />
+                  <span>Escríbenos por WhatsApp (+57 320 710 5618)</span>
+                </a>
               </div>
             </div>
           </div>
