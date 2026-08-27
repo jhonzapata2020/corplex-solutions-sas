@@ -20,44 +20,49 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
+        {/* Ambient Diffuse Light Glow Behind Headline */}
+        <div className="absolute -z-10 w-[500px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+
         {/* Editorial Top Composition */}
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-16">
           
-          {/* Minimalist Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-900/90 border border-cyan-500/40 text-cyan-300 text-xs font-mono font-medium shadow-2xl mb-6 backdrop-blur-2xl hover:border-cyan-500/60 transition-colors">
+          {/* Superior Micro-Pill Badge */}
+          <div className="inline-flex items-center gap-2 text-[11px] font-medium text-slate-400 bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full tracking-widest uppercase mb-6 backdrop-blur-xl">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400 stroke-[1.75]" />
             <span>SOFTWARE, AI & CLOUD INFRASTRUCTURE 2026</span>
           </div>
 
-          {/* H1 Dominant Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.12] mb-6 text-white">
+          {/* Refined H1 Headline */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] mb-6 text-white">
             Ingeniería de Software de Misión Crítica y{' '}
-            <span className="text-cyan-400">
+            <span className="text-cyan-400 font-bold">
               Arquitectura Cloud Escalable.
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-gray-300 max-w-3xl leading-relaxed mb-10 font-normal">
+          <p className="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed mb-10 font-normal">
             Ingeniería de Software a la Medida, Inteligencia Artificial, Arquitectura Cloud y Transformación Digital.
           </p>
 
-          {/* Action CTAs */}
+          {/* Minimalist Action CTAs */}
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16">
+            {/* Primary Orange Accent Pill Button */}
             <button
               onClick={onOpenQuoteModal}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full glow-pill-button text-white font-bold text-sm flex items-center justify-center gap-2.5 group"
+              className="w-full sm:w-auto bg-orange-500/10 hover:bg-orange-500/20 text-orange-300 hover:text-orange-200 border border-orange-500/40 hover:border-orange-400/80 px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 shadow-lg shadow-orange-950/30 flex items-center justify-center gap-2 group cursor-pointer"
             >
-              <span>Cotizar Proyecto / Solución</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[1.75]" />
+              <span>Cotizar Solución</span>
+              <ArrowRight className="w-4 h-4 text-orange-400 group-hover:translate-x-1 transition-transform stroke-[2]" />
             </button>
 
+            {/* Secondary Glass Ghost Button */}
             <a
               href="#cumplimiento"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gray-900/90 hover:bg-gray-800 text-gray-200 border border-gray-800 hover:border-gray-700 font-semibold text-sm backdrop-blur-xl transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 backdrop-blur-xl flex items-center justify-center gap-2"
             >
               <ShieldCheck className="w-4 h-4 text-emerald-400 stroke-[1.75]" />
-              <span>Ver Ficha Legal & NIT {LEGAL_INFO.nit}</span>
+              <span>Ficha Legal & NIT</span>
             </a>
           </div>
 
