@@ -34,7 +34,7 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
   return (
     <div
       onClick={handleStart}
-      className={`fixed inset-0 z-50 bg-[#09090b] flex flex-col items-center justify-between p-6 sm:p-12 overflow-hidden transition-all duration-700 cursor-pointer ${
+      className={`fixed inset-0 z-50 bg-[#1b3852] flex flex-col items-center justify-between p-6 sm:p-12 overflow-hidden transition-all duration-700 cursor-pointer ${
         isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
     >
@@ -48,31 +48,31 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
       </div>
 
       {/* Top Header Status */}
-      <div className="relative z-10 flex items-center justify-between w-full max-w-7xl font-mono text-xs text-zinc-400 border-b border-zinc-800/80 pb-4 pointer-events-auto">
+      <div className="relative z-10 flex items-center justify-between w-full max-w-7xl font-mono-tech text-xs text-slate-300 border-b border-[#2b5b84] pb-4 pointer-events-auto">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           <span>SYSTEM READY // SYSTEM BOOT 2026</span>
         </div>
 
-        <div className="hidden sm:flex items-center gap-3 text-emerald-400">
+        <div className="hidden sm:flex items-center gap-3 text-[#ffd343]">
           <ShieldCheck className="w-3.5 h-3.5 stroke-[1.75]" />
           <span>NIT {LEGAL_INFO.nit} • Urabá, Colombia</span>
         </div>
       </div>
 
       {/* Central Content Box with Energy Orb Backdrop & Official Logo */}
-      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl my-auto pointer-events-auto">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl my-auto pointer-events-auto font-tech">
         
-        {/* Animated Quantango Energy Orb with Official Logo Inside */}
+        {/* Animated Energy Orb with Official Logo Inside */}
         <div className="relative flex items-center justify-center w-44 h-44 mb-8">
           <div className="absolute inset-0 energy-orb-glow rounded-full pointer-events-none" />
-          <svg className="absolute inset-0 w-full h-full text-emerald-400/30 animate-spin-slow" viewBox="0 0 100 100">
+          <svg className="absolute inset-0 w-full h-full text-[#ffd343]/40 animate-spin-slow" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" fill="none" />
             <circle cx="50" cy="50" r="35" stroke="currentColor" strokeWidth="1.5" fill="none" />
           </svg>
 
           {/* Official Logo Card Badge */}
-          <div className="w-24 h-24 rounded-2xl bg-white p-2 border border-emerald-500/50 flex items-center justify-center shadow-2xl shadow-emerald-500/20 hover:scale-105 transition-transform duration-300">
+          <div className="w-24 h-24 rounded-2xl bg-white p-2 border border-[#ffd343] flex items-center justify-center shadow-2xl shadow-[#ffd343]/30 hover:scale-105 transition-transform duration-300">
             <img
               src="/logo.jpg"
               alt="CORPLEX SOLUTIONS S.A.S. Logo Oficial"
@@ -82,35 +82,35 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
         </div>
 
         {/* Brand Title */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white mb-3">
-          CORPLEX <span className="text-emerald-400">SOLUTIONS</span> <span className="text-xs text-emerald-400 font-mono">S.A.S.</span>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-3">
+          CORPLEX <span className="text-[#ffd343]">SOLUTIONS</span> <span className="text-xs text-[#ffd343] font-mono-tech">S.A.S.</span>
         </h1>
 
         {/* General Corporate Subtitle */}
-        <p className="text-zinc-300 text-xs sm:text-sm max-w-lg leading-relaxed mb-8 font-mono">
+        <p className="text-slate-200 text-xs sm:text-sm max-w-lg leading-relaxed mb-8 font-mono-tech">
           Ingeniería de Software a la Medida, Inteligencia Artificial, Arquitectura Cloud y Transformación Digital.
         </p>
 
-        {/* Minimalist Interactive Neon Amber/Orange Text Link CTA */}
+        {/* Minimalist Interactive Gold Text Link CTA */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             handleStart();
           }}
-          className="group inline-flex items-center gap-2.5 text-base md:text-lg font-medium tracking-wide text-amber-400 hover:text-orange-400 drop-shadow-[0_0_12px_rgba(251,146,60,0.4)] transition-all duration-300 cursor-pointer active:scale-95 py-2 px-5 rounded-full hover:bg-amber-500/10 border border-amber-500/20 hover:border-orange-500/40"
+          className="group inline-flex items-center gap-2.5 text-base md:text-lg font-bold tracking-wide text-[#ffd343] hover:text-amber-300 transition-all duration-300 cursor-pointer active:scale-95 py-2.5 px-6 rounded-md bg-[#111d28] border border-[#ffd343]/50 hover:border-[#ffd343] shadow-lg"
         >
           <span className="animate-pulse">Explorar plataforma</span>
-          <ArrowRight className="w-4.5 h-4.5 text-amber-400 group-hover:text-orange-400 group-hover:translate-x-1.5 transition-transform duration-300 stroke-[2]" />
+          <ArrowRight className="w-4.5 h-4.5 text-[#ffd343] group-hover:translate-x-1.5 transition-transform duration-300 stroke-[2]" />
         </button>
 
-        <span className="text-[10px] font-mono text-zinc-500 mt-4">
+        <span className="text-[10px] font-mono-tech text-slate-400 mt-4">
           Presiona cualquier tecla o haz clic en cualquier lugar para ingresar
         </span>
 
       </div>
 
       {/* Bottom Footer Info */}
-      <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full max-w-7xl font-mono text-[11px] text-zinc-400 pt-4 border-t border-zinc-800/80 gap-2 pointer-events-auto">
+      <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full max-w-7xl font-mono-tech text-[11px] text-slate-300 pt-4 border-t border-[#2b5b84] gap-2 pointer-events-auto">
         <div>
           Tecnología, Software & Nube • Turbo, Urabá, Colombia
         </div>
