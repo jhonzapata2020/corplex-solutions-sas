@@ -10,6 +10,7 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
 import { SplashIntro } from './components/SplashIntro';
+import { ScrollToTop } from './components/ScrollToTop';
 
 export function App() {
   const [isEntered, setIsEntered] = useState<boolean>(() => {
@@ -75,6 +76,9 @@ export function App() {
 
           {/* Footer Python.org Style */}
           <Footer />
+
+          {/* Floating Scroll-To-Top Button */}
+          <ScrollToTop />
         </div>
       )}
 
