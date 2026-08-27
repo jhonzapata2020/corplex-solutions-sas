@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GraduationCap, Play, ShieldCheck, CheckCircle2, Cpu, BarChart3, Database, Layers, Sparkles, RefreshCw, Terminal, Users } from 'lucide-react';
+import { GraduationCap, CheckCircle2, Cpu, BarChart3, RefreshCw, Terminal, Users, Sparkles } from 'lucide-react';
 import { ACADEMIC_FEATURES } from '../data/corporateData';
 
 export const AcademicCapabilities: React.FC = () => {
@@ -22,21 +22,15 @@ export const AcademicCapabilities: React.FC = () => {
   return (
     <section id="enfoque-academico" className="py-24 relative bg-slate-950 border-t border-slate-800/80">
       
-      {/* Background Decor */}
+      {/* Background Lights */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs font-mono font-semibold mb-4">
-            <GraduationCap className="w-4 h-4 text-sky-400" />
-            <span>ENFOQUE SECTOR EDUCATIVO & UNAD (ECBTI)</span>
-          </div>
-          
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Capacidades Tecnológicas para Educación Superior e Investigación
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">
+            Capacidades para Sector Educativo & UNAD (ECBTI)
           </h2>
           
           <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
@@ -89,7 +83,7 @@ export const AcademicCapabilities: React.FC = () => {
             
             {/* Active Feature Header */}
             <div>
-              <div className="flex items-center justify-between gap-4 mb-4">
+              <div className="flex items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-800/80">
                 <span className="text-xs font-mono text-slate-400">
                   CASO DE USO // {ACADEMIC_FEATURES[activeTab].subtitle}
                 </span>
@@ -129,7 +123,7 @@ export const AcademicCapabilities: React.FC = () => {
                       <Terminal className="w-4 h-4 text-sky-400" />
                       Simulador de Prácticas Web // ECBTI-LAB-01
                     </span>
-                    <span className="text-sky-400">Status: Running</span>
+                    <span className="text-sky-400 font-bold">Status: Running</span>
                   </div>
 
                   <div className="space-y-2">
