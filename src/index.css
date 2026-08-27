@@ -4,11 +4,11 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #1b3852;
-    color: #f4f4f5;
+    background-color: #ffffff;
+    color: #0f172a;
   }
   body {
-    background-color: #1b3852;
+    background-color: #ffffff;
     overflow-x: hidden;
     margin: 0;
   }
@@ -27,7 +27,7 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Dark Ocean Navy Theme Tokens */
+/* Python.org Classic Theme Color Tokens */
 .bg-python-dark {
   background-color: #111d28;
 }
@@ -44,35 +44,42 @@
   background-color: #142332;
 }
 
-/* Subtle Refined Accents */
-.text-cyan-accent {
-  color: #38bdf8;
+.text-python-gold {
+  color: #ffd343;
+}
+
+.bg-python-gold {
+  background-color: #ffd343;
+}
+
+.border-python-gold {
+  border-color: #ffd343;
 }
 
 /* Python Nav Gradient Bar */
 .bg-python-nav-gradient {
-  background: linear-gradient(180deg, #2b5b84 0%, #1b3852 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(180deg, #3775a9 0%, #2b5b84 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Smoked Glass Cards - Refined Professional */
+/* Python.org Cards */
 .glass-smoked-card {
-  background: #1b3852;
-  border: 1px solid rgba(75, 125, 165, 0.35);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
 .glass-smoked-card:hover {
-  border-color: rgba(56, 189, 248, 0.5);
-  box-shadow: 0 15px 35px -10px rgba(56, 189, 248, 0.15);
+  border-color: #3775a9;
+  box-shadow: 0 10px 20px -5px rgba(55, 117, 169, 0.15);
   transform: translateY(-2px);
 }
 
-/* Cyan Data Beam Line */
+/* Laser Data Beam */
 .data-beam-line {
   height: 2px;
-  background: linear-gradient(90deg, transparent 0%, rgba(56, 189, 248, 0.7) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #ffd343 50%, transparent 100%);
   animation: beamScan 4s linear infinite;
 }
 
@@ -81,20 +88,18 @@
   100% { transform: translateX(100%); }
 }
 
-.glow-pill-button {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  font-weight: 600;
-  transition: all 0.3s ease;
+/* Python Small Gold Button */
+.btn-python-gold {
+  background-color: #ffd343;
+  color: #111d28;
+  font-weight: 700;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
-.glow-pill-button:hover {
-  background: rgba(56, 189, 248, 0.25);
-  border-color: rgba(56, 189, 248, 0.8);
-  color: #ffffff;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-  transform: scale(1.01);
+.btn-python-gold:hover {
+  background-color: #ffc520;
+  box-shadow: 0 4px 12px rgba(255, 211, 67, 0.3);
 }
 
 /* Custom Scrollbar */
@@ -109,5 +114,5 @@
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #38bdf8;
+  background: #ffd343;
 }

@@ -36,7 +36,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1b3852] text-slate-100 selection:bg-[#ffd343] selection:text-black font-sans antialiased">
+    <div className="min-h-screen bg-white text-slate-900 selection:bg-[#ffd343] selection:text-black font-sans antialiased">
       
       {/* Interactive System Boot Splash Screen */}
       <SplashIntro
@@ -70,7 +70,7 @@ export function App() {
             {/* Legal Transparency & Compliance Datasheet */}
             <LegalCompliance />
 
-            {/* Contact Form & Direct Channels */}
+            {/* Contact Form & Direct Channels (Python PSF Banner Style) */}
             <ContactSection />
           </main>
 
