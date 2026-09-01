@@ -85,6 +85,7 @@ export type AutomationVertical = {
   description: string;
   realProblem: string;
   implementedSolution: string;
+  suggestedMetrics: string;
   beforeAfterMetric: string;
   features: string[];
   metrics: string;
@@ -93,6 +94,7 @@ export type AutomationVertical = {
 
 export type AutomationHowStep = {
   step: number;
+  phaseName: string;
   title: string;
   description: string;
   icon: string;
@@ -122,15 +124,22 @@ export type AutomationPhase = {
   iconName: string;
 };
 
+export type AutomationTrustPromise = {
+  shortIndicator: string;
+  title: string;
+  description: string;
+  iconName: string;
+};
+
 export type AutomationFormData = {
   fullName: string;
   company: string;
-  email: string;
-  sector: string;
+  contactDetail: string;
   bottleneck: string;
-  operationVolume: string;
+  sector?: string;
   selectedPackage?: string;
 };
+
 
 
 

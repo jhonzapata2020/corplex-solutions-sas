@@ -1,48 +1,91 @@
-import type { AutomationVertical, AutomationHowStep, AutomationPackage, AutomationPhase } from '../types';
+import type {
+  AutomationVertical,
+  AutomationHowStep,
+  AutomationPackage,
+  AutomationPhase,
+  AutomationTrustPromise
+} from '../types';
+
+export const AUTOMATION_TRUST_PROMISES: AutomationTrustPromise[] = [
+  {
+    shortIndicator: 'Menos tareas manuales',
+    title: 'Reduce el trabajo manual',
+    description: 'Identificamos las tareas repetitivas de tu operación y diseñamos automatizaciones para que tu equipo dedique más tiempo a actividades de mayor valor.',
+    iconName: 'Clock'
+  },
+  {
+    shortIndicator: 'Integración con tus herramientas',
+    title: 'Trabajamos con tus sistemas actuales',
+    description: 'Integramos WhatsApp, formularios, CRM, ERP, correo electrónico, bases de datos y APIs existentes para evitar duplicar información y reducir la digitación.',
+    iconName: 'Network'
+  },
+  {
+    shortIndicator: 'Flujos automáticos y monitoreados',
+    title: 'Automatización disponible cuando tu operación lo necesita',
+    description: 'Configuramos flujos automáticos para recibir solicitudes, clasificar información, generar respuestas y activar tareas incluso fuera del horario laboral, con reglas y supervisión definidas.',
+    iconName: 'Workflow'
+  },
+  {
+    shortIndicator: 'Monitoreo y soporte según contrato',
+    title: 'Arquitectura preparada para crecer',
+    description: 'Desplegamos soluciones con monitoreo, control de accesos, respaldos y prácticas de seguridad adaptadas al volumen y la criticidad de cada operación.',
+    iconName: 'ShieldCheck'
+  },
+  {
+    shortIndicator: 'Respuestas ágiles',
+    title: 'Respuestas más rápidas y procesos más ordenados',
+    description: 'Diseñamos flujos para reducir tiempos de espera y transferir cada solicitud al sistema o persona adecuada.',
+    iconName: 'Zap'
+  }
+];
 
 export const AUTOMATION_HOW_IT_WORKS: AutomationHowStep[] = [
   {
     step: 1,
-    title: 'Auditoría de Procesos',
-    description: 'Mapeo de flujos repetitivos, cuellos de botella y cálculo de horas hombre desperdiciadas.',
-    icon: 'SearchCheck',
+    phaseName: 'Entrada',
+    title: 'Recibimos la solicitud',
+    description: 'WhatsApp, formulario web, correo, webhook o sistema institucional.',
+    icon: 'MessageSquare',
     details: [
-      'Entrevistas técnicas con los líderes operativos del proceso',
-      'Mapeo de volumen de transacciones y costo por tarea manual',
-      'Matriz de priorización de automatización por impacto y esfuerzo'
+      'Canales omnicanal: WhatsApp, formularios y correos',
+      'Webhooks y APIs de integración bidireccional',
+      'Recepción continua de solicitudes'
     ]
   },
   {
     step: 2,
-    title: 'Arquitectura e Integración',
-    description: 'Conexión vía Webhooks, APIs y herramientas (Make / n8n / Python) a CRM, ERP, WhatsApp y bases de datos sin reemplazar el software actual.',
-    icon: 'Network',
+    phaseName: 'Interpretación',
+    title: 'La IA organiza la información',
+    description: 'Clasifica la intención, extrae los datos necesarios y aplica las reglas definidas para tu operación.',
+    icon: 'Cpu',
     details: [
-      'Orquestación visual ágil con Make (Integromat) o n8n',
-      'Desarrollo de conectores a medida en Python / Node.js',
-      'Webhooks bidireccionales cifrados con protocolos SSL/TLS'
+      'Clasificación automática de intenciones y necesidades',
+      'Extracción estructurada de datos relevantes',
+      'Validación técnica bajo reglas de negocio definidas'
     ]
   },
   {
     step: 3,
-    title: 'Agentes y Modelos de IA',
-    description: 'Implementación de agentes de lenguaje (LLMs) con guardrails, RAG/Bases Vectoriales y reglas de negocio propias.',
-    icon: 'Cpu',
+    phaseName: 'Integración',
+    title: 'Actualizamos tus sistemas',
+    description: 'Enviamos la información validada a tu CRM, ERP, HIS, base de datos o herramienta de trabajo.',
+    icon: 'Database',
     details: [
-      'Agentes de lenguaje con Retrieval-Augmented Generation (RAG)',
-      'Extracción estructurada JSON a partir de PDFs, audio y chat',
-      'Guardrails y validaciones de seguridad sin alucinaciones'
+      'Sincronización inmediata con CRM, ERP o HIS',
+      'Actualización de registros sin intervención manual',
+      'Cero duplicación de digitación'
     ]
   },
   {
     step: 4,
-    title: 'Despliegue y Monitoreo',
-    description: 'Puesta en producción con observabilidad en AWS CloudWatch, tableros en tiempo real y soporte SLA.',
+    phaseName: 'Seguimiento',
+    title: 'Registramos y monitoreamos el resultado',
+    description: 'Programamos recordatorios, guardamos el historial y derivamos los casos que requieren revisión humana.',
     icon: 'Activity',
     details: [
-      'Dashboard gerencial de ejecuciones, tiempos ahorrados y errores',
-      'Monitoreo sintético y alertas automáticas de salud por WhatsApp/Slack',
-      'Soporte continuo 24/7 y optimización evolutiva en AWS'
+      'Programación de avisos y recordatorios automáticos',
+      'Trazabilidad e historial completo auditable',
+      'Ruta de escalamiento claro hacia supervisión humana'
     ]
   }
 ];
@@ -51,61 +94,64 @@ export const AUTOMATION_VERTICALS: AutomationVertical[] = [
   {
     id: 'salud',
     title: 'Salud y Clínicas',
-    subtitle: 'Gestión asistencial y canal de pacientes 24/7 sin fricción',
+    subtitle: 'Agendamiento y seguimiento de pacientes',
     iconName: 'HeartPulse',
     badge: 'Salud & Sanidad',
-    description: 'Transformamos la gestión asistencial automatizando la atención inicial, agendamiento de citas especializadas y sincronización con historias clínicas.',
-    realProblem: 'Agendas de citas colapsadas, llamadas perdidas en horas pico, ausentismo del 35% al 45% por falta de recordatorios oportunos y recepción dedicando 4 horas diarias a digitación manual en el sistema médico.',
-    implementedSolution: 'Bot WhatsApp 24/7 con triaje asistido, agendamiento autónomo integrado directamente al software médico (HIS), recordatorios interactivos con reprogramación en 1-clic y liberación de cupos en tiempo real.',
-    beforeAfterMetric: 'Reducción del 60% en inasistencias y 0h de digitación manual.',
+    description: 'Automatiza la recepción de solicitudes, confirma citas, envía recordatorios y permite reprogramaciones, manteniendo una ruta de atención humana para los casos que lo requieran.',
+    realProblem: 'Recepciones y líneas telefónicas colapsadas en horas pico, alto ausentismo de pacientes por falta de recordatorios oportunos y horas de digitación manual en la historia clínica.',
+    implementedSolution: 'Recepción de solicitudes automatizada por WhatsApp, confirmación proactiva de citas con reprogramación instantánea y sincronización directa al software médico o HIS.',
+    suggestedMetrics: 'Citas confirmadas, reprogramaciones, tiempo de respuesta y horas de digitación reducidas.',
+    beforeAfterMetric: 'Reducción del ausentismo y menor tiempo en tareas de digitación manual.',
     features: [
-      'Agendamiento autónomo por WhatsApp Business API 24/7',
-      'Confirmaciones automatizadas con reprogramación en 1-clic',
-      'Triaje asistido por IA según especialidad médica',
-      'Sincronización API con software HIS / Historias Clínicas',
-      'Envío de recomendaciones pre-examen e instrucciones'
+      'Recepción de solicitudes y confirmación de citas',
+      'Recordatorios automatizados con reprogramación',
+      'Ruta de atención humana para casos especiales',
+      'Sincronización con software médico / HIS',
+      'Información pre-atención al paciente'
     ],
-    metrics: '-60% Ausentismo en Consultas • Operación 24/7',
+    metrics: 'Medición orientada a citas confirmadas y horas ahorradas',
     techStack: ['WhatsApp API', 'LLM Agents', 'FastAPI', 'AWS Lambda', 'Webhooks HIS']
   },
   {
     id: 'educacion',
     title: 'Educación Superior',
-    subtitle: 'Captación de admisiones, atención estudiantil y retención',
+    subtitle: 'Atención y gestión de solicitudes académicas',
     iconName: 'GraduationCap',
-    badge: 'Educación & UNAD',
-    description: 'Automatizamos el embudo de admisiones y la atención estudiantil con asistentes de lenguaje entrenados con el reglamento y catálogo académico institucional.',
-    realProblem: 'Pérdida de prospectos de matrícula por tardanzas de hasta 48h en responder admisiones, filas físicas para trámites académicos simples y docentes colapsados respondiendo repetidamente las mismas PQRS.',
-    implementedSolution: 'Asistente omnicanal de admisiones 24/7 con RAG, atención automatizada de PQRS académicas frecuentes, expedición rápida de trámites e integración con Moodle/Blackboard para alertas de retención.',
-    beforeAfterMetric: 'Atención inmediata en <10 segundos y +40% de conversión en matrículas.',
+    badge: 'Educación & Instituciones',
+    description: 'Organiza preguntas frecuentes, orienta a estudiantes, deriva solicitudes y consolida información para los equipos administrativos y académicos.',
+    realProblem: 'Lentitud en la respuesta a prospectos de matrícula en periodos críticos, colapso de canales con preguntas frecuentes repetitivas y demoras en la derivación de solicitudes.',
+    implementedSolution: 'Asistente virtual de orientación a aspirantes 24/7, clasificación y respuesta a PQRS académicas frecuentes y escalamiento ordenado a personal administrativo.',
+    suggestedMetrics: 'Solicitudes atendidas, tiempo de respuesta, derivaciones correctas y volumen de consultas resueltas.',
+    beforeAfterMetric: 'Respuestas ágiles a prospectos y descongestión de canales institucionales.',
     features: [
-      'Asistente de admisiones y matrículas 24/7 omnicanal',
-      'Resolución instantánea de preguntas frecuentes con RAG',
-      'Alertas tempranas de deserción e inactividad en campus',
-      'Calificación automática de prospectos hacia asesores humanos',
-      'Integración con plataformas LMS (Moodle, Blackboard, LTI)'
+      'Orientación 24/7 a aspirantes y estudiantes',
+      'Resolución de preguntas frecuentes académicas',
+      'Derivación ordenada a equipos administrativos',
+      'Consolidación de consultas y PQRS frecuentes',
+      'Integración con plataformas LMS y sistemas del campus'
     ],
-    metrics: 'Atención en <10s • +40% Conversión en Matrículas',
+    metrics: 'Medición orientada a velocidad de respuesta y consultas resueltas',
     techStack: ['RAG Vector Store', 'OpenAI / Claude APIs', 'LMS Webhooks', 'PostgreSQL', 'Redis Cache']
   },
   {
     id: 'agro',
     title: 'Agroindustria & Operaciones',
-    subtitle: 'Telemetría IoT, reportes operativos automatizados y alertas de campo',
+    subtitle: 'Alertas y seguimiento operativo',
     iconName: 'Sprout',
     badge: 'Agrotech & Operaciones',
-    description: 'Automatizamos la captura de datos de campo, consolidando planillas de cosecha e insumos en alertas preventivas e informes ejecutivos diarios.',
-    realProblem: 'Reportes de campo dispersos en planillas físicas de papel o chats de WhatsApp, retrasos de 24h en consolidados gerenciales y alertas tardías de variables climáticas e insumos.',
-    implementedSolution: 'Consolidación automática de datos IoT, bot de captura en campo por notas de voz/chat para supervisores, reportes diarios automáticos en PDF a las 6:00 AM y tableros BI en AWS.',
-    beforeAfterMetric: '+90% de visibilidad operativa en tiempo real y cero planillas físicas.',
+    description: 'Integra datos de formularios, sensores o sistemas internos para generar alertas, reportes y tareas de seguimiento según reglas definidas por el equipo.',
+    realProblem: 'Datos de campo recolectados manualmente en planillas de papel, falta de visibilidad en tiempo real para supervisores y reportes consolidados con días de retraso.',
+    implementedSolution: 'Captura automatizada de datos operativos vía WhatsApp o sensores IoT, generación automática de alertas críticas y envío de reportes consolidados a supervisores.',
+    suggestedMetrics: 'Alertas atendidas, tiempos de reacción, reportes generados y tareas completadas.',
+    beforeAfterMetric: 'Monitoreo continuo y reportes operativos diarios listos al inicio de la jornada.',
     features: [
-      'Procesamiento automático de datos IoT de campo',
-      'Reportes operativos diarios automatizados vía WhatsApp/Email',
-      'Alertas críticas de temperatura, humedad y variables fitosanitarias',
-      'Centralización de bitácoras de cosecha, agroquímicos y costos',
-      'Dashboards gerenciales en tiempo real en la nube AWS'
+      'Captura e integración de datos operativos de campo',
+      'Generación automática de alertas y tareas',
+      'Consolidación de reportes diarios para supervisores',
+      'Centralización de registros operacionales',
+      'Monitoreo de variables y tableros de control'
     ],
-    metrics: '+90% Visibilidad en Tiempo Real • Cero planillas en papel',
+    metrics: 'Medición orientada a tiempos de reacción y reportes completados',
     techStack: ['IoT MQTT Brokers', 'AWS S3 / RDS', 'Python Analytics', 'WhatsApp API', 'Power BI / Dash']
   }
 ];
@@ -114,66 +160,66 @@ export const AUTOMATION_PACKAGES: AutomationPackage[] = [
   {
     id: 'diagnostico',
     title: '1. Diagnóstico & Mapeo de Procesos',
-    tagline: 'Auditoría profunda de cuellos de botella y blueprint de automatización',
+    tagline: 'Auditoría de cuellos de botella y diseño del plan de automatización',
     badge: 'Fase 1 • Descubrimiento',
     timeframe: '1 a 2 semanas',
     scope: [
       'Mapeo exhaustivo de flujos operativos repetitivos y tareas manuales',
       'Auditoría de software actual, APIs disponibles y bases de datos',
       'Diseño del blueprint de arquitectura de automatización recomendada',
-      'Matriz de retorno de inversión (ROI) estimado y proyección de ahorro de horas'
+      'Matriz de priorización y proyección orientativa de ahorro'
     ],
-    deliverable: 'Blueprint de Arquitectura Técnica + Roadmap Ejecutivo prioritario y cálculo de ROI',
-    recommendedFor: 'Empresas y Pymes que buscan identificar con precisión dónde ahorrar tiempo y costos con IA',
+    deliverable: 'Blueprint de Arquitectura Técnica + Roadmap Ejecutivo prioritario y plan de implementación',
+    recommendedFor: 'Empresas e instituciones que buscan identificar dónde reducir tareas manuales con IA',
     highlightColor: 'border-slate-300 hover:border-sky-400'
   },
   {
     id: 'piloto',
     title: '2. Automatización Inicial (Piloto Rápido)',
-    tagline: '1 a 2 flujos críticos automatizados y operando en producción en <30 días',
-    badge: 'Más Popular • Piloto <30 Días',
-    timeframe: '< 30 días calendario',
+    tagline: '1 a 2 flujos críticos automatizados y operando en producción',
+    badge: 'Más Solicitado • Piloto Ágil',
+    timeframe: 'Hasta 30 días calendario',
     scope: [
-      'Implementación llave en mano de 1 a 2 flujos críticos de alto impacto',
-      'Integración con WhatsApp Business API / Make / n8n / Python script / CRM',
-      'Agente de lenguaje / IA entrenado con tus manuales y reglas de negocio',
-      'Despliegue en producción en AWS con pruebas rigurosas de seguridad'
+      'Implementación de 1 a 2 flujos críticos de mayor impacto operativo',
+      'Integración con WhatsApp / Formularios / CRM / ERP actual',
+      'Asistente de IA configurado con reglas y límites definidos',
+      'Despliegue controlado con validaciones de seguridad y monitoreo'
     ],
-    deliverable: 'Sistema en producción 100% funcional + Dashboard de control + Capacitación a tu equipo',
-    recommendedFor: 'Clínicas, Instituciones y Pymes que exigen validar resultados tangibles en tiempo récord',
+    deliverable: 'Flujo en producción funcional + Tablero básico de control + Guía de uso para tu equipo',
+    recommendedFor: 'Organizaciones que desean validar el impacto práctico de la automatización en plazo corto',
     isPopular: true,
     highlightColor: 'border-[#ffd343] bg-[#142332]/90 shadow-xl shadow-[#ffd343]/10'
   },
   {
     id: 'retainer',
     title: '3. Retainer de Automatización Mensual',
-    tagline: 'Mantenimiento continuo, optimización de modelos e inclusión iterativa de flujos',
-    badge: 'Mantenimiento & Escalamiento',
+    tagline: 'Mantenimiento continuo, monitoreo y evolución progresiva de flujos',
+    badge: 'Soporte & Escalamiento',
     timeframe: 'Suscripción Mensual',
     scope: [
-      'Soporte, mantenimiento y monitoreo continuo de múltiples flujos automatizados',
-      'Observabilidad 24/7 en AWS CloudWatch con alertas de fallos en tiempo real',
-      'Ajuste y re-entrenamiento periódico de prompts y modelos de IA',
-      'Incorporación continua de nuevos flujos operacionales mes a mes'
+      'Mantenimiento y monitoreo continuo de flujos automatizados activos',
+      'Supervisión de salud de integraciones y alertas preventivas',
+      'Ajuste periódico de reglas, modelos e interacciones',
+      'Incorporación iterativa de nuevas tareas automatizadas'
     ],
-    deliverable: 'SLA de respuesta garantizado + Reporte mensual de ejecuciones y nuevas automatizaciones',
-    recommendedFor: 'Organizaciones en crecimiento que convierten la automatización en una capacidad estratégica',
+    deliverable: 'Soporte técnico continuo + Reportes de desempeño y mantenimientos preventivos',
+    recommendedFor: 'Empresas en crecimiento que integran la automatización como pilar operativo',
     highlightColor: 'border-[#2b5b84] hover:border-emerald-400'
   },
   {
     id: 'enterprise',
     title: '4. Plataforma / Agentes Enterprise',
-    tagline: 'Arquitectura Cloud a medida, infraestructura dedicada (AWS/GCP) y conectores custom',
+    tagline: 'Arquitectura Cloud a medida, infraestructura dedicada y conectores custom',
     badge: 'Enterprise & Medida',
     timeframe: 'Según alcance del proyecto',
     scope: [
-      'Arquitectura Cloud multi-servicio a medida en Amazon Web Services o Google Cloud',
-      'Pipelines de datos en PostgreSQL / Redis / S3 / Data Warehousing masivo',
-      'Desarrollo de microservicios y conectores API personalizados con Docker',
-      'Tableros BI gerenciales en tiempo real con observabilidad ejecutiva'
+      'Arquitectura Cloud a medida en Amazon Web Services o Google Cloud',
+      'Pipelines de datos dedicados en PostgreSQL / S3 / Data Warehousing',
+      'Desarrollo de conectores API y microservicios personalizados',
+      'Tableros gerenciales en tiempo real con monitoreo y control de acceso'
     ],
-    deliverable: 'Plataforma empresarial propietaria + Código fuente versionado + Documentación técnica',
-    recommendedFor: 'Grandes entidades públicas, universidades o grupos corporativos con alta complejidad',
+    deliverable: 'Solución empresarial a medida + Código versionado + Documentación de arquitectura',
+    recommendedFor: 'Entidades públicas, universidades o grupos corporativos con alta complejidad técnica',
     highlightColor: 'border-[#2b5b84] hover:border-[#ffd343]'
   }
 ];
@@ -182,59 +228,62 @@ export const AUTOMATION_PHASES: AutomationPhase[] = [
   {
     number: '01',
     title: 'Diagnóstico & Calificación',
-    subtitle: 'Evaluación de procesos y métricas base',
-    description: 'Levantamos la radiografía operacional del negocio, identificando tareas repetitivas de alto costo temporal y definiendo KPIs claros de éxito.',
+    subtitle: 'Evaluación del proceso y definición de metas',
+    description: 'Analizamos cómo funciona hoy la operación, identificando tareas repetitivas y definiendo el alcance del proyecto.',
     highlights: [
-      'Entrevistas técnicas con líderes de proceso',
-      'Identificación de integraciones requeridas (CRM, ERP, HIS, LMS)',
-      'Definición del indicador clave (ej: tiempo de respuesta, costo por lead, horas/hombre)'
+      'Entrevistas con los responsables del proceso',
+      'Identificación de herramientas de software implicadas',
+      'Definición de las métricas principales de seguimiento'
     ],
-    deliverable: 'Matriz de factibilidad & Plan de proyecto',
+    deliverable: 'Plan de trabajo & Definición de alcance',
     iconName: 'SearchCheck'
   },
   {
     number: '02',
-    title: 'Piloto Funcional en <30 Días',
-    subtitle: 'Despliegue ágil en entorno controlado',
-    description: 'Construimos e integramos la primera versión del sistema automatizado en un sprint rápido, validando su comportamiento con datos reales.',
+    title: 'Piloto Funcional',
+    subtitle: 'Implementación ágil en entorno controlado',
+    description: 'Construimos e integramos la primera versión automatizada para validar su comportamiento con información real.',
     highlights: [
-      'Desarrollo de agentes IA y conectores API',
-      'Pruebas de estrés y seguridad de datos',
-      'Lanzamiento controlado en producción con grupo piloto'
+      'Configuración de flujos y conectores de integración',
+      'Pruebas de validación y seguridad de datos',
+      'Lanzamiento acompañado con el equipo responsable'
     ],
-    deliverable: 'Solución en Producción + Capacitación',
+    deliverable: 'Flujo en Producción + Guía de Uso',
     iconName: 'Rocket'
   },
   {
     number: '03',
-    title: 'Medición de Impacto',
-    subtitle: 'Auditoría de rendimiento e ROI',
-    description: 'Comparamos las métricas operativas obtenidas durante la fase piloto versus la operación manual previa para cuantificar el ahorro real.',
+    title: 'Medición de Resultados',
+    subtitle: 'Evaluación del cambio y optimización',
+    description: 'Comparamos el desempeño del flujo automatizado con la operación previa para verificar mejoras.',
     highlights: [
-      'Tablero de analítica de interacciones y ejecuciones',
-      'Comparativa de tasa de error, tiempos de ciclo y conversión',
-      'Ajuste fino de prompts y reglas operativas'
+      'Revisión de tiempo de respuesta y errores detectados',
+      'Ajuste de reglas e interacciones según experiencia',
+      'Evaluación del nivel de adopción por parte del equipo'
     ],
-    deliverable: 'Reporte ejecutivo de impacto y ahorro',
+    deliverable: 'Informe de desempeño & Recomendaciones',
     iconName: 'TrendingUp'
   },
   {
     number: '04',
-    title: 'Operación & Escalamiento',
-    subtitle: 'Evolución y soporte continuo',
-    description: 'Extendemos la automatización a nuevas áreas de la empresa bajo esquemas de observabilidad en la nube de AWS y soporte SLA garantizado.',
+    title: 'Operación & Mejora Continua',
+    subtitle: 'Soporte y evolución progresiva',
+    description: 'Mantenemos la solución estable e incorporamos nuevas automatizaciones según las necesidades del negocio.',
     highlights: [
-      'Monitoreo continuo de salud y costo de APIs en AWS',
-      'Mantenimiento evolutivo de integraciones',
-      'Incorporación iterativa de nuevos procesos corporativos'
+      'Monitoreo del estado de las integraciones',
+      'Mantenimiento preventivo y actualizaciones',
+      'Extensión del modelo a nuevos procesos'
     ],
-    deliverable: 'SLA Activo & Operación 24/7',
+    deliverable: 'Acompañamiento continuo & Soporte',
     iconName: 'ShieldCheck'
   }
 ];
 
-export const OPERATION_VOLUMES: string[] = [
-  '<100 ops/mes',
-  '100 - 1.000 ops/mes',
-  '>1.000 ops/mes'
-];
+export const AUTOMATION_SUMMARY_BANNER = {
+  title: 'Automatización inteligente para tu operación',
+  paragraph: 'Corplex Solutions conecta tus herramientas actuales y automatiza tareas repetitivas con IA, reglas de negocio y supervisión humana cuando sea necesario.',
+  subparagraph: 'Diseñamos soluciones para atención al cliente, agendamiento, seguimiento comercial, gestión de solicitudes, reportes e integración de datos.',
+  workMethod: '¿Cómo trabajamos? Primero entendemos tu proceso. Después proponemos un piloto de alcance definido, medimos el resultado y te ayudamos a operar y mejorar la solución.',
+  expectation: '¿Qué puedes esperar? Menos digitación, mejor seguimiento, respuestas más ágiles y una operación más ordenada. El resultado depende de tus sistemas, datos, volumen y objetivos; por eso medimos cada caso de forma individual.',
+  ctaNote: 'Primera orientación sin costo. Te contactaremos en un máximo de un día hábil.'
+};
