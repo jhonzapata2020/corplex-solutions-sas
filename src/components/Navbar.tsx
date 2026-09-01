@@ -14,7 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['inicio', 'servicios', 'soluciones', 'enfoque-academico', 'arquitectura-cloud', 'metodologia', 'cumplimiento', 'contacto'];
+      const sections = ['inicio', 'ai-automation', 'servicios', 'soluciones', 'enfoque-academico', 'arquitectura-cloud', 'metodologia', 'cumplimiento', 'contacto'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -36,6 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
   const navLinks = [
     { href: '#inicio', label: 'Inicio', id: 'inicio' },
+    { href: '#ai-automation', label: 'AI Automation', id: 'ai-automation', badge: 'NUEVO' },
     { href: '#servicios', label: 'Servicios', id: 'servicios' },
     { href: '#soluciones', label: 'Soluciones', id: 'soluciones' },
     { href: '#enfoque-academico', label: 'Sector Educativo', id: 'enfoque-academico' },
@@ -47,6 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
   const topTabs = [
     { label: 'CORPLEX', color: 'border-t-4 border-[#ffd343]', active: true, href: '#inicio' },
+    { label: 'AI Automation ✨', color: 'border-t-4 border-amber-300', active: false, href: '#ai-automation' },
     { label: 'UNAD / ECBTI', color: 'border-t-4 border-emerald-400', active: false, href: '#enfoque-academico' },
     { label: 'Cloud AWS', color: 'border-t-4 border-sky-400', active: false, href: '#arquitectura-cloud' },
     { label: 'Agrotech & IA', color: 'border-t-4 border-amber-400', active: false, href: '#servicios' },
@@ -160,10 +162,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
                 activeSection === link.id
                   ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner border border-[#ffd343]/30'
-                  : 'text-slate-200 hover:text-white hover:bg-[#1b3852]/50'
+                  : link.id === 'ai-automation'
+                    ? 'text-[#ffd343] font-bold hover:bg-[#1b3852]/80 bg-[#142332]/50 border border-[#ffd343]/30'
+                    : 'text-slate-200 hover:text-white hover:bg-[#1b3852]/50'
               }`}
             >
               <span>{link.label}</span>
+              {link.badge && (
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-[#ffd343] text-[#111d28] shadow-sm animate-pulse">
+                  {link.badge}
+                </span>
+              )}
             </a>
           ))}
         </nav>
@@ -181,10 +190,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                 className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center justify-between ${
                   activeSection === link.id
                     ? 'bg-[#2b5b84] text-[#ffd343] font-bold'
-                    : 'text-slate-300 hover:bg-[#111d28]'
+                    : link.id === 'ai-automation'
+                      ? 'bg-[#142332] text-[#ffd343] font-bold border border-[#ffd343]/30'
+                      : 'text-slate-300 hover:bg-[#111d28]'
                 }`}
               >
-                <span>{link.label}</span>
+                <div className="flex items-center gap-2">
+                  <span>{link.label}</span>
+                  {link.badge && (
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-[#ffd343] text-[#111d28]">
+                      {link.badge}
+                    </span>
+                  )}
+                </div>
                 {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-[#ffd343]"></span>}
               </a>
             ))}

@@ -74,6 +74,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
               className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 text-xs focus:outline-none focus:border-[#ffd343] font-sans"
             >
               <option value="Desarrollo de Software & Web Apps">Desarrollo de Software & Web Apps</option>
+              <option value="Corplex AI Automation - Diagnóstico & Piloto">Corplex AI Automation - Diagnóstico & Piloto</option>
               <option value="Arquitectura Cloud AWS & DevOps">Arquitectura Cloud AWS & DevOps</option>
               <option value="Simuladores Educativos UNAD">Simuladores Educativos UNAD</option>
               <option value="Automatización e Inteligencia Artificial">Automatización e Inteligencia Artificial</option>

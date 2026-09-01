@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { AIAutomationSection } from './components/AIAutomationSection';
 import { AcademicCapabilities } from './components/AcademicCapabilities';
 import { ServicesGrid } from './components/ServicesGrid';
 import { CloudArchitecture } from './components/CloudArchitecture';
@@ -54,6 +55,9 @@ export function App() {
           <main>
             {/* Hero Section Python.org Style */}
             <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
+
+            {/* Flagship Commercial Unit: Corplex AI Automation */}
+            <AIAutomationSection onOpenQuoteModal={(title) => handleOpenQuoteModal(title)} />
 
             {/* Educational & UNAD Section */}
             <AcademicCapabilities />

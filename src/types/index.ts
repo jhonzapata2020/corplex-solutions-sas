@@ -75,3 +75,62 @@ export type ContactFormData = {
   requestType: string;
   message: string;
 };
+
+export type AutomationVertical = {
+  id: string;
+  title: string;
+  subtitle: string;
+  iconName: string;
+  badge: string;
+  description: string;
+  realProblem: string;
+  implementedSolution: string;
+  beforeAfterMetric: string;
+  features: string[];
+  metrics: string;
+  techStack: string[];
+};
+
+export type AutomationHowStep = {
+  step: number;
+  title: string;
+  description: string;
+  icon: string;
+  details: string[];
+};
+
+export type AutomationPackage = {
+  id: string;
+  title: string;
+  tagline: string;
+  badge?: string;
+  timeframe: string;
+  scope: string[];
+  deliverable: string;
+  recommendedFor: string;
+  isPopular?: boolean;
+  highlightColor: string;
+};
+
+export type AutomationPhase = {
+  number: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  highlights: string[];
+  deliverable: string;
+  iconName: string;
+};
+
+export type AutomationFormData = {
+  fullName: string;
+  company: string;
+  email: string;
+  sector: string;
+  bottleneck: string;
+  operationVolume: string;
+  selectedPackage?: string;
+};
+
+
+
