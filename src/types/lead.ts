@@ -117,3 +117,40 @@ export type LeadDashboardMetrics = {
   recentLeads: AutomationLeadEntity[];
   upcomingFollowUps: AutomationLeadEntity[];
 };
+
+/**
+ * Modelo de Notificación Interna (notifications)
+ */
+export type NotificationEntity = {
+  id: string;
+  automation_lead_id?: string | null;
+  user_id?: string | null;
+  target_role: string;
+  type: 'new_lead' | 'overdue_followup' | 'status_changed' | string;
+  title: string;
+  message: string;
+  channel: 'system' | 'email' | 'whatsapp' | string;
+  status: 'pending' | 'sent' | 'failed' | string;
+  is_read: boolean;
+  error_message?: string | null;
+  created_at: string;
+  sent_at?: string | null;
+  automation_leads?: AutomationLeadEntity | null;
+};
+
+/**
+ * Modelo de Tarea de Seguimiento Automático (follow_up_tasks)
+ */
+export type FollowUpTaskEntity = {
+  id: string;
+  automation_lead_id: string;
+  task_type: string;
+  assigned_to?: string | null;
+  title: string;
+  description?: string | null;
+  due_date: string;
+  status: 'pending' | 'in_progress' | 'completed' | 'overdue' | 'cancelled';
+  created_at: string;
+  completed_at?: string | null;
+  automation_leads?: AutomationLeadEntity | null;
+};

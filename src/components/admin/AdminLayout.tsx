@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { fetchNotifications } from '../../services/notificationService';
 import { Logo } from '../Logo';
 import {
   LayoutDashboard,
   Users,
+  Bell,
   FileText,
   Building2,
   FolderGit2,
@@ -20,9 +22,33 @@ import {
 
 export const AdminLayout: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    let isMounted = true;
+    const checkNotifications = async () => {
+      try {
+        const res = await fetchNotifications();
+        if (isMounted) setUnreadNotificationsCount(res.unreadCount);
+      } catch {
+        // Silencioso si aún no está creada la tabla
+      }
+    };
+    void checkNotifications();
+
+    // Consultar cada 30 segundos
+    const interval = setInterval(() => {
+      void checkNotifications();
+    }, 30000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [location.pathname]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -32,16 +58,18 @@ export const AdminLayout: React.FC = () => {
   const navItems = [
     { label: 'Resumen / Inicio', path: '/admin', icon: LayoutDashboard, exact: true },
     { label: 'Leads & Oportunidades', path: '/admin/leads', icon: Users },
-    { label: 'Cotizaciones', path: '/admin/quotes', icon: FileText, badge: 'Fase 2' },
-    { label: 'Clientes', path: '/admin/clients', icon: Building2, badge: 'Fase 3' },
-    { label: 'Proyectos', path: '/admin/projects', icon: FolderGit2, badge: 'Fase 3' },
-    { label: 'Soporte TI', path: '/admin/tickets', icon: LifeBuoy, badge: 'Fase 4' },
-    { label: 'Contenido Web', path: '/admin/cms', icon: Globe, badge: 'Fase 5' },
+    { label: 'Notificaciones & Tareas', path: '/admin/notifications', icon: Bell, badgeCount: unreadNotificationsCount },
+    { label: 'Cotizaciones', path: '/admin/quotes', icon: FileText, badge: 'Fase 3' },
+    { label: 'Clientes', path: '/admin/clients', icon: Building2, badge: 'Fase 4' },
+    { label: 'Proyectos', path: '/admin/projects', icon: FolderGit2, badge: 'Fase 4' },
+    { label: 'Soporte TI', path: '/admin/tickets', icon: LifeBuoy, badge: 'Fase 5' },
+    { label: 'Contenido Web', path: '/admin/cms', icon: Globe, badge: 'Fase 6' },
     { label: 'Configuración', path: '/admin/settings', icon: Settings }
   ];
 
   const getBreadcrumbTitle = () => {
     if (location.pathname === '/admin/leads') return 'Gestión de Leads';
+    if (location.pathname === '/admin/notifications') return 'Centro de Notificaciones & Tareas';
     if (location.pathname === '/admin/settings') return 'Configuración del Sistema';
     return 'Dashboard General';
   };
@@ -52,12 +80,27 @@ export const AdminLayout: React.FC = () => {
       {/* Mobile Top Navbar Header */}
       <div className="md:hidden bg-[#1b3852] border-b border-[#2b5b84] p-4 flex items-center justify-between sticky top-0 z-40 shadow-md">
         <Logo size="sm" showText={true} />
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="p-2 rounded-xl bg-[#142332] text-slate-300 hover:text-white border border-[#2b5b84]"
-        >
-          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigate('/admin/notifications')}
+            className="relative p-2 rounded-xl bg-[#142332] text-slate-300 border border-[#2b5b84]"
+          >
+            <Bell className="w-5 h-5 text-[#ffd343]" />
+            {unreadNotificationsCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-mono-tech font-extrabold flex items-center justify-center animate-pulse">
+                {unreadNotificationsCount}
+              </span>
+            )}
+          </button>
+
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 rounded-xl bg-[#142332] text-slate-300 hover:text-white border border-[#2b5b84]"
+          >
+            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Desktop & Mobile Sidebar Navigation */}
@@ -119,7 +162,14 @@ export const AdminLayout: React.FC = () => {
                     <Icon className="w-4 h-4" />
                     <span>{item.label}</span>
                   </div>
-                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                  
+                  {item.badgeCount !== undefined && item.badgeCount > 0 ? (
+                    <span className="px-2 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-mono-tech font-extrabold animate-pulse">
+                      {item.badgeCount}
+                    </span>
+                  ) : (
+                    <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                  )}
                 </NavLink>
               );
             })}
@@ -164,6 +214,20 @@ export const AdminLayout: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4 text-xs">
+            <button
+              onClick={() => navigate('/admin/notifications')}
+              className="relative p-2 rounded-xl bg-[#142332] hover:bg-[#2b5b84] text-slate-300 hover:text-white border border-[#2b5b84] transition-all cursor-pointer flex items-center gap-2"
+              title="Notificaciones en vivo"
+            >
+              <Bell className="w-4 h-4 text-[#ffd343]" />
+              <span className="font-bold">Alertas</span>
+              {unreadNotificationsCount > 0 && (
+                <span className="px-1.5 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-mono-tech font-extrabold animate-pulse">
+                  {unreadNotificationsCount}
+                </span>
+              )}
+            </button>
+
             <span className="px-3 py-1 rounded-full bg-[#142332] border border-[#2b5b84] text-slate-300 font-mono-tech">
               Servidor: <strong className="text-emerald-400 font-bold">Supabase PostgreSQL</strong>
             </span>
