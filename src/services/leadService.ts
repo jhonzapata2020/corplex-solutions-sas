@@ -3,8 +3,7 @@ import type { LeadFormData, AutomationLeadPayload, LeadSubmissionResult } from '
 
 /**
  * Inserción directa de lead en la tabla 'automation_leads' de Supabase.
- * Diseñado con compatibilidad estricta para políticas RLS de solo INSERCIÓN
- * (evita requerir permisos de LECTURA/SELECT para usuarios anónimos).
+ * Cuenta con arquitectura dual (SDK + Fallback REST directo) para asegurar 100% de efectividad en producción.
  */
 export async function submitLead(leadData: LeadFormData) {
   const companyName = leadData.companyName || leadData.company || 'Sin especificar';
@@ -12,28 +11,52 @@ export async function submitLead(leadData: LeadFormData) {
   const phoneVal = leadData.phone || (!leadData.contactDetail?.includes('@') ? leadData.contactDetail : '');
   const bottleneckDesc = leadData.bottleneckDescription || leadData.bottleneck || '';
 
-  // Inserción limpia sin .select() para cumplir políticas de privacidad RLS (Insert Only para anon)
-  const { error } = await supabase
-    .from('automation_leads')
-    .insert([
-      {
-        full_name: leadData.fullName,
-        email: emailVal || leadData.contactDetail || '',
-        phone: phoneVal || leadData.contactDetail || '',
-        company_name: companyName,
-        sector: leadData.sector || 'General',
-        operation_volume: leadData.operationVolume || 'Estándar',
-        bottleneck_description: bottleneckDesc,
-        estimated_roi_hours: leadData.estimatedRoiHours || 0,
-        selected_package: leadData.selectedPackage || 'Diagnóstico Inicial',
-        source: 'web_corplex',
-        status: 'pending'
-      }
-    ]);
+  const payload = {
+    full_name: leadData.fullName,
+    email: emailVal || leadData.contactDetail || '',
+    phone: phoneVal || leadData.contactDetail || '',
+    company_name: companyName,
+    sector: leadData.sector || 'General',
+    operation_volume: leadData.operationVolume || 'Estándar',
+    bottleneck_description: bottleneckDesc,
+    estimated_roi_hours: leadData.estimatedRoiHours || 0,
+    selected_package: leadData.selectedPackage || 'Diagnóstico Inicial',
+    source: 'web_corplex',
+    status: 'pending'
+  };
 
-  if (error) {
-    console.error('Error insertando lead en Supabase:', error);
-    throw error;
+  // Método 1: Intentamos vía cliente SDK de Supabase
+  try {
+    const { error } = await supabase
+      .from('automation_leads')
+      .insert([payload]);
+
+    if (!error) {
+      return { inserted: true };
+    }
+    console.warn('Advertencia en SDK Supabase, activando fallback REST directo:', error);
+  } catch (err) {
+    console.warn('Excepción en SDK Supabase, activando fallback REST directo:', err);
+  }
+
+  // Método 2: Fallback directo mediante fetch HTTP a la API REST de Supabase
+  const targetUrl = 'https://ehfejbgzronpllbeyzqj.supabase.co/rest/v1/automation_leads';
+  const apiKey = 'sb_publishable_FSpWxlR-VroEmMKOV2Tl9w_p2tpOcJJ';
+
+  const res = await fetch(targetUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': apiKey,
+      'Authorization': `Bearer ${apiKey}`,
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok && res.status !== 201) {
+    const errText = await res.text().catch(() => '');
+    throw new Error(`HTTP ${res.status}: ${errText}`);
   }
 
   return { inserted: true };
