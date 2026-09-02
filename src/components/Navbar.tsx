@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, MessageCircle, Menu, X, Heart, UserCheck } from 'lucide-react';
+import { Search, MessageCircle, Menu, X, Heart } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 import { Logo } from './Logo';
 
@@ -44,7 +44,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     { href: '#arquitectura-cloud', label: 'Arquitectura Cloud', id: 'arquitectura-cloud' },
     { href: '#metodologia', label: 'Metodología', id: 'metodologia' },
     { href: '#cumplimiento', label: 'Ficha Legal', id: 'cumplimiento' },
-    { href: '#contacto', label: 'Contacto', id: 'contacto' }
+    { href: '#contacto', label: 'Contacto', id: 'contacto' },
+    { href: '/admin/login', label: 'Acceso Admin 🔒', id: 'admin', isRouter: true }
   ];
 
   const topTabs = [
@@ -54,8 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     { label: 'Cloud AWS', color: 'border-t-4 border-sky-400', active: false, href: '#arquitectura-cloud' },
     { label: 'Agrotech & IA', color: 'border-t-4 border-amber-400', active: false, href: '#servicios' },
     { label: 'Ficha Legal', color: 'border-t-4 border-rose-400', active: false, href: '#cumplimiento' },
-    { label: 'Contacto', color: 'border-t-4 border-teal-400', active: false, href: '#contacto' },
-    { label: 'Acceso Admin 🔒', color: 'border-t-4 border-[#ffd343]', active: false, href: '/admin/login', isRouter: true },
+    { label: 'Contacto', color: 'border-t-4 border-teal-400', active: false, href: '#contacto' }
   ];
 
   return (
@@ -64,39 +64,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
       {/* 1. Top Utility Header Bar */}
       <div className="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-6 text-xs border-b border-[#2b5b84]/30">
         <div className="flex items-center font-mono-tech">
-          {topTabs.map((tab, idx) => 
-            tab.isRouter ? (
-              <Link
-                key={idx}
-                to={tab.href}
-                className="px-4 py-2.5 transition-colors flex items-center gap-1.5 border-t-4 border-[#ffd343] bg-[#142332] text-[#ffd343] font-bold hover:bg-[#1b3852]"
-              >
-                <span>{tab.label}</span>
-              </Link>
-            ) : (
-              <a
-                key={idx}
-                href={tab.href}
-                className={`px-4 py-2.5 transition-colors flex items-center gap-1.5 ${tab.color} ${
-                  tab.active
-                    ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner'
-                    : 'bg-[#111d28] text-slate-400 hover:text-white hover:bg-[#1b3852]/60'
-                }`}
-              >
-                <span>{tab.label}</span>
-              </a>
-            )
-          )}
+          {topTabs.map((tab, idx) => (
+            <a
+              key={idx}
+              href={tab.href}
+              className={`px-4 py-2.5 transition-colors flex items-center gap-1.5 ${tab.color} ${
+                tab.active
+                  ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner'
+                  : 'bg-[#111d28] text-slate-400 hover:text-white hover:bg-[#1b3852]/60'
+              }`}
+            >
+              <span>{tab.label}</span>
+            </a>
+          ))}
         </div>
 
         <div className="flex items-center gap-4 text-[11px] font-mono-tech text-slate-400">
-          <Link
-            to="/admin/login"
-            className="text-[#ffd343] font-bold hover:underline flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1b3852] border border-[#ffd343]/40"
-          >
-            <UserCheck className="w-3.5 h-3.5 text-[#ffd343]" />
-            <span>Iniciar sesión</span>
-          </Link>
           <span className="flex items-center gap-1 text-emerald-400 font-bold">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             NIT {LEGAL_INFO.nit}
@@ -116,15 +99,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
         {/* Action Controls & Search Box (Python.org style) */}
         <div className="flex flex-wrap items-center gap-3">
           
-          {/* Iniciar Sesión Admin Button */}
-          <Link
-            to="/admin/login"
-            className="px-3.5 py-1.5 rounded-md bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-extrabold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95 border border-[#ffd343]"
-          >
-            <UserCheck className="w-4 h-4 text-[#111d28]" />
-            <span>Iniciar sesión</span>
-          </Link>
-
           {/* Quote Button (Compact Python.org Donate Button Style) */}
           <button
             onClick={onOpenQuoteModal}
@@ -183,26 +157,36 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
       {/* 3. Main Navigation Tab Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3">
         <nav className="hidden md:flex items-center justify-around bg-python-nav-gradient rounded-xl px-2 py-1.5 border border-[#4b7da5]/40 text-xs font-medium shadow-lg">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={link.href}
-              className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
-                activeSection === link.id
-                  ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner border border-[#ffd343]/30'
-                  : link.id === 'ai-automation'
-                    ? 'text-[#ffd343] font-bold hover:bg-[#1b3852]/80 bg-[#142332]/50 border border-[#ffd343]/30'
-                    : 'text-slate-200 hover:text-white hover:bg-[#1b3852]/50'
-              }`}
-            >
-              <span>{link.label}</span>
-              {link.badge && (
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-[#ffd343] text-[#111d28] shadow-sm animate-pulse">
-                  {link.badge}
-                </span>
-              )}
-            </a>
-          ))}
+          {navLinks.map((link) => 
+            link.isRouter ? (
+              <Link
+                key={link.id}
+                to={link.href}
+                className="px-3.5 py-1.5 rounded-lg text-slate-200 hover:text-[#ffd343] hover:bg-[#1b3852]/50 transition-all flex items-center gap-1.5 font-medium"
+              >
+                <span>{link.label}</span>
+              </Link>
+            ) : (
+              <a
+                key={link.id}
+                href={link.href}
+                className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                  activeSection === link.id
+                    ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner border border-[#ffd343]/30'
+                    : link.id === 'ai-automation'
+                      ? 'text-[#ffd343] font-bold hover:bg-[#1b3852]/80 bg-[#142332]/50 border border-[#ffd343]/30'
+                      : 'text-slate-200 hover:text-white hover:bg-[#1b3852]/50'
+                }`}
+              >
+                <span>{link.label}</span>
+                {link.badge && (
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-[#ffd343] text-[#111d28] shadow-sm animate-pulse">
+                    {link.badge}
+                  </span>
+                )}
+              </a>
+            )
+          )}
         </nav>
       </div>
 
@@ -210,40 +194,43 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#1b3852] border-t border-[#2b5b84] p-4 font-tech">
           <div className="flex flex-col space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center justify-between ${
-                  activeSection === link.id
-                    ? 'bg-[#2b5b84] text-[#ffd343] font-bold'
-                    : link.id === 'ai-automation'
-                      ? 'bg-[#142332] text-[#ffd343] font-bold border border-[#ffd343]/30'
-                      : 'text-slate-300 hover:bg-[#111d28]'
-                }`}
-              >
-                <div className="flex items-center gap-2">
+            {navLinks.map((link) => 
+              link.isRouter ? (
+                <Link
+                  key={link.id}
+                  to={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#111d28] flex items-center justify-between"
+                >
                   <span>{link.label}</span>
-                  {link.badge && (
-                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-[#ffd343] text-[#111d28]">
-                      {link.badge}
-                    </span>
-                  )}
-                </div>
-                {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-[#ffd343]"></span>}
-              </a>
-            ))}
+                </Link>
+              ) : (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center justify-between ${
+                    activeSection === link.id
+                      ? 'bg-[#2b5b84] text-[#ffd343] font-bold'
+                      : link.id === 'ai-automation'
+                        ? 'bg-[#142332] text-[#ffd343] font-bold border border-[#ffd343]/30'
+                        : 'text-slate-300 hover:bg-[#111d28]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-[#ffd343] text-[#111d28]">
+                        {link.badge}
+                      </span>
+                    )}
+                  </div>
+                  {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-[#ffd343]"></span>}
+                </a>
+              )
+            )}
 
-            <div className="pt-3 border-t border-[#2b5b84] flex flex-col gap-2">
-              <Link
-                to="/admin/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 rounded-md bg-[#142332] text-[#ffd343] font-bold text-xs text-center border border-[#2b5b84] flex items-center justify-center gap-2"
-              >
-                <UserCheck className="w-4 h-4" />
-                <span>Iniciar sesión (Admin)</span>
-              </Link>
+            <div className="pt-3 border-t border-[#2b5b84]">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
