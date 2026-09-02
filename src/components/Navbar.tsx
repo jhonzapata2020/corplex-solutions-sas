@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MessageCircle, Menu, X, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Search, MessageCircle, Menu, X, Heart, UserCheck } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 import { Logo } from './Logo';
 
@@ -97,6 +98,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
         {/* Action Controls & Search Box (Python.org style) */}
         <div className="flex flex-wrap items-center gap-3">
           
+          {/* Iniciar Sesión Admin Button */}
+          <Link
+            to="/admin/login"
+            className="px-3.5 py-1.5 rounded-md bg-[#1b3852] hover:bg-[#2b5b84] text-slate-200 hover:text-white border border-[#2b5b84] font-bold text-xs shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <UserCheck className="w-3.5 h-3.5 text-[#ffd343]" />
+            <span>Iniciar sesión</span>
+          </Link>
+
           {/* Quote Button (Compact Python.org Donate Button Style) */}
           <button
             onClick={onOpenQuoteModal}
@@ -208,6 +218,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             ))}
 
             <div className="pt-3 border-t border-[#2b5b84] flex flex-col gap-2">
+              <Link
+                to="/admin/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 rounded-md bg-[#142332] text-[#ffd343] font-bold text-xs text-center border border-[#2b5b84] flex items-center justify-center gap-2"
+              >
+                <UserCheck className="w-4 h-4" />
+                <span>Iniciar sesión (Admin)</span>
+              </Link>
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
