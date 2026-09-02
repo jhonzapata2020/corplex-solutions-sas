@@ -119,9 +119,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           {/* Iniciar Sesión Admin Button */}
           <Link
             to="/admin/login"
-            className="px-3.5 py-1.5 rounded-md bg-[#142332] hover:bg-[#1b3852] text-[#ffd343] hover:text-white border border-[#ffd343]/60 font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105"
+            className="px-3.5 py-1.5 rounded-md bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-extrabold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95 border border-[#ffd343]"
           >
-            <UserCheck className="w-4 h-4 text-[#ffd343]" />
+            <UserCheck className="w-4 h-4 text-[#111d28]" />
             <span>Iniciar sesión</span>
           </Link>
 

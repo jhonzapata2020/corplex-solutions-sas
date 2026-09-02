@@ -70,6 +70,11 @@ export const Footer: React.FC = () => {
                   <ChevronRight className="w-3 h-3 text-slate-500 stroke-[1.75]" /> Credencial Legal
                 </a>
               </li>
+              <li className="pt-2 border-t border-[#2b5b84]/50">
+                <a href="/admin/login" className="text-[#ffd343] hover:underline font-bold flex items-center gap-1.5 font-mono-tech">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#ffd343]" /> Acceso Administrativo CRM 🔒
+                </a>
+              </li>
             </ul>
           </div>
 
