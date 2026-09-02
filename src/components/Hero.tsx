@@ -11,38 +11,38 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
   const slideTopics = [
     {
       id: 1,
+      title: "Corplex AI Automation · Automatización con IA",
+      description: "Diseñamos e implementamos soluciones de automatización con IA para reducir tareas repetitivas, conectar las herramientas que ya utilizas y mejorar la velocidad de respuesta de tu equipo sin cambiar tu software.",
+      linkText: "Ir a Corplex AI Automation",
+      href: "#ai-automation"
+    },
+    {
+      id: 2,
       title: "Desarrollo de Software a la Medida",
       description: "La base de la innovación corporativa es el software limpio y modular. Diseñamos plataformas web en React, TypeScript y backend robusto en Python y Node.js.",
       linkText: "Más sobre Software & Web Apps",
       href: "#servicios"
     },
     {
-      id: 2,
+      id: 3,
       title: "Infraestructura AWS & Auto-Scaling",
-      description: "Despliegues elásticos en Amazon Web Services (EC2 Auto Scaling, RDS PostgreSQL cifrado y ALB) preparados para soportar picos masivos de tráfico con 99.9% uptime.",
+      description: "Despliegues elásticos en Amazon Web Services (EC2 Auto Scaling, RDS PostgreSQL cifrado y ALB) preparados para soportar picos masivos de tráfico con observabilidad 24/7.",
       linkText: "Más sobre Arquitectura Cloud AWS",
       href: "#arquitectura-cloud"
     },
     {
-      id: 3,
+      id: 4,
       title: "Agrotech & IA para Agricultura de Precisión",
       description: "Software con telemetría IoT y modelos predictivos de IA para monitoreo de cultivos (plátano, café, cítricos), sensores de humedad de suelo y prevención climática.",
       linkText: "Más sobre Agrotech & IA",
       href: "#servicios"
     },
     {
-      id: 4,
+      id: 5,
       title: "Simuladores Interactivos & UNAD",
       description: "Laboratorios virtuales gráficos y simuladores web docentes integrables vía LTI para la Escuela de Ciencias Básicas, Tecnología e Ingeniería (ECBTI - UNAD).",
       linkText: "Más sobre Sector Educativo",
       href: "#enfoque-academico"
-    },
-    {
-      id: 5,
-      title: "Respaldo Legal & Credencial Corporativa",
-      description: "Empresa legalmente constituida con Matrícula Mercantil No. 128676 en la Cámara de Comercio de Urabá y clasificación CIIU J6201 / J6202.",
-      linkText: "Ver Ficha Legal & NIT 902061373-5",
-      href: "#cumplimiento"
     }
   ];
 
@@ -68,31 +68,28 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                     <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
-                    <span className="ml-2 font-bold text-slate-300">corplex_core.py — Python 3.12</span>
+                    <span className="ml-2 font-bold text-slate-300">corplex_ai_core.py — Python 3.12</span>
                   </div>
-                  <span className="text-[#ffd343] font-bold">AWS Cluster :: ONLINE</span>
+                  <span className="text-[#ffd343] font-bold">AI AGENT ENGINE :: ACTIVE</span>
                 </div>
 
                 {/* Interactive Code Snippet */}
                 <div className="space-y-1.5 text-xs sm:text-sm">
-                  <p className="text-slate-500"># CORPLEX SOLUTIONS S.A.S. - Mission Critical Architecture</p>
+                  <p className="text-slate-500"># CORPLEX SOLUTIONS S.A.S. - Mission Critical AI & Cloud Engine</p>
                   <p className="text-emerald-400 font-bold">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>from corplex.cloud import AWSInfrastructure, AgrotechAI
+                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>from corplex.ai import AIAutomationEngine, AWSCloud
                   </p>
                   <p className="text-emerald-400 font-bold">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>app = AWSInfrastructure(region="sa-east-1", auto_scaling=True)
+                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agent = AIAutomationEngine(workflow="Omnichannel Ingestion", llm="GPT-4o RAG")
                   </p>
                   <p className="text-[#38bdf8]">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>app.deploy_cluster(nodes=5, db="RDS PostgreSQL KMS")
+                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agent.connect_systems(crm="Active", erp="Synced", whatsapp="Connected 24/7")
                   </p>
                   <p className="text-slate-300">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agrotech = AgrotechAI(crop="Plátano Urabá", sensors="IoT Soil Moisture")
-                  </p>
-                  <p className="text-slate-300">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agrotech.predict_irrigation()
+                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agent.run_automation(status="Automated without manual typing")
                   </p>
                   <p className="text-[#ffd343] font-bold pt-1">
-                    'Status: Optimal • 99.9% Uptime Active • Latency &lt; 20ms'
+                    'Status: Active • Workflows Monitored • Systems Synchronized'
                   </p>
                 </div>
               </div>
@@ -103,12 +100,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   Execution output verified
                 </span>
-                <button
-                  onClick={onOpenQuoteModal}
+                <a
+                  href="#ai-automation"
                   className="text-[#ffd343] hover:underline font-bold cursor-pointer"
                 >
-                  Ejecutar Proyecto →
-                </button>
+                  Ver Diagnóstico IA →
+                </a>
               </div>
 
             </div>
