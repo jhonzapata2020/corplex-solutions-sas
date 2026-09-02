@@ -61,6 +61,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [submissionResult, setSubmissionResult] = useState<LeadSubmissionResult | null>(null);
+  const [honeypot, setHoneypot] = useState('');
 
   const activeVertical = AUTOMATION_VERTICALS.find(v => v.id === activeVerticalId) || AUTOMATION_VERTICALS[0];
   const activeHowStep = AUTOMATION_HOW_IT_WORKS[activeHowStepIndex];
@@ -122,6 +123,13 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
   const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
+
+    // Protección Anti-Spam: Si el campo honeypot fue llenado por un bot
+    if (honeypot.trim().length > 0) {
+      setIsSubmitted(true);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -754,6 +762,18 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
           ) : (
             <form onSubmit={handleSubmitForm} className="max-w-3xl mx-auto space-y-5">
               
+              {/* Campo Honeypot Oculto (Anti-Spam / Bots) */}
+              <div className="hidden" aria-hidden="true" style={{ display: 'none' }}>
+                <input
+                  type="text"
+                  name="website_url"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+              </div>
+
               {/* Preservación de datos ante error */}
               {formError && (
                 <div

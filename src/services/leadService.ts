@@ -2,7 +2,9 @@ import { supabase } from '../lib/supabase';
 import type { LeadFormData, AutomationLeadPayload, LeadSubmissionResult } from '../types/lead';
 
 /**
- * Inserción directa de lead en la tabla 'automation_leads' de Supabase
+ * Inserción directa de lead en la tabla 'automation_leads' de Supabase.
+ * Diseñado con compatibilidad estricta para políticas RLS de solo INSERCIÓN
+ * (evita requerir permisos de LECTURA/SELECT para usuarios anónimos).
  */
 export async function submitLead(leadData: LeadFormData) {
   const companyName = leadData.companyName || leadData.company || 'Sin especificar';
@@ -10,7 +12,8 @@ export async function submitLead(leadData: LeadFormData) {
   const phoneVal = leadData.phone || (!leadData.contactDetail?.includes('@') ? leadData.contactDetail : '');
   const bottleneckDesc = leadData.bottleneckDescription || leadData.bottleneck || '';
 
-  const { data, error } = await supabase
+  // Inserción limpia sin .select() para cumplir políticas de privacidad RLS (Insert Only para anon)
+  const { error } = await supabase
     .from('automation_leads')
     .insert([
       {
@@ -26,16 +29,14 @@ export async function submitLead(leadData: LeadFormData) {
         source: 'web_corplex',
         status: 'pending'
       }
-    ])
-    .select()
-    .single();
+    ]);
 
   if (error) {
     console.error('Error insertando lead en Supabase:', error);
     throw error;
   }
 
-  return data;
+  return { inserted: true };
 }
 
 /**
@@ -50,6 +51,7 @@ export async function submitAutomationLead(
     const contactTrimmed = payload.contactDetail?.trim() || payload.email?.trim() || payload.phone?.trim() || '';
     const bottleneckTrimmed = payload.bottleneck?.trim() || payload.bottleneckDescription?.trim() || '';
 
+    // Sanitización y validaciones preliminares cliente
     if (!nameTrimmed || !companyTrimmed || !contactTrimmed || !bottleneckTrimmed) {
       return {
         success: false,
@@ -58,7 +60,15 @@ export async function submitAutomationLead(
       };
     }
 
-    const insertedData = await submitLead({
+    if (bottleneckTrimmed.length < 5) {
+      return {
+        success: false,
+        message: 'Por favor describe con un poco más de detalle el proceso a mejorar (mínimo 5 caracteres).',
+        errorDetails: 'Descripción demasiado corta'
+      };
+    }
+
+    await submitLead({
       fullName: nameTrimmed,
       companyName: companyTrimmed,
       company: companyTrimmed,
@@ -73,22 +83,21 @@ export async function submitAutomationLead(
       estimatedRoiHours: payload.estimatedRoiHours
     });
 
-    const leadId = insertedData?.id ? String(insertedData.id) : `LEAD-${Date.now().toString().slice(-6)}`;
+    const leadId = `LEAD-${Date.now().toString().slice(-6)}`;
 
     return {
       success: true,
       leadId,
-      message: '¡Recibimos tu solicitud exitosamente! Tu información fue registrada en el sistema de Corplex Solutions.',
+      message: '¡Solicitud registrada con éxito! Tu información fue guardada en nuestra base de datos.',
       timestamp: new Date().toISOString(),
-      isDemonstrationMode: false,
-      data: insertedData
+      isDemonstrationMode: false
     };
 
   } catch (error) {
     console.error('Fallo en registro de lead en Supabase:', error);
     return {
       success: false,
-      message: 'Ocurrió un error al registrar la solicitud en la base de datos. Puedes continuar enviando tus datos directamente por WhatsApp.',
+      message: 'No se pudo completar el registro automático en la base de datos. Sin embargo, puedes continuar enviando tus datos por WhatsApp.',
       errorDetails: error instanceof Error ? error.message : 'Error en Supabase'
     };
   }
