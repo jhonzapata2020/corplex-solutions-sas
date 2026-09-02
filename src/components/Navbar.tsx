@@ -55,6 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     { label: 'Agrotech & IA', color: 'border-t-4 border-amber-400', active: false, href: '#servicios' },
     { label: 'Ficha Legal', color: 'border-t-4 border-rose-400', active: false, href: '#cumplimiento' },
     { label: 'Contacto', color: 'border-t-4 border-teal-400', active: false, href: '#contacto' },
+    { label: 'Acceso Admin 🔒', color: 'border-t-4 border-[#ffd343]', active: false, href: '/admin/login', isRouter: true },
   ];
 
   return (
@@ -63,22 +64,39 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
       {/* 1. Top Utility Header Bar */}
       <div className="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-6 text-xs border-b border-[#2b5b84]/30">
         <div className="flex items-center font-mono-tech">
-          {topTabs.map((tab, idx) => (
-            <a
-              key={idx}
-              href={tab.href}
-              className={`px-4 py-2.5 transition-colors flex items-center gap-1.5 ${tab.color} ${
-                tab.active
-                  ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner'
-                  : 'bg-[#111d28] text-slate-400 hover:text-white hover:bg-[#1b3852]/60'
-              }`}
-            >
-              <span>{tab.label}</span>
-            </a>
-          ))}
+          {topTabs.map((tab, idx) => 
+            tab.isRouter ? (
+              <Link
+                key={idx}
+                to={tab.href}
+                className="px-4 py-2.5 transition-colors flex items-center gap-1.5 border-t-4 border-[#ffd343] bg-[#142332] text-[#ffd343] font-bold hover:bg-[#1b3852]"
+              >
+                <span>{tab.label}</span>
+              </Link>
+            ) : (
+              <a
+                key={idx}
+                href={tab.href}
+                className={`px-4 py-2.5 transition-colors flex items-center gap-1.5 ${tab.color} ${
+                  tab.active
+                    ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner'
+                    : 'bg-[#111d28] text-slate-400 hover:text-white hover:bg-[#1b3852]/60'
+                }`}
+              >
+                <span>{tab.label}</span>
+              </a>
+            )
+          )}
         </div>
 
         <div className="flex items-center gap-4 text-[11px] font-mono-tech text-slate-400">
+          <Link
+            to="/admin/login"
+            className="text-[#ffd343] font-bold hover:underline flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1b3852] border border-[#ffd343]/40"
+          >
+            <UserCheck className="w-3.5 h-3.5 text-[#ffd343]" />
+            <span>Iniciar sesión</span>
+          </Link>
           <span className="flex items-center gap-1 text-emerald-400 font-bold">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             NIT {LEGAL_INFO.nit}
@@ -101,9 +119,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           {/* Iniciar Sesión Admin Button */}
           <Link
             to="/admin/login"
-            className="px-3.5 py-1.5 rounded-md bg-[#1b3852] hover:bg-[#2b5b84] text-slate-200 hover:text-white border border-[#2b5b84] font-bold text-xs shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-3.5 py-1.5 rounded-md bg-[#142332] hover:bg-[#1b3852] text-[#ffd343] hover:text-white border border-[#ffd343]/60 font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105"
           >
-            <UserCheck className="w-3.5 h-3.5 text-[#ffd343]" />
+            <UserCheck className="w-4 h-4 text-[#ffd343]" />
             <span>Iniciar sesión</span>
           </Link>
 
