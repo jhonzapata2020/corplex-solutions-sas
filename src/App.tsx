@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AIAutomationSection } from './components/AIAutomationSection';
@@ -12,7 +13,14 @@ import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
 import { ScrollToTop } from './components/ScrollToTop';
 
-export function App() {
+// Admin CRM Module Imports
+import { ProtectedRoute } from './components/admin/ProtectedRoute';
+import { AdminLogin } from './components/admin/AdminLogin';
+import { AdminLayout } from './components/admin/AdminLayout';
+import { AdminDashboard } from './components/admin/AdminDashboard';
+import { AdminLeads } from './components/admin/AdminLeads';
+
+function PublicSite() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [selectedServiceTitle, setSelectedServiceTitle] = useState<string | undefined>(undefined);
 
@@ -28,15 +36,14 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-[#ffd343] selection:text-black font-sans antialiased">
-      
       {/* Main Platform (Direct Load) */}
       <div className="animate-in fade-in duration-700">
-        {/* Python.org Style Header & Navigation */}
+        {/* Header & Navigation */}
         <Navbar onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
         {/* Main Content Sections */}
         <main>
-          {/* Hero Section Python.org Style */}
+          {/* Hero Section */}
           <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
           {/* Flagship Commercial Unit: Corplex AI Automation */}
@@ -45,7 +52,7 @@ export function App() {
           {/* Educational & UNAD Section */}
           <AcademicCapabilities />
 
-          {/* Services & Solutions Catalog Bento Grid */}
+          {/* Services Catalog Bento Grid */}
           <ServicesGrid onSelectServiceForQuote={(title) => handleOpenQuoteModal(title)} />
 
           {/* AWS Cloud Architecture Visualizer */}
@@ -54,14 +61,14 @@ export function App() {
           {/* Engineering Methodology Timeline */}
           <Methodology />
 
-          {/* Legal Transparency & Compliance Datasheet */}
+          {/* Legal Transparency Datasheet */}
           <LegalCompliance />
 
-          {/* Contact Form & Direct Channels (Python PSF Banner Style) */}
+          {/* Contact Form */}
           <ContactSection />
         </main>
 
-        {/* Footer Python.org Style */}
+        {/* Footer */}
         <Footer />
 
         {/* Floating Scroll-To-Top Button */}
@@ -75,8 +82,36 @@ export function App() {
         onClose={handleCloseQuoteModal}
         preSelectedService={selectedServiceTitle}
       />
-
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <Routes>
+      {/* Ruta Pública Principal (Sitio Institucional) */}
+      <Route path="/" element={<PublicSite />} />
+
+      {/* Acceso Administrativo (Login) */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+
+      {/* Rutas Administrativas Protegidas */}
+      <Route
+        path="/admin/*"
+        element={
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<AdminDashboard />} />
+        <Route path="leads" element={<AdminLeads />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
+      </Route>
+
+      {/* Fallback a la web pública */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
