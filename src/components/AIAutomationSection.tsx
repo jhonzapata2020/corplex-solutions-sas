@@ -9,9 +9,6 @@ import {
   GraduationCap,
   Sprout,
   ShieldCheck,
-  TrendingUp,
-  SearchCheck,
-  Rocket,
   MessageSquare,
   Send,
   Database,
@@ -32,7 +29,6 @@ import {
 import {
   AUTOMATION_VERTICALS,
   AUTOMATION_PACKAGES,
-  AUTOMATION_PHASES,
   AUTOMATION_HOW_IT_WORKS,
   AUTOMATION_TRUST_PROMISES,
   AUTOMATION_SUMMARY_BANNER
@@ -143,11 +139,12 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
       if (result.success) {
         setSubmissionResult(result);
         setIsSubmitted(true);
+        handleSendWhatsApp();
       } else {
         // Preservamos los datos ingresados en formData para que el usuario no pierda información
         setFormError(result.message || 'No pudimos enviar la solicitud. Por favor verifica tus datos.');
       }
-    } catch (err) {
+    } catch {
       setIsSubmitting(false);
       // Preservamos los datos ingresados
       setFormError('Ocurrió un error inesperado al procesar la solicitud. Por favor intenta de nuevo.');

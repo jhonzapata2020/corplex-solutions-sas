@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowRight, ShieldCheck, Cpu, Sparkles, Bot, Zap, Activity } from 'lucide-react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { ArrowRight, ShieldCheck, Cpu, Sparkles, Bot, Activity } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 
 interface SplashIntroProps {
@@ -10,8 +10,17 @@ interface SplashIntroProps {
 export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => {
   const [isExiting, setIsExiting] = useState(false);
 
+  const handleStart = useCallback(() => {
+    if (isExiting) return;
+    setIsExiting(true);
+    setTimeout(() => {
+      onEnter();
+      setIsExiting(false);
+    }, 700);
+  }, [isExiting, onEnter]);
+
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (_e: KeyboardEvent) => {
       if (isOpen && !isExiting) {
         handleStart();
       }
@@ -19,18 +28,9 @@ export const SplashIntro: React.FC<SplashIntroProps> = ({ isOpen, onEnter }) => 
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, isExiting]);
+  }, [isOpen, isExiting, handleStart]);
 
   if (!isOpen && !isExiting) return null;
-
-  const handleStart = () => {
-    if (isExiting) return;
-    setIsExiting(true);
-    setTimeout(() => {
-      onEnter();
-      setIsExiting(false);
-    }, 700);
-  };
 
   return (
     <div

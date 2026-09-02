@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, CheckCircle2, Calculator, Send } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 
@@ -9,16 +9,10 @@ interface QuoteModalProps {
 }
 
 export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSelectedService }) => {
-  const [projectType, setProjectType] = useState<string>('Desarrollo Web & Apps');
+  const [projectType, setProjectType] = useState<string>(preSelectedService || 'Desarrollo Web & Apps');
   const [scope, setScope] = useState<string>('Intermedio (Escalable)');
   const [selectedAddons, setSelectedAddons] = useState<string[]>(['Despliegue Cloud AWS', 'API REST & Base de Datos']);
   const [clientInfo, setClientInfo] = useState({ name: '', email: '', org: '' });
-
-  useEffect(() => {
-    if (preSelectedService) {
-      setProjectType(preSelectedService);
-    }
-  }, [preSelectedService]);
 
   if (!isOpen) return null;
 

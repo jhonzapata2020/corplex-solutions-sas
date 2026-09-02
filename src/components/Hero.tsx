@@ -5,7 +5,7 @@ interface HeroProps {
   onOpenQuoteModal: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal }) => {
   const [activeSlide, setActiveSlide] = useState<number>(1);
 
   const slideTopics = [

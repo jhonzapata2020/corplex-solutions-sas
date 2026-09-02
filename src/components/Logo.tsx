@@ -11,7 +11,7 @@ export const Logo: React.FC<LogoProps> = ({
   className = '',
   showText = true,
   size = 'md',
-  variant = 'hybrid'
+  variant: _variant = 'hybrid'
 }) => {
   const sizeMap = {
     sm: { img: 'h-7 w-7', text: 'text-sm', sub: 'text-[8px]' },

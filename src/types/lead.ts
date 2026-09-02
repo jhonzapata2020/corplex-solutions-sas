@@ -2,16 +2,29 @@
  * Contrato de Tipos para la Gestión de Leads de Corplex AI Automation
  */
 
+export type LeadFormData = {
+  fullName: string;
+  email?: string;
+  phone?: string;
+  contactDetail?: string;
+  companyName?: string;
+  company?: string;
+  sector?: string;
+  operationVolume?: string;
+  bottleneckDescription?: string;
+  bottleneck?: string;
+  estimatedRoiHours?: number | string;
+  selectedPackage?: string;
+};
+
 /**
  * Payload enviado desde el formulario de primer contacto
  */
-export type AutomationLeadPayload = {
+export type AutomationLeadPayload = LeadFormData & {
   fullName: string;
-  company: string;
-  contactDetail: string;
-  bottleneck: string;
-  sector?: string;
-  selectedPackage?: string;
+  company?: string;
+  contactDetail?: string;
+  bottleneck?: string;
 };
 
 /**
@@ -24,34 +37,34 @@ export type LeadSubmissionResult = {
   timestamp?: string;
   isDemonstrationMode?: boolean;
   errorDetails?: string;
+  data?: unknown;
 };
 
 /**
- * Estados del ciclo de vida comercial de un lead (para backend futuro)
+ * Estados del ciclo de vida comercial de un lead
  */
 export type AutomationLeadStatus = 
-  | 'NEW'          // Recibido y pendiente de revisión
-  | 'QUALIFIED'    // Calificado por equipo comercial
-  | 'CONTACTED'    // Sesión de diagnóstico coordinada
-  | 'IN_PROGRESS'  // Cotización / Piloto en evaluación
-  | 'CONVERTED'    // Proyecto contratado
-  | 'ARCHIVED';    // No calificado o descartado
+  | 'NEW'
+  | 'QUALIFIED'
+  | 'CONTACTED'
+  | 'IN_PROGRESS'
+  | 'CONVERTED'
+  | 'ARCHIVED';
 
 /**
- * Esquema de entidad para la futura tabla 'automation_leads' en PostgreSQL/Supabase
+ * Esquema de entidad para la tabla 'automation_leads' en Supabase
  */
 export type AutomationLeadEntity = {
   id: string;
-  fullName: string;
-  company: string;
-  contactDetail: string;
-  sector: string;
-  bottleneck: string;
-  source: 'WEB_FORM' | 'WHATSAPP_DIRECT' | 'MANUAL_ENTRY';
-  status: AutomationLeadStatus;
-  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
-  createdAt: string;
-  updatedAt: string;
-  assignedTo?: string;
-  notes?: string;
+  full_name: string;
+  company_name?: string;
+  company?: string;
+  contact_detail?: string;
+  email?: string;
+  phone?: string;
+  sector?: string;
+  bottleneck_description?: string;
+  source: string;
+  status: string;
+  created_at?: string;
 };

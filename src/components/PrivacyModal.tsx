@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, ShieldCheck, Lock, Mail, FileText } from 'lucide-react';
+import { X, Lock, FileText } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 
 interface PrivacyModalProps {

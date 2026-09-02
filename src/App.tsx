@@ -10,7 +10,6 @@ import { LegalCompliance } from './components/LegalCompliance';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
-import { SplashIntro } from './components/SplashIntro';
 import { ScrollToTop } from './components/ScrollToTop';
 
 export function App() {
@@ -71,6 +70,7 @@ export function App() {
 
       {/* Interactive Quote Modal */}
       <QuoteModal
+        key={selectedServiceTitle || 'default-quote-modal'}
         isOpen={isQuoteModalOpen}
         onClose={handleCloseQuoteModal}
         preSelectedService={selectedServiceTitle}
