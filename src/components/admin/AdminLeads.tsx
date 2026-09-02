@@ -207,10 +207,12 @@ export const AdminLeads: React.FC = () => {
             </button>
           </div>
         ) : leads.length === 0 ? (
-          <div className="py-16 text-center text-slate-400 text-xs space-y-2">
-            <Users className="w-10 h-10 text-slate-500 mx-auto mb-2" />
-            <p className="font-bold text-white text-sm">No se encontraron leads</p>
-            <p>Prueba ajustando los filtros de búsqueda o sector.</p>
+          <div className="py-16 text-center text-slate-300 text-xs space-y-3 p-6 max-w-lg mx-auto">
+            <Users className="w-10 h-10 text-[#ffd343] mx-auto mb-2" />
+            <p className="font-bold text-white text-base">No hay leads visibles</p>
+            <p className="text-slate-400 leading-relaxed">
+              Si tu tabla <code className="text-white font-mono-tech">public.automation_leads</code> ya tiene datos pero no aparecen aquí, ejecuta el script <code className="text-[#ffd343] font-mono-tech">docs/supabase-admin-crm-migration.sql</code> en el SQL Editor de tu panel de Supabase para habilitar las políticas de lectura RLS para el rol <code className="text-emerald-400 font-mono-tech">authenticated</code>.
+            </p>
           </div>
         ) : (
           <div className="overflow-x-auto">

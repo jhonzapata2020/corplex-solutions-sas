@@ -248,8 +248,11 @@ export const AdminDashboard: React.FC = () => {
           </div>
 
           {metrics.recentLeads.length === 0 ? (
-            <div className="py-8 text-center text-xs text-slate-400">
-              No hay solicitudes registradas aún en la base de datos.
+            <div className="py-8 text-center text-xs text-slate-300 space-y-3 bg-[#142332] p-6 rounded-2xl border border-[#2b5b84]">
+              <div className="font-bold text-[#ffd343] text-sm">No se encontraron leads visibles</div>
+              <p className="max-w-md mx-auto leading-relaxed text-slate-400">
+                Si tu tabla <code className="text-white font-mono-tech">public.automation_leads</code> ya contiene solicitudes pero el panel indica 0, ejecuta el script de migración SQL <code className="text-[#ffd343] font-mono-tech">docs/supabase-admin-crm-migration.sql</code> en el SQL Editor de Supabase para otorgar permisos RLS de lectura a tu usuario autenticado.
+              </p>
             </div>
           ) : (
             <div className="space-y-3">
