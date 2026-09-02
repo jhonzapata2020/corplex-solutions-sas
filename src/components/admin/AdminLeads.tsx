@@ -13,7 +13,9 @@ import {
   Eye,
   Building2,
   Calendar,
-  AlertCircle
+  AlertCircle,
+  AlertTriangle,
+  X
 } from 'lucide-react';
 
 export const AdminLeads: React.FC = () => {
@@ -25,6 +27,8 @@ export const AdminLeads: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [sectorFilter, setSectorFilter] = useState('ALL');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [sortBy, setSortBy] = useState<'created_at' | 'next_follow_up_at' | 'estimated_value'>('created_at');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -41,6 +45,8 @@ export const AdminLeads: React.FC = () => {
         searchTerm,
         statusFilter,
         sectorFilter,
+        startDate,
+        endDate,
         sortBy,
         sortAscending: false,
         page,
@@ -51,11 +57,12 @@ export const AdminLeads: React.FC = () => {
       setTotalPages(res.totalPages || 1);
     } catch (err) {
       console.error('Error cargando leads:', err);
-      setError('No se pudieron consultar los leads desde Supabase.');
+      const msg = err instanceof Error ? err.message : 'No se pudieron consultar los leads desde Supabase.';
+      setError(msg);
     } finally {
       setLoading(false);
     }
-  }, [searchTerm, statusFilter, sectorFilter, sortBy, page]);
+  }, [searchTerm, statusFilter, sectorFilter, startDate, endDate, sortBy, page]);
 
   useEffect(() => {
     let isMounted = true;
@@ -67,6 +74,8 @@ export const AdminLeads: React.FC = () => {
           searchTerm,
           statusFilter,
           sectorFilter,
+          startDate,
+          endDate,
           sortBy,
           sortAscending: false,
           page,
@@ -79,14 +88,30 @@ export const AdminLeads: React.FC = () => {
         }
       } catch (err) {
         console.error('Error cargando leads:', err);
-        if (isMounted) setError('No se pudieron consultar los leads desde Supabase.');
+        const msg = err instanceof Error ? err.message : 'No se pudieron consultar los leads desde Supabase.';
+        if (isMounted) setError(msg);
       } finally {
         if (isMounted) setLoading(false);
       }
     };
     void getLeads();
     return () => { isMounted = false; };
-  }, [searchTerm, statusFilter, sectorFilter, sortBy, page]);
+  }, [searchTerm, statusFilter, sectorFilter, startDate, endDate, sortBy, page]);
+
+  const clearDateFilters = () => {
+    setStartDate('');
+    setEndDate('');
+    setPage(1);
+  };
+
+  // Calcular seguimientos vencidos
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+
+  const overdueLeads = leads.filter(lead => {
+    const status = (lead.status || '').toLowerCase();
+    return lead.next_follow_up_at && new Date(lead.next_follow_up_at) < todayStart && status !== 'won' && status !== 'lost';
+  });
 
   return (
     <div className="space-y-6">
@@ -98,7 +123,7 @@ export const AdminLeads: React.FC = () => {
             Gestión de Leads & Oportunidades
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 mt-1">
-            Consulta, filtrado y seguimiento comercial de las solicitudes recibidas ({totalCount} registrados)
+            Consulta, filtrado por fecha/sector, seguimiento comercial y detalle completo ({totalCount} registrados)
           </p>
         </div>
 
@@ -111,8 +136,33 @@ export const AdminLeads: React.FC = () => {
         </button>
       </div>
 
+      {/* Overdue Follow-ups Alert Banner */}
+      {overdueLeads.length > 0 && (
+        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/40 text-rose-300 flex items-center justify-between gap-4 text-xs font-tech">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-rose-500/20 text-rose-400 shrink-0">
+              <AlertTriangle className="w-5 h-5 animate-pulse" />
+            </div>
+            <div>
+              <span className="font-bold block text-white text-sm">
+                ¡Atención! Tienes {overdueLeads.length} seguimiento(s) vencido(s) en la lista actual
+              </span>
+              <span>Revisa la fecha de compromiso de atención de las oportunidades destacadas.</span>
+            </div>
+          </div>
+          <button
+            onClick={() => setSortBy('next_follow_up_at')}
+            className="px-3.5 py-2 rounded-xl bg-rose-500 text-white font-bold text-xs shrink-0 cursor-pointer hover:bg-rose-600 shadow"
+          >
+            Ordenar por Seguimiento
+          </button>
+        </div>
+      )}
+
       {/* Filters & Search Control Bar */}
-      <div className="p-4 rounded-2xl bg-[#1b3852] border border-[#2b5b84] space-y-3 shadow-md font-tech">
+      <div className="p-4 sm:p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] space-y-4 shadow-md font-tech">
+        
+        {/* Row 1: Search, Status, Sector, Sort */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
           
           {/* Search Input */}
@@ -143,12 +193,12 @@ export const AdminLeads: React.FC = () => {
                 className="w-full px-3 py-2 rounded-xl bg-[#142332] border border-[#2b5b84] text-xs text-white focus:outline-none focus:border-[#ffd343]"
               >
                 <option value="ALL">Todos los Estados</option>
-                <option value="pending">Pendientes (por responder)</option>
-                <option value="contacted">Contactados</option>
-                <option value="qualified">Calificados</option>
+                <option value="pending">Pendiente (por responder)</option>
+                <option value="contacted">Contactado</option>
+                <option value="qualified">Calificado</option>
                 <option value="proposal_sent">Cotización enviada</option>
-                <option value="won">Ganados (Clientes)</option>
-                <option value="lost">Perdidos / Descartados</option>
+                <option value="won">Ganado (Cliente)</option>
+                <option value="lost">Perdido / Descartado</option>
               </select>
             </div>
           </div>
@@ -185,6 +235,57 @@ export const AdminLeads: React.FC = () => {
           </div>
 
         </div>
+
+        {/* Row 2: Date Range Filters */}
+        <div className="pt-3 border-t border-[#2b5b84]/60 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="font-bold text-slate-300 font-mono-tech flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-[#ffd343]" />
+              Filtro por Rango de Fecha:
+            </span>
+
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400 text-[11px]">Desde:</span>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => {
+                  setStartDate(e.target.value);
+                  setPage(1);
+                }}
+                className="px-2.5 py-1.5 rounded-lg bg-[#142332] border border-[#2b5b84] text-xs text-white focus:outline-none focus:border-[#ffd343]"
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400 text-[11px]">Hasta:</span>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                  setPage(1);
+                }}
+                className="px-2.5 py-1.5 rounded-lg bg-[#142332] border border-[#2b5b84] text-xs text-white focus:outline-none focus:border-[#ffd343]"
+              />
+            </div>
+
+            {(startDate || endDate) && (
+              <button
+                onClick={clearDateFilters}
+                className="px-2.5 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-[11px] font-bold inline-flex items-center gap-1 cursor-pointer transition-colors"
+              >
+                <X className="w-3 h-3" />
+                <span>Limpiar Fechas</span>
+              </button>
+            )}
+          </div>
+
+          <div className="text-[11px] font-mono-tech text-slate-400">
+            Mostrando <strong className="text-white">{leads.length}</strong> de <strong className="text-[#ffd343]">{totalCount}</strong> solicitudes
+          </div>
+        </div>
+
       </div>
 
       {/* Main Table Content */}
@@ -193,26 +294,45 @@ export const AdminLeads: React.FC = () => {
         {loading ? (
           <div className="py-20 flex flex-col items-center justify-center space-y-3">
             <RefreshCw className="w-8 h-8 text-[#ffd343] animate-spin" />
-            <span className="text-xs font-mono-tech text-slate-300">Cargando registros desde Supabase...</span>
+            <span className="text-xs font-mono-tech text-slate-300">Consultando registros en tiempo real desde Supabase...</span>
           </div>
         ) : error ? (
-          <div className="py-12 text-center text-rose-300 text-xs space-y-3">
+          <div className="py-12 text-center text-rose-300 text-xs space-y-3 p-6">
             <AlertCircle className="w-8 h-8 text-rose-400 mx-auto" />
-            <p>{error}</p>
+            <p className="font-bold text-sm text-white">Error devuelto por Supabase</p>
+            <p className="font-mono-tech bg-[#142332] p-3 rounded-xl border border-rose-500/30 max-w-md mx-auto text-rose-200">
+              {error}
+            </p>
             <button
               onClick={loadLeads}
-              className="px-4 py-2 rounded-xl bg-[#ffd343] text-[#111d28] font-bold text-xs cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs inline-flex items-center gap-2 cursor-pointer shadow"
             >
-              Reintentar
+              <RefreshCw className="w-4 h-4" />
+              <span>Reintentar Consulta</span>
             </button>
           </div>
         ) : leads.length === 0 ? (
           <div className="py-16 text-center text-slate-300 text-xs space-y-3 p-6 max-w-lg mx-auto">
             <Users className="w-10 h-10 text-[#ffd343] mx-auto mb-2" />
-            <p className="font-bold text-white text-base">No hay leads visibles</p>
+            <p className="font-bold text-white text-base">No se encontraron solicitudes</p>
             <p className="text-slate-400 leading-relaxed">
-              Si tu tabla <code className="text-white font-mono-tech">public.automation_leads</code> ya tiene datos pero no aparecen aquí, ejecuta el script <code className="text-[#ffd343] font-mono-tech">docs/supabase-admin-crm-migration.sql</code> en el SQL Editor de tu panel de Supabase para habilitar las políticas de lectura RLS para el rol <code className="text-emerald-400 font-mono-tech">authenticated</code>.
+              No hay leads que coincidan con los filtros seleccionados (Búsqueda: "{searchTerm}", Estado: {statusFilter}, Sector: {sectorFilter}).
             </p>
+            {(searchTerm || statusFilter !== 'ALL' || sectorFilter !== 'ALL' || startDate || endDate) && (
+              <button
+                onClick={() => {
+                  setSearchTerm('');
+                  setStatusFilter('ALL');
+                  setSectorFilter('ALL');
+                  setStartDate('');
+                  setEndDate('');
+                  setPage(1);
+                }}
+                className="px-4 py-2 rounded-xl bg-[#142332] border border-[#2b5b84] text-[#ffd343] font-bold text-xs cursor-pointer hover:bg-[#2b5b84]"
+              >
+                Limpiar Todos los Filtros
+              </button>
+            )}
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -234,11 +354,19 @@ export const AdminLeads: React.FC = () => {
               <tbody className="divide-y divide-[#2b5b84]/50">
                 {leads.map((lead) => {
                   const statusMeta = LEAD_STATUS_LABELS[lead.status as AdminLeadStatus] || LEAD_STATUS_LABELS.pending;
+                  
+                  const isOverdue = lead.next_follow_up_at && 
+                    new Date(lead.next_follow_up_at) < todayStart && 
+                    (lead.status || '').toLowerCase() !== 'won' && 
+                    (lead.status || '').toLowerCase() !== 'lost';
+
                   return (
                     <tr
                       key={lead.id}
                       onClick={() => setSelectedLead(lead)}
-                      className="hover:bg-[#142332]/60 transition-colors cursor-pointer group"
+                      className={`hover:bg-[#142332]/60 transition-colors cursor-pointer group ${
+                        isOverdue ? 'bg-rose-500/5' : ''
+                      }`}
                     >
                       {/* Date */}
                       <td className="py-4 px-6 font-mono-tech text-slate-400 text-[11px]">
@@ -248,8 +376,13 @@ export const AdminLeads: React.FC = () => {
 
                       {/* Name & Company */}
                       <td className="py-4 px-6">
-                        <div className="font-bold text-white group-hover:text-[#ffd343] transition-colors">
-                          {lead.full_name}
+                        <div className="font-bold text-white group-hover:text-[#ffd343] transition-colors flex items-center gap-2">
+                          <span>{lead.full_name}</span>
+                          {isOverdue && (
+                            <span className="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/40 text-[9px] font-mono-tech font-bold" title="Seguimiento Vencido">
+                              ¡VENCIDO!
+                            </span>
+                          )}
                         </div>
                         <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
                           <Building2 className="w-3 h-3 text-slate-500" />
@@ -276,11 +409,13 @@ export const AdminLeads: React.FC = () => {
                         </span>
                       </td>
 
-                      {/* Assigned To */}
+                      {/* Assigned To & Next Follow Up */}
                       <td className="py-4 px-6 font-mono-tech text-slate-300">
                         {lead.assigned_to ? `@${lead.assigned_to}` : <span className="text-slate-500 italic">Sin asignar</span>}
                         {lead.next_follow_up_at && (
-                          <div className="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
+                          <div className={`text-[10px] flex items-center gap-1 mt-0.5 font-bold ${
+                            isOverdue ? 'text-rose-400' : 'text-emerald-400'
+                          }`}>
                             <Calendar className="w-2.5 h-2.5" />
                             {new Date(lead.next_follow_up_at).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' })}
                           </div>

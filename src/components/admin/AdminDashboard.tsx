@@ -142,6 +142,29 @@ export const AdminDashboard: React.FC = () => {
         </div>
       )}
 
+      {/* Alert Banner for Overdue Follow-ups */}
+      {metrics.overdueFollowUpsCount > 0 && (
+        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/40 text-rose-300 flex items-center justify-between gap-4 text-xs">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-rose-500/20 text-rose-400">
+              <AlertTriangle className="w-5 h-5 animate-pulse" />
+            </div>
+            <div>
+              <span className="font-bold block text-white text-sm">
+                ¡Atención! Tienes {metrics.overdueFollowUpsCount} fecha{metrics.overdueFollowUpsCount > 1 ? 's' : ''} de seguimiento vencida{metrics.overdueFollowUpsCount > 1 ? 's' : ''}!
+              </span>
+              <span>Revisa los compromisos de contacto que requerían atención previa.</span>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate('/admin/leads')}
+            className="px-4 py-2 rounded-xl bg-rose-500 text-white font-bold text-xs shrink-0 cursor-pointer hover:bg-rose-600 shadow"
+          >
+            Ver Seguimientos Vencidos
+          </button>
+        </div>
+      )}
+
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         

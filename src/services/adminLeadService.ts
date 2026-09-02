@@ -37,7 +37,11 @@ export async function fetchLeadMetrics(): Promise<LeadDashboardMetrics> {
   let proposalSentCount = 0;
   let wonCount = 0;
   let lostCount = 0;
+  let overdueFollowUpsCount = 0;
   let estimatedPipelineValue = 0;
+
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
 
   leadsData.forEach((lead) => {
     const status = (lead.status || 'pending').toLowerCase();
@@ -52,6 +56,14 @@ export async function fetchLeadMetrics(): Promise<LeadDashboardMetrics> {
     // Sumar al pipeline estimado los negocios activos (excluyendo lost)
     if (status !== 'lost' && lead.estimated_value) {
       estimatedPipelineValue += Number(lead.estimated_value) || 0;
+    }
+
+    // Calcular seguimientos vencidos (fecha pasada y estado no finalizado)
+    if (lead.next_follow_up_at && status !== 'won' && status !== 'lost') {
+      const followUpDate = new Date(lead.next_follow_up_at);
+      if (followUpDate < todayStart) {
+        overdueFollowUpsCount++;
+      }
     }
   });
 
@@ -70,6 +82,7 @@ export async function fetchLeadMetrics(): Promise<LeadDashboardMetrics> {
     proposalSentCount,
     wonCount,
     lostCount,
+    overdueFollowUpsCount,
     estimatedPipelineValue,
     recentLeads,
     upcomingFollowUps
@@ -80,6 +93,8 @@ export interface FetchAdminLeadsOptions {
   searchTerm?: string;
   statusFilter?: string;
   sectorFilter?: string;
+  startDate?: string;
+  endDate?: string;
   sortBy?: 'created_at' | 'next_follow_up_at' | 'estimated_value';
   sortAscending?: boolean;
   page?: number;
@@ -87,17 +102,19 @@ export interface FetchAdminLeadsOptions {
 }
 
 /**
- * Consulta de leads con filtros, ordenamiento y paginación
+ * Consulta de leads con filtros por fecha, sector, estado, ordenamiento y paginación
  */
 export async function fetchAdminLeads(options: FetchAdminLeadsOptions = {}) {
   const {
     searchTerm = '',
     statusFilter = 'ALL',
     sectorFilter = 'ALL',
+    startDate = '',
+    endDate = '',
     sortBy = 'created_at',
     sortAscending = false,
     page = 1,
-    pageSize = 15
+    pageSize = 10
   } = options;
 
   let query = supabase.from('automation_leads').select('*', { count: 'exact' });
@@ -110,6 +127,14 @@ export async function fetchAdminLeads(options: FetchAdminLeadsOptions = {}) {
     query = query.eq('sector', sectorFilter);
   }
 
+  if (startDate) {
+    query = query.gte('created_at', `${startDate}T00:00:00.000Z`);
+  }
+
+  if (endDate) {
+    query = query.lte('created_at', `${endDate}T23:59:59.999Z`);
+  }
+
   if (searchTerm.trim().length > 0) {
     const term = `%${searchTerm.trim()}%`;
     query = query.or(`full_name.ilike.${term},company_name.ilike.${term},email.ilike.${term},phone.ilike.${term}`);
@@ -118,7 +143,7 @@ export async function fetchAdminLeads(options: FetchAdminLeadsOptions = {}) {
   try {
     query = query.order(sortBy, { ascending: sortAscending });
   } catch {
-    // Si la columna de orden no existe, continuar
+    // Continuar si la columna no permite ordenamiento directo
   }
 
   const from = (page - 1) * pageSize;
@@ -129,7 +154,7 @@ export async function fetchAdminLeads(options: FetchAdminLeadsOptions = {}) {
   const { data, count, error } = await query;
 
   if (error) {
-    console.error('Error consultando tabla de leads:', error);
+    console.error('Error consultando tabla de leads desde Supabase:', error);
     throw error;
   }
 
@@ -143,7 +168,7 @@ export async function fetchAdminLeads(options: FetchAdminLeadsOptions = {}) {
 }
 
 /**
- * Actualización administrativa de un lead y registro de auditoría
+ * Actualización administrativa de un lead y registro de auditoría en lead_activity
  */
 export async function updateAdminLead(
   id: string,
@@ -169,16 +194,27 @@ export async function updateAdminLead(
     throw error;
   }
 
-  // Registrar auditoría en lead_activity si existe la tabla
+  // Registrar auditoría en lead_activity
   try {
     const session = (await supabase.auth.getSession()).data.session;
+    let actionText = 'Lead actualizado';
+    if (updates.status && previousLead?.status !== updates.status) {
+      actionText = `Estado cambiado de "${previousLead?.status || 'pending'}" a "${updates.status}"`;
+    } else if (updates.estimated_value !== undefined && previousLead?.estimated_value !== updates.estimated_value) {
+      actionText = `Valor estimado actualizado a $${Number(updates.estimated_value).toLocaleString('es-CO')}`;
+    } else if (updates.assigned_to !== undefined) {
+      actionText = `Responsable asignado a @${updates.assigned_to || 'Sin asignar'}`;
+    } else if (updates.notes) {
+      actionText = 'Nota comercial agregada';
+    }
+
     await supabase.from('lead_activity').insert([
       {
         automation_lead_id: id,
         user_id: session?.user?.id,
         user_email: session?.user?.email,
-        action: updates.status ? `Estado cambiado a ${updates.status}` : 'Lead actualizado',
-        previous_value: previousLead ? { status: previousLead.status, notes: previousLead.notes, assigned_to: previousLead.assigned_to } : null,
+        action: actionText,
+        previous_value: previousLead ? { status: previousLead.status, notes: previousLead.notes, assigned_to: previousLead.assigned_to, estimated_value: previousLead.estimated_value } : null,
         new_value: updates
       }
     ]);

@@ -112,6 +112,7 @@ export type LeadDashboardMetrics = {
   proposalSentCount: number;
   wonCount: number;
   lostCount: number;
+  overdueFollowUpsCount: number;
   estimatedPipelineValue: number;
   recentLeads: AutomationLeadEntity[];
   upcomingFollowUps: AutomationLeadEntity[];
