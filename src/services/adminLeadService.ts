@@ -10,17 +10,26 @@ import type {
  * Consulta de métricas en tiempo real desde Supabase para el Dashboard CRM
  */
 export async function fetchLeadMetrics(): Promise<LeadDashboardMetrics> {
-  const { data: leads, error } = await supabase
+  let leadsData: AutomationLeadEntity[] = [];
+
+  // Intento 1: Consulta ordenada por fecha de creación
+  let { data: leads, error } = await supabase
     .from('automation_leads')
     .select('*')
     .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error cargando leads para métricas CRM:', error);
-    throw error;
+  // Intento 2 Fallback: Consulta simple sin orden por si el esquema varía
+  if (error || !leads) {
+    console.warn('Reintentando consulta de leads sin ordenamiento:', error);
+    const retry = await supabase.from('automation_leads').select('*');
+    if (retry.error) {
+      console.error('Error definitivo consultando automation_leads:', retry.error);
+      throw retry.error;
+    }
+    leadsData = (retry.data || []) as AutomationLeadEntity[];
+  } else {
+    leadsData = leads as AutomationLeadEntity[];
   }
-
-  const allLeads = (leads || []) as AutomationLeadEntity[];
 
   let pendingCount = 0;
   let contactedCount = 0;
@@ -30,7 +39,7 @@ export async function fetchLeadMetrics(): Promise<LeadDashboardMetrics> {
   let lostCount = 0;
   let estimatedPipelineValue = 0;
 
-  allLeads.forEach((lead) => {
+  leadsData.forEach((lead) => {
     const status = (lead.status || 'pending').toLowerCase();
 
     if (status === 'pending') pendingCount++;
@@ -46,15 +55,15 @@ export async function fetchLeadMetrics(): Promise<LeadDashboardMetrics> {
     }
   });
 
-  const recentLeads = allLeads.slice(0, 5);
+  const recentLeads = leadsData.slice(0, 5);
 
-  const upcomingFollowUps = allLeads
+  const upcomingFollowUps = leadsData
     .filter((lead) => lead.next_follow_up_at && (lead.status || '').toLowerCase() !== 'won' && (lead.status || '').toLowerCase() !== 'lost')
     .sort((a, b) => new Date(a.next_follow_up_at!).getTime() - new Date(b.next_follow_up_at!).getTime())
     .slice(0, 5);
 
   return {
-    totalLeads: allLeads.length,
+    totalLeads: leadsData.length,
     pendingCount,
     contactedCount,
     qualifiedCount,
@@ -106,7 +115,11 @@ export async function fetchAdminLeads(options: FetchAdminLeadsOptions = {}) {
     query = query.or(`full_name.ilike.${term},company_name.ilike.${term},email.ilike.${term},phone.ilike.${term}`);
   }
 
-  query = query.order(sortBy, { ascending: sortAscending });
+  try {
+    query = query.order(sortBy, { ascending: sortAscending });
+  } catch {
+    // Si la columna de orden no existe, continuar
+  }
 
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
@@ -170,7 +183,6 @@ export async function updateAdminLead(
       }
     ]);
   } catch (err) {
-    // Audit logging es secundario, no bloquea la actualización principal
     console.warn('Nota: No se pudo escribir log de auditoría en lead_activity:', err);
   }
 
