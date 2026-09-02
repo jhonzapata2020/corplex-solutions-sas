@@ -19,7 +19,6 @@ import {
   Activity,
   Check,
   Clock,
-  BarChart3,
   Terminal,
   ChevronRight,
   Network,
@@ -27,7 +26,8 @@ import {
   Workflow,
   Lock,
   Shield,
-  FileText
+  AlertCircle,
+  Info
 } from 'lucide-react';
 import {
   AUTOMATION_VERTICALS,
@@ -38,18 +38,21 @@ import {
   AUTOMATION_SUMMARY_BANNER
 } from '../data/aiAutomationData';
 import { LEGAL_INFO } from '../data/corporateData';
+import { submitAutomationLead } from '../services/leadService';
+import { PrivacyModal } from './PrivacyModal';
 import type { AutomationFormData } from '../types';
+import type { LeadSubmissionResult } from '../types/lead';
 
 interface AIAutomationSectionProps {
   onOpenQuoteModal: (serviceTitle?: string) => void;
 }
 
-export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpenQuoteModal }) => {
+export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
   const [activeVerticalId, setActiveVerticalId] = useState<string>('salud');
   const [activeHowStepIndex, setActiveHowStepIndex] = useState<number>(0);
-  const [activePhaseIndex, setActivePhaseIndex] = useState<number>(0);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   
-  // Simplified 5-Field Form State
+  // Form State (Simplified 5-field form)
   const [formData, setFormData] = useState<AutomationFormData>({
     fullName: '',
     company: '',
@@ -57,13 +60,14 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
     bottleneck: '',
     sector: 'Salud y Clínicas'
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formError, setFormError] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [submissionResult, setSubmissionResult] = useState<LeadSubmissionResult | null>(null);
 
   const activeVertical = AUTOMATION_VERTICALS.find(v => v.id === activeVerticalId) || AUTOMATION_VERTICALS[0];
   const activeHowStep = AUTOMATION_HOW_IT_WORKS[activeHowStepIndex];
-  const activePhase = AUTOMATION_PHASES[activePhaseIndex];
 
   const renderVerticalIcon = (iconName: string) => {
     switch (iconName) {
@@ -110,40 +114,44 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
     }
   };
 
-  const renderPhaseIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'SearchCheck':
-        return <SearchCheck className="w-5 h-5 stroke-[1.75]" />;
-      case 'Rocket':
-        return <Rocket className="w-5 h-5 stroke-[1.75]" />;
-      case 'TrendingUp':
-        return <TrendingUp className="w-5 h-5 stroke-[1.75]" />;
-      case 'ShieldCheck':
-        return <ShieldCheck className="w-5 h-5 stroke-[1.75]" />;
-      default:
-        return <Zap className="w-5 h-5 stroke-[1.75]" />;
-    }
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }));
-    setFormError(false);
+    if (formError) setFormError(null);
   };
 
-  const handleSubmitForm = (e: React.FormEvent) => {
+  const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.company || !formData.contactDetail || !formData.bottleneck) {
-      setFormError(true);
-      return;
-    }
+    setFormError(null);
     setIsSubmitting(true);
-    setTimeout(() => {
+
+    try {
+      const result = await submitAutomationLead({
+        fullName: formData.fullName,
+        company: formData.company,
+        contactDetail: formData.contactDetail,
+        bottleneck: formData.bottleneck,
+        sector: formData.sector,
+        selectedPackage: formData.selectedPackage
+      });
+
       setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 600);
+
+      if (result.success) {
+        setSubmissionResult(result);
+        setIsSubmitted(true);
+      } else {
+        // Preservamos los datos ingresados en formData para que el usuario no pierda información
+        setFormError(result.message || 'No pudimos enviar la solicitud. Por favor verifica tus datos.');
+      }
+    } catch (err) {
+      setIsSubmitting(false);
+      // Preservamos los datos ingresados
+      setFormError('Ocurrió un error inesperado al procesar la solicitud. Por favor intenta de nuevo.');
+    }
   };
 
   const handleSendWhatsApp = () => {
@@ -166,6 +174,14 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
+        {/* Clarificación de Capacidades vs Integraciones Activas */}
+        <div className="mb-8 p-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-xs text-slate-300 flex items-center gap-2">
+          <Info className="w-4 h-4 text-sky-400 shrink-0" />
+          <span>
+            <strong>Nota de arquitectura:</strong> Las herramientas y conectores descritos (WhatsApp API, LLMs, Make, n8n, AWS, CRM, HIS) representan capacidades de integración diseñables según el alcance contratado y no implican conexiones automáticas activas por defecto en esta web.
+          </span>
+        </div>
+
         {/* BLOQUE 1: Encabezado Principal & Propuesta de Valor */}
         <div className="bg-[#1b3852] rounded-3xl border border-[#4b7da5]/40 shadow-2xl p-6 sm:p-10 mb-16 relative overflow-hidden">
           
@@ -194,7 +210,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                 <a
                   href="#formulario-automatizacion"
-                  className="px-6 py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                  className="px-6 py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                 >
                   <Bot className="w-4 h-4 text-[#111d28]" />
                   <span>Solicitar diagnóstico inicial</span>
@@ -203,7 +219,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
 
                 <a
                   href="#casos-uso-sectores"
-                  className="px-6 py-3.5 rounded-xl bg-[#142332] hover:bg-[#2b5b84] text-slate-200 text-xs font-bold border border-[#2b5b84] flex items-center justify-center gap-2 transition-all"
+                  className="px-6 py-3.5 rounded-xl bg-[#142332] hover:bg-[#2b5b84] text-slate-200 text-xs font-bold border border-[#2b5b84] flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   <Layers className="w-4 h-4 text-[#ffd343]" />
                   <span>Ver soluciones por sector</span>
@@ -260,7 +276,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
                 </div>
 
                 <div className="pt-2 border-t border-[#2b5b84] flex items-center justify-between text-[11px] text-slate-400">
-                  <span className="text-slate-300">Respuesta ágil & cero duplicación</span>
+                  <span className="text-slate-300">Respuestas ágiles & cero duplicación</span>
                   <span className="text-emerald-400 font-bold">Sin cambiar tu software</span>
                 </div>
 
@@ -424,7 +440,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
 
         </div>
 
-        {/* BLOQUE 4: Casos de Uso por Sector (Casos orientados a resultados medibles) */}
+        {/* BLOQUE 4: Casos de Uso por Sector */}
         <div id="casos-uso-sectores" className="mb-20">
           
           <div className="text-center max-w-3xl mx-auto mb-12">
@@ -674,7 +690,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
           </div>
         </div>
 
-        {/* BLOQUE 7: Formulario Simplificado de 5 Campos */}
+        {/* BLOQUE 7: Formulario Simplificado de 5 Campos (Con servicio desacoplado y accesibilidad ARIA) */}
         <div id="formulario-automatizacion" className="bg-white rounded-3xl p-6 sm:p-12 shadow-2xl text-slate-900 border border-slate-200">
           
           <div className="max-w-3xl mx-auto text-center mb-8">
@@ -696,7 +712,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
             </p>
           </div>
 
-          {isSubmitted ? (
+          {isSubmitted && submissionResult?.success ? (
             <div className="max-w-xl mx-auto text-center py-8 space-y-6">
               <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-300">
                 <CheckCircle2 className="w-8 h-8" />
@@ -707,8 +723,15 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
               </h3>
 
               <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                Revisaremos la información entregada para <strong>{formData.company}</strong> y te contactaremos en un máximo de un día hábil para coordinar una conversación inicial.
+                {submissionResult.message}
               </p>
+
+              {submissionResult.isDemonstrationMode && (
+                <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs text-center">
+                  <span className="font-bold font-mono-tech block mb-0.5">MODO DEMOSTRACIÓN CLIENTE</span>
+                  <span>ID de seguimiento generado: <strong>{submissionResult.leadId}</strong>. Haz clic a continuación para enviar los detalles por WhatsApp a nuestro equipo.</span>
+                </div>
+              )}
 
               <div className="flex flex-col sm:flex-row justify-center gap-3 pt-2">
                 <button
@@ -722,6 +745,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
                 <button
                   onClick={() => {
                     setIsSubmitted(false);
+                    setSubmissionResult(null);
                     setFormData({ fullName: '', company: '', contactDetail: '', bottleneck: '', sector: 'Salud y Clínicas' });
                   }}
                   className="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold border border-slate-300 cursor-pointer"
@@ -733,21 +757,34 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
           ) : (
             <form onSubmit={handleSubmitForm} className="max-w-3xl mx-auto space-y-5">
               
+              {/* Preservación de datos ante error */}
               {formError && (
-                <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold text-center">
-                  No pudimos enviar la solicitud. Verifica que todos los campos requeridos estén diligenciados o escríbenos directamente por WhatsApp.
+                <div
+                  role="alert"
+                  aria-live="assertive"
+                  className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-start gap-3"
+                >
+                  <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold block text-rose-900 mb-0.5">No pudimos procesar la solicitud</span>
+                    <p>{formError}</p>
+                    <p className="text-[11px] text-rose-700 mt-1 font-semibold">Tus datos se han mantenido en el formulario para que puedas corregir o reintentar sin perder tu información.</p>
+                  </div>
                 </div>
               )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
+                  <label htmlFor="lead-fullname" className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
                     ¿Cómo te llamas? *
                   </label>
                   <input
+                    id="lead-fullname"
                     type="text"
                     name="fullName"
                     required
+                    aria-required="true"
+                    aria-invalid={formError ? 'true' : 'false'}
                     value={formData.fullName}
                     onChange={handleChange}
                     placeholder="Tu nombre completo"
@@ -756,13 +793,16 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
+                  <label htmlFor="lead-company" className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
                     Nombre de tu empresa o institución *
                   </label>
                   <input
+                    id="lead-company"
                     type="text"
                     name="company"
                     required
+                    aria-required="true"
+                    aria-invalid={formError ? 'true' : 'false'}
                     value={formData.company}
                     onChange={handleChange}
                     placeholder="Empresa o institución"
@@ -773,13 +813,16 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
+                  <label htmlFor="lead-contact" className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
                     ¿Cómo podemos contactarte? *
                   </label>
                   <input
+                    id="lead-contact"
                     type="text"
                     name="contactDetail"
                     required
+                    aria-required="true"
+                    aria-invalid={formError ? 'true' : 'false'}
                     value={formData.contactDetail}
                     onChange={handleChange}
                     placeholder="Correo electrónico o número de WhatsApp"
@@ -788,10 +831,11 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
+                  <label htmlFor="lead-sector" className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
                     Sector (opcional)
                   </label>
                   <select
+                    id="lead-sector"
                     name="sector"
                     value={formData.sector}
                     onChange={handleChange}
@@ -808,13 +852,16 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
               </div>
 
               <div>
-                <label className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
+                <label htmlFor="lead-bottleneck" className="block text-xs font-mono-tech text-slate-700 font-bold mb-2">
                   ¿Qué proceso quieres mejorar? *
                 </label>
                 <textarea
+                  id="lead-bottleneck"
                   name="bottleneck"
                   rows={4}
                   required
+                  aria-required="true"
+                  aria-invalid={formError ? 'true' : 'false'}
                   value={formData.bottleneck}
                   onChange={handleChange}
                   placeholder="Ejemplo: recibimos muchas solicitudes por WhatsApp y las registramos manualmente en Excel..."
@@ -828,7 +875,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
                   disabled={isSubmitting}
                   className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 cursor-pointer"
                 >
-                  <span>{isSubmitting ? 'Enviando...' : 'Solicitar diagnóstico inicial'}</span>
+                  <span>{isSubmitting ? 'Procesando...' : 'Solicitar diagnóstico inicial'}</span>
                   <Send className="w-4 h-4 text-[#111d28]" />
                 </button>
 
@@ -837,11 +884,20 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
                 </span>
               </div>
 
-              <div className="pt-3 border-t border-slate-200 text-center">
+              <div className="pt-3 border-t border-slate-200 text-center space-y-1">
                 <p className="text-[11px] text-slate-500 flex items-center justify-center gap-1">
                   <Lock className="w-3 h-3 text-slate-400" />
                   Usaremos tus datos únicamente para responder a esta solicitud y coordinar el diagnóstico. No compartiremos tu información con terceros sin autorización.
                 </p>
+
+                <button
+                  type="button"
+                  onClick={() => setIsPrivacyOpen(true)}
+                  className="text-[11px] text-[#2b5b84] hover:underline font-mono-tech font-bold cursor-pointer inline-flex items-center gap-1"
+                >
+                  <Lock className="w-3 h-3" />
+                  <span>Ver política informativa de privacidad (Ley 1581)</span>
+                </button>
               </div>
 
             </form>
@@ -850,6 +906,9 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = ({ onOpen
         </div>
 
       </div>
+
+      {/* Modal accesible de política de privacidad */}
+      <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
 
     </section>
   );
