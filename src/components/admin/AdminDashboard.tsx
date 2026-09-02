@@ -199,7 +199,7 @@ export const AdminDashboard: React.FC = () => {
         {/* Cotizaciones Enviadas */}
         <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono-tech text-slate-400 font-bold">COTIZADOS</span>
+            <span className="text-xs font-mono-tech text-slate-400 font-bold">COTIZACIÓN ENVIADA</span>
             <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400">
               <FileText className="w-5 h-5" />
             </div>
