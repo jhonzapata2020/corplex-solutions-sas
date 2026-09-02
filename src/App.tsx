@@ -14,17 +14,8 @@ import { SplashIntro } from './components/SplashIntro';
 import { ScrollToTop } from './components/ScrollToTop';
 
 export function App() {
-  const [isEntered, setIsEntered] = useState<boolean>(() => {
-    return sessionStorage.getItem('corplex_entered') === 'true';
-  });
-
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [selectedServiceTitle, setSelectedServiceTitle] = useState<string | undefined>(undefined);
-
-  const handleEnter = () => {
-    sessionStorage.setItem('corplex_entered', 'true');
-    setIsEntered(true);
-  };
 
   const handleOpenQuoteModal = (serviceTitle?: string) => {
     setSelectedServiceTitle(serviceTitle);
@@ -39,52 +30,44 @@ export function App() {
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-[#ffd343] selection:text-black font-sans antialiased">
       
-      {/* Interactive System Boot Splash Screen */}
-      <SplashIntro
-        isOpen={!isEntered}
-        onEnter={handleEnter}
-      />
+      {/* Main Platform (Direct Load) */}
+      <div className="animate-in fade-in duration-700">
+        {/* Python.org Style Header & Navigation */}
+        <Navbar onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
-      {/* Main Platform (Navbar & Body revealed upon entry) */}
-      {isEntered && (
-        <div className="animate-in fade-in duration-700">
-          {/* Python.org Style Header & Navigation */}
-          <Navbar onOpenQuoteModal={() => handleOpenQuoteModal()} />
+        {/* Main Content Sections */}
+        <main>
+          {/* Hero Section Python.org Style */}
+          <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
-          {/* Main Content Sections */}
-          <main>
-            {/* Hero Section Python.org Style */}
-            <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
+          {/* Flagship Commercial Unit: Corplex AI Automation */}
+          <AIAutomationSection onOpenQuoteModal={(title) => handleOpenQuoteModal(title)} />
 
-            {/* Flagship Commercial Unit: Corplex AI Automation */}
-            <AIAutomationSection onOpenQuoteModal={(title) => handleOpenQuoteModal(title)} />
+          {/* Educational & UNAD Section */}
+          <AcademicCapabilities />
 
-            {/* Educational & UNAD Section */}
-            <AcademicCapabilities />
+          {/* Services & Solutions Catalog Bento Grid */}
+          <ServicesGrid onSelectServiceForQuote={(title) => handleOpenQuoteModal(title)} />
 
-            {/* Services & Solutions Catalog Bento Grid */}
-            <ServicesGrid onSelectServiceForQuote={(title) => handleOpenQuoteModal(title)} />
+          {/* AWS Cloud Architecture Visualizer */}
+          <CloudArchitecture />
 
-            {/* AWS Cloud Architecture Visualizer */}
-            <CloudArchitecture />
+          {/* Engineering Methodology Timeline */}
+          <Methodology />
 
-            {/* Engineering Methodology Timeline */}
-            <Methodology />
+          {/* Legal Transparency & Compliance Datasheet */}
+          <LegalCompliance />
 
-            {/* Legal Transparency & Compliance Datasheet */}
-            <LegalCompliance />
+          {/* Contact Form & Direct Channels (Python PSF Banner Style) */}
+          <ContactSection />
+        </main>
 
-            {/* Contact Form & Direct Channels (Python PSF Banner Style) */}
-            <ContactSection />
-          </main>
+        {/* Footer Python.org Style */}
+        <Footer />
 
-          {/* Footer Python.org Style */}
-          <Footer />
-
-          {/* Floating Scroll-To-Top Button */}
-          <ScrollToTop />
-        </div>
-      )}
+        {/* Floating Scroll-To-Top Button */}
+        <ScrollToTop />
+      </div>
 
       {/* Interactive Quote Modal */}
       <QuoteModal
