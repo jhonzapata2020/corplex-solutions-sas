@@ -236,3 +236,110 @@ export const QUOTE_STATUS_LABELS: Record<QuoteStatus, { label: string; bgClass: 
   expired: { label: 'Vencida', bgClass: 'bg-amber-500/20 border-amber-500/40', textClass: 'text-amber-400' },
   cancelled: { label: 'Cancelada', bgClass: 'bg-slate-700/40 border-slate-600/50', textClass: 'text-slate-400' }
 };
+
+/**
+ * Modelo de Cliente Corporativo (clients)
+ */
+export type ClientEntity = {
+  id: string;
+  automation_lead_id?: string | null;
+  quote_id?: string | null;
+  client_code: string;
+  company_name: string;
+  legal_name?: string | null;
+  nit_tax_id?: string | null;
+  address?: string | null;
+  city?: string | null;
+  sector?: string | null;
+  status: 'active' | 'inactive' | 'archived';
+  created_at: string;
+  updated_at: string;
+  contacts?: ClientContactEntity[];
+  projects?: ProjectEntity[];
+};
+
+/**
+ * Modelo de Persona de Contacto del Cliente (client_contacts)
+ */
+export type ClientContactEntity = {
+  id: string;
+  client_id: string;
+  full_name: string;
+  role_title: string;
+  email?: string | null;
+  phone?: string | null;
+  is_primary: boolean;
+  is_active: boolean;
+  created_at: string;
+};
+
+/**
+ * Estados de Proyectos de Ingeniería
+ */
+export type ProjectStatus = 'planning' | 'in_progress' | 'review' | 'completed' | 'paused' | 'cancelled';
+
+/**
+ * Modelo de Proyecto de Ingeniería (projects)
+ */
+export type ProjectEntity = {
+  id: string;
+  client_id: string;
+  quote_id?: string | null;
+  automation_lead_id?: string | null;
+  project_code: string;
+  name: string;
+  description?: string | null;
+  contract_value: number; // Valor Contratado Acordado ($ COP)
+  start_date: string;
+  target_delivery_date?: string | null;
+  actual_delivery_date?: string | null;
+  status: ProjectStatus;
+  assigned_lead_engineer?: string | null;
+  completion_percentage: number;
+  created_at: string;
+  updated_at: string;
+  client?: ClientEntity | null;
+  tasks?: ProjectTaskEntity[];
+};
+
+/**
+ * Modelo de Tarea de Proyecto (project_tasks)
+ */
+export type ProjectTaskEntity = {
+  id: string;
+  project_id: string;
+  title: string;
+  description?: string | null;
+  assigned_to?: string | null;
+  due_date?: string | null;
+  status: 'pending' | 'in_progress' | 'completed' | 'blocked';
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  completed_at?: string | null;
+  created_at: string;
+};
+
+/**
+ * Bitácora de Actividad del Proyecto (project_activity)
+ */
+export type ProjectActivityEntity = {
+  id: string;
+  project_id: string;
+  user_email?: string | null;
+  previous_status?: string | null;
+  new_status?: string | null;
+  action: string;
+  notes?: string | null;
+  created_at: string;
+};
+
+/**
+ * Metadatos visuales de estados de proyectos
+ */
+export const PROJECT_STATUS_LABELS: Record<ProjectStatus, { label: string; bgClass: string; textClass: string }> = {
+  planning: { label: 'Planificación', bgClass: 'bg-sky-500/20 border-sky-500/40', textClass: 'text-sky-300' },
+  in_progress: { label: 'En Ejecución', bgClass: 'bg-indigo-500/20 border-indigo-500/40', textClass: 'text-indigo-300' },
+  review: { label: 'En Revisión / QA', bgClass: 'bg-[#ffd343]/20 border-[#ffd343]/40', textClass: 'text-[#ffd343]' },
+  completed: { label: 'Entregado / Finalizado', bgClass: 'bg-emerald-500/20 border-emerald-500/40', textClass: 'text-emerald-400' },
+  paused: { label: 'Pausado', bgClass: 'bg-amber-500/20 border-amber-500/40', textClass: 'text-amber-400' },
+  cancelled: { label: 'Cancelado', bgClass: 'bg-rose-500/20 border-rose-500/40', textClass: 'text-rose-400' }
+};

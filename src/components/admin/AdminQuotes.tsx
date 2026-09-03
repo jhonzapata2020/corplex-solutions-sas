@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { fetchQuotes, changeQuoteStatus, duplicateQuote, fetchQuoteStatusHistory } from '../../services/quoteService';
+import { convertQuoteOrLeadToClient } from '../../services/clientProjectService';
 import type { QuoteEntity, QuoteStatus, QuoteStatusHistoryEntity } from '../../types/lead';
 import { QUOTE_STATUS_LABELS } from '../../types/lead';
 import { AdminQuoteModal } from './AdminQuoteModal';
 import { AdminQuotePreviewModal } from './AdminQuotePreviewModal';
+import { useNavigate } from 'react-router-dom';
 import {
   FileText,
   Search,
@@ -19,10 +21,12 @@ import {
   Building2,
   Calendar,
   AlertCircle,
-  History
+  History,
+  FolderGit2
 } from 'lucide-react';
 
 export const AdminQuotes: React.FC = () => {
+  const navigate = useNavigate();
   const [quotes, setQuotes] = useState<QuoteEntity[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -106,6 +110,17 @@ export const AdminQuotes: React.FC = () => {
     } catch (err) {
       console.error('Error cambiando estado:', err);
       alert('No se pudo cambiar el estado de la cotización.');
+    }
+  };
+
+  const handleConvertToClientAndProject = async (quote: QuoteEntity) => {
+    try {
+      const { client, project } = await convertQuoteOrLeadToClient({ quote });
+      alert(`¡Conversión Exitosa!\nCliente: ${client.company_name} (${client.client_code})\nProyecto: ${project.name} (${project.project_code})`);
+      navigate('/admin/projects');
+    } catch (err) {
+      console.error('Error en conversión:', err);
+      alert('No se pudo completar la conversión en cliente/proyecto.');
     }
   };
 
@@ -310,6 +325,7 @@ export const AdminQuotes: React.FC = () => {
                 {quotes.map((quote) => {
                   const statusMeta = QUOTE_STATUS_LABELS[quote.status] || QUOTE_STATUS_LABELS.draft;
                   const isDraft = quote.status === 'draft';
+                  const isAccepted = quote.status === 'accepted';
 
                   return (
                     <tr
@@ -373,6 +389,18 @@ export const AdminQuotes: React.FC = () => {
                           <Eye className="w-3.5 h-3.5" />
                           <span>PDF</span>
                         </button>
+
+                        {/* Convert to Client & Project */}
+                        {isAccepted && (
+                          <button
+                            onClick={() => handleConvertToClientAndProject(quote)}
+                            className="px-2.5 py-1.5 rounded-lg bg-emerald-500 text-[#111d28] font-extrabold border border-emerald-400 inline-flex items-center gap-1 transition-all cursor-pointer text-[11px] shadow"
+                            title="Convertir Cotización Aceptada en Cliente & Proyecto"
+                          >
+                            <FolderGit2 className="w-3.5 h-3.5" />
+                            <span>Crear Proyecto</span>
+                          </button>
+                        )}
 
                         {/* Edit Draft */}
                         {isDraft && (

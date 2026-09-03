@@ -60,8 +60,8 @@ export const AdminLayout: React.FC = () => {
     { label: 'Leads & Oportunidades', path: '/admin/leads', icon: Users },
     { label: 'Notificaciones & Tareas', path: '/admin/notifications', icon: Bell, badgeCount: unreadNotificationsCount },
     { label: 'Cotizaciones Formales', path: '/admin/quotes', icon: FileText },
-    { label: 'Clientes', path: '/admin/clients', icon: Building2, badge: 'Fase 4' },
-    { label: 'Proyectos', path: '/admin/projects', icon: FolderGit2, badge: 'Fase 4' },
+    { label: 'Clientes Corporativos', path: '/admin/clients', icon: Building2 },
+    { label: 'Proyectos de Ingeniería', path: '/admin/projects', icon: FolderGit2 },
     { label: 'Soporte TI', path: '/admin/tickets', icon: LifeBuoy, badge: 'Fase 5' },
     { label: 'Contenido Web', path: '/admin/cms', icon: Globe, badge: 'Fase 6' },
     { label: 'Configuración', path: '/admin/settings', icon: Settings }
@@ -71,6 +71,8 @@ export const AdminLayout: React.FC = () => {
     if (location.pathname === '/admin/leads') return 'Gestión de Leads';
     if (location.pathname === '/admin/notifications') return 'Centro de Notificaciones & Tareas';
     if (location.pathname === '/admin/quotes') return 'Módulo de Cotizaciones Formales';
+    if (location.pathname === '/admin/clients') return 'Clientes Corporativos';
+    if (location.pathname === '/admin/projects') return 'Control de Proyectos de Ingeniería';
     if (location.pathname === '/admin/settings') return 'Configuración del Sistema';
     return 'Dashboard General';
   };

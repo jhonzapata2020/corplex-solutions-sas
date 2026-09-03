@@ -21,6 +21,8 @@ import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AdminLeads } from './components/admin/AdminLeads';
 import { AdminNotifications } from './components/admin/AdminNotifications';
 import { AdminQuotes } from './components/admin/AdminQuotes';
+import { AdminClients } from './components/admin/AdminClients';
+import { AdminProjects } from './components/admin/AdminProjects';
 
 function PublicSite() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -110,6 +112,8 @@ export function App() {
         <Route path="leads" element={<AdminLeads />} />
         <Route path="notifications" element={<AdminNotifications />} />
         <Route path="quotes" element={<AdminQuotes />} />
+        <Route path="clients" element={<AdminClients />} />
+        <Route path="projects" element={<AdminProjects />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
 
