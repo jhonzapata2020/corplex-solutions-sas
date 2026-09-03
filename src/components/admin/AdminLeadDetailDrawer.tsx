@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { AutomationLeadEntity, AdminLeadStatus, LeadActivityItem } from '../../types/lead';
 import { LEAD_STATUS_LABELS } from '../../types/lead';
 import { updateAdminLead, fetchLeadActivity } from '../../services/adminLeadService';
+import { AdminQuoteModal } from './AdminQuoteModal';
 import {
   X,
   User,
@@ -16,7 +17,8 @@ import {
   CheckCircle2,
   Loader2,
   MessageSquare,
-  Activity
+  Activity,
+  Plus
 } from 'lucide-react';
 import { LEGAL_INFO } from '../../data/corporateData';
 
@@ -44,6 +46,9 @@ export const AdminLeadDetailDrawer: React.FC<AdminLeadDetailDrawerProps> = ({
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 
+  // Quote Modal State
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+
   useEffect(() => {
     fetchLeadActivity(lead.id).then(setActivities);
   }, [lead.id]);
@@ -51,7 +56,6 @@ export const AdminLeadDetailDrawer: React.FC<AdminLeadDetailDrawerProps> = ({
   const handleSave = async (targetStatus?: AdminLeadStatus) => {
     const statusToSave = targetStatus || status;
 
-    // Si intenta pasar a 'won' o 'lost' y no ha confirmado
     if ((statusToSave === 'won' || statusToSave === 'lost') && !targetStatus && statusToSave !== lead.status) {
       setShowStatusConfirm(statusToSave);
       return;
@@ -79,7 +83,6 @@ export const AdminLeadDetailDrawer: React.FC<AdminLeadDetailDrawerProps> = ({
       setShowStatusConfirm(null);
       onUpdate();
 
-      // Recargar actividad
       const updatedActivity = await fetchLeadActivity(lead.id);
       setActivities(updatedActivity);
 
@@ -129,12 +132,22 @@ export const AdminLeadDetailDrawer: React.FC<AdminLeadDetailDrawerProps> = ({
               </div>
             </div>
 
-            <button
-              onClick={onClose}
-              className="p-2 rounded-xl bg-[#142332] text-slate-400 hover:text-white border border-[#2b5b84] transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsQuoteModalOpen(true)}
+                className="px-3.5 py-2 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-extrabold text-xs inline-flex items-center gap-1.5 cursor-pointer shadow transition-all"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Crear Cotización</span>
+              </button>
+
+              <button
+                onClick={onClose}
+                className="p-2 rounded-xl bg-[#142332] text-slate-400 hover:text-white border border-[#2b5b84] transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Toast Status Alerts */}
@@ -379,6 +392,18 @@ export const AdminLeadDetailDrawer: React.FC<AdminLeadDetailDrawerProps> = ({
         </div>
 
       </div>
+
+      {/* Quote Modal linked to this lead */}
+      {isQuoteModalOpen && (
+        <AdminQuoteModal
+          lead={lead}
+          onClose={() => setIsQuoteModalOpen(false)}
+          onSuccess={() => {
+            setIsQuoteModalOpen(false);
+            onUpdate();
+          }}
+        />
+      )}
 
     </div>
   );

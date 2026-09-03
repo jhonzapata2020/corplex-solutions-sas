@@ -59,7 +59,7 @@ export const AdminLayout: React.FC = () => {
     { label: 'Resumen / Inicio', path: '/admin', icon: LayoutDashboard, exact: true },
     { label: 'Leads & Oportunidades', path: '/admin/leads', icon: Users },
     { label: 'Notificaciones & Tareas', path: '/admin/notifications', icon: Bell, badgeCount: unreadNotificationsCount },
-    { label: 'Cotizaciones', path: '/admin/quotes', icon: FileText, badge: 'Fase 3' },
+    { label: 'Cotizaciones Formales', path: '/admin/quotes', icon: FileText },
     { label: 'Clientes', path: '/admin/clients', icon: Building2, badge: 'Fase 4' },
     { label: 'Proyectos', path: '/admin/projects', icon: FolderGit2, badge: 'Fase 4' },
     { label: 'Soporte TI', path: '/admin/tickets', icon: LifeBuoy, badge: 'Fase 5' },
@@ -70,6 +70,7 @@ export const AdminLayout: React.FC = () => {
   const getBreadcrumbTitle = () => {
     if (location.pathname === '/admin/leads') return 'Gestión de Leads';
     if (location.pathname === '/admin/notifications') return 'Centro de Notificaciones & Tareas';
+    if (location.pathname === '/admin/quotes') return 'Módulo de Cotizaciones Formales';
     if (location.pathname === '/admin/settings') return 'Configuración del Sistema';
     return 'Dashboard General';
   };

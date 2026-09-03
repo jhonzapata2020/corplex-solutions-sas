@@ -154,3 +154,85 @@ export type FollowUpTaskEntity = {
   completed_at?: string | null;
   automation_leads?: AutomationLeadEntity | null;
 };
+
+/**
+ * Estados de Cotización Comercial
+ */
+export type QuoteStatus = 'draft' | 'sent' | 'viewed' | 'accepted' | 'rejected' | 'expired' | 'cancelled';
+
+/**
+ * Modelo de Encabezado de Cotización (quotes)
+ */
+export type QuoteEntity = {
+  id: string;
+  automation_lead_id?: string | null;
+  quote_number: string;
+  version_number: number;
+  parent_quote_id?: string | null;
+  status: QuoteStatus;
+  client_name: string;
+  client_company?: string | null;
+  client_email?: string | null;
+  client_phone?: string | null;
+  client_sector?: string | null;
+  tax_rate: number;
+  subtotal: number;
+  discount_total: number;
+  taxable_subtotal: number;
+  tax_amount: number;
+  total: number;
+  valid_until: string;
+  payment_terms?: string | null;
+  notes?: string | null;
+  created_by?: string | null;
+  created_at: string;
+  updated_at: string;
+  sent_at?: string | null;
+  accepted_at?: string | null;
+  rejected_at?: string | null;
+  expired_at?: string | null;
+  items?: QuoteItemEntity[];
+  automation_leads?: AutomationLeadEntity | null;
+};
+
+/**
+ * Modelo de Ítem / Servicio de Cotización (quote_items)
+ */
+export type QuoteItemEntity = {
+  id?: string;
+  quote_id?: string;
+  concept: string;
+  description?: string | null;
+  quantity: number;
+  unit_price: number;
+  discount_percent: number;
+  is_taxable: boolean;
+  item_subtotal: number;
+  created_at?: string;
+};
+
+/**
+ * Modelo de Auditoría e Historial de Estados (quote_status_history)
+ */
+export type QuoteStatusHistoryEntity = {
+  id: string;
+  quote_id: string;
+  previous_status?: string | null;
+  new_status: QuoteStatus;
+  user_email?: string | null;
+  notes?: string | null;
+  created_at: string;
+};
+
+/**
+ * Metadatos visuales de estados de cotizaciones en español
+ */
+export const QUOTE_STATUS_LABELS: Record<QuoteStatus, { label: string; bgClass: string; textClass: string }> = {
+  draft: { label: 'Borrador', bgClass: 'bg-slate-500/20 border-slate-500/40', textClass: 'text-slate-300' },
+  sent: { label: 'Cotización enviada', bgClass: 'bg-purple-500/20 border-purple-500/40', textClass: 'text-purple-300' },
+  viewed: { label: 'Propuesta vista', bgClass: 'bg-sky-500/20 border-sky-500/40', textClass: 'text-sky-300' },
+  accepted: { label: 'Aceptada (Ganada)', bgClass: 'bg-emerald-500/20 border-emerald-500/40', textClass: 'text-emerald-400' },
+  rejected: { label: 'Rechazada', bgClass: 'bg-rose-500/20 border-rose-500/40', textClass: 'text-rose-400' },
+  expired: { label: 'Vencida', bgClass: 'bg-amber-500/20 border-amber-500/40', textClass: 'text-amber-400' },
+  cancelled: { label: 'Cancelada', bgClass: 'bg-slate-700/40 border-slate-600/50', textClass: 'text-slate-400' }
+};
