@@ -267,6 +267,24 @@ export async function fetchProjects(): Promise<{
 }
 
 /**
+ * Consulta directa de tareas de un proyecto
+ */
+export async function fetchProjectTasks(projectId: string): Promise<ProjectTaskEntity[]> {
+  try {
+    const { data, error } = await supabase
+      .from('project_tasks')
+      .select('*')
+      .eq('project_id', projectId)
+      .order('created_at', { ascending: true });
+
+    if (error) return [];
+    return (data || []) as ProjectTaskEntity[];
+  } catch {
+    return [];
+  }
+}
+
+/**
  * Actualizar estado y porcentaje de avance de un proyecto
  */
 export async function updateProjectStatus(

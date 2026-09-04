@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { fetchProjects, updateProjectStatus, createProjectTask, updateProjectTaskStatus, fetchProjectActivity } from '../../services/clientProjectService';
+import {
+  fetchProjects,
+  updateProjectStatus,
+  createProjectTask,
+  updateProjectTaskStatus,
+  fetchProjectTasks,
+  fetchProjectActivity
+} from '../../services/clientProjectService';
 import type { ProjectEntity, ProjectStatus, ProjectTaskEntity, ProjectActivityEntity } from '../../types/lead';
 import { PROJECT_STATUS_LABELS } from '../../types/lead';
 import {
@@ -9,7 +16,8 @@ import {
   RefreshCw,
   X,
   AlertCircle,
-  TrendingUp
+  TrendingUp,
+  Loader2
 } from 'lucide-react';
 
 export const AdminProjects: React.FC = () => {
@@ -28,6 +36,7 @@ export const AdminProjects: React.FC = () => {
   // Task creation state in drawer
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDesc, setNewTaskDesc] = useState('');
+  const [isAddingTask, setIsAddingTask] = useState(false);
   const newTaskEngineer = '@lead_engineer';
 
   const loadProjects = useCallback(async () => {
@@ -90,30 +99,97 @@ export const AdminProjects: React.FC = () => {
     }
   };
 
+  /**
+   * Inserción Reactiva Imediata de Tareas
+   */
   const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedProject || !newTaskTitle.trim()) return;
+    if (!selectedProject || !newTaskTitle.trim() || isAddingTask) return;
 
-    await createProjectTask(selectedProject.id, {
-      title: newTaskTitle.trim(),
-      description: newTaskDesc.trim() || null,
-      assigned_to: newTaskEngineer.trim() || '@lead_engineer',
-      status: 'pending',
-      priority: 'high'
-    });
+    setIsAddingTask(true);
+    try {
+      const createdTask = await createProjectTask(selectedProject.id, {
+        title: newTaskTitle.trim(),
+        description: newTaskDesc.trim() || null,
+        assigned_to: newTaskEngineer.trim() || '@lead_engineer',
+        status: 'pending',
+        priority: 'high'
+      });
 
-    setNewTaskTitle('');
-    setNewTaskDesc('');
-    loadProjects();
-    handleOpenProjectDrawer(selectedProject);
+      if (createdTask) {
+        // Refetched updated task list for this project from Supabase
+        const updatedTasks = await fetchProjectTasks(selectedProject.id);
+        
+        // Calculate new completion percentage dynamically
+        const doneTasksCount = updatedTasks.filter(t => t.status === 'completed').length;
+        const updatedPercentage = updatedTasks.length > 0
+          ? Math.round((doneTasksCount / updatedTasks.length) * 100)
+          : 0;
+
+        // Immediate state update in Drawer
+        setSelectedProject(prev => prev ? {
+          ...prev,
+          tasks: updatedTasks,
+          completion_percentage: updatedPercentage
+        } : null);
+
+        // Immediate state update in Main Projects Table
+        setProjects(prev => prev.map(p => p.id === selectedProject.id ? {
+          ...p,
+          tasks: updatedTasks,
+          completion_percentage: updatedPercentage
+        } : p));
+
+        // Reset inputs
+        setNewTaskTitle('');
+        setNewTaskDesc('');
+      }
+    } catch (err) {
+      console.error('Error insertando tarea:', err);
+    } finally {
+      setIsAddingTask(false);
+    }
   };
 
+  /**
+   * Cálculo de Avance Dinámico e Interacción en Tiempo Real
+   */
   const handleToggleTask = async (task: ProjectTaskEntity) => {
     if (!selectedProject) return;
+
     const nextStatus = task.status === 'completed' ? 'pending' : 'completed';
+    
+    // Optimistic local state update for instant UI feedback
+    const currentTasks = selectedProject.tasks || [];
+    const updatedTasks = currentTasks.map(t =>
+      t.id === task.id ? { ...t, status: nextStatus } : t
+    );
+
+    const doneCount = updatedTasks.filter(t => t.status === 'completed').length;
+    const updatedPercentage = updatedTasks.length > 0
+      ? Math.round((doneCount / updatedTasks.length) * 100)
+      : 0;
+
+    // Instantly update selected project in state
+    setSelectedProject(prev => prev ? {
+      ...prev,
+      tasks: updatedTasks,
+      completion_percentage: updatedPercentage
+    } : null);
+
+    // Instantly update projects list state (updates table progress bars)
+    setProjects(prev => prev.map(p => p.id === selectedProject.id ? {
+      ...p,
+      tasks: updatedTasks,
+      completion_percentage: updatedPercentage
+    } : p));
+
+    // Persist to Supabase database in background
     await updateProjectTaskStatus(task.id, selectedProject.id, nextStatus);
-    loadProjects();
-    handleOpenProjectDrawer(selectedProject);
+
+    // Refetch activity log
+    const updatedActivity = await fetchProjectActivity(selectedProject.id);
+    setActivities(updatedActivity);
   };
 
   return (
@@ -388,9 +464,17 @@ export const AdminProjects: React.FC = () => {
                   />
                   <button
                     type="submit"
-                    className="px-4 py-1.5 rounded-xl bg-[#ffd343] text-[#111d28] font-bold text-xs cursor-pointer shadow"
+                    disabled={isAddingTask || !newTaskTitle.trim()}
+                    className="px-4 py-1.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs cursor-pointer shadow disabled:opacity-50 inline-flex items-center gap-1.5"
                   >
-                    Agregar Tarea
+                    {isAddingTask ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Guardando...</span>
+                      </>
+                    ) : (
+                      <span>Agregar Tarea</span>
+                    )}
                   </button>
                 </div>
               </form>
