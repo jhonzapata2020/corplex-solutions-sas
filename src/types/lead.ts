@@ -343,3 +343,67 @@ export const PROJECT_STATUS_LABELS: Record<ProjectStatus, { label: string; bgCla
   paused: { label: 'Pausado', bgClass: 'bg-amber-500/20 border-amber-500/40', textClass: 'text-amber-400' },
   cancelled: { label: 'Cancelado', bgClass: 'bg-rose-500/20 border-rose-500/40', textClass: 'text-rose-400' }
 };
+
+/**
+ * Severidad de Ticket de Soporte TI
+ */
+export type TicketSeverity = 'critical' | 'high' | 'medium' | 'low';
+
+/**
+ * Estado de Ticket de Soporte TI
+ */
+export type TicketStatus = 'open' | 'in_progress' | 'resolved' | 'closed';
+
+/**
+ * Modelo de Ticket de Soporte TI / Mesa de Ayuda (support_tickets)
+ */
+export type SupportTicketEntity = {
+  id: string;
+  client_id?: string | null;
+  project_id?: string | null;
+  ticket_code: string;
+  title: string;
+  description?: string | null;
+  severity: TicketSeverity;
+  status: TicketStatus;
+  assigned_to?: string | null;
+  total_hours_spent: number;
+  created_at: string;
+  updated_at: string;
+  resolved_at?: string | null;
+  client?: ClientEntity | null;
+  project?: ProjectEntity | null;
+  notes?: SupportTicketNoteEntity[];
+};
+
+/**
+ * Modelo de Nota / Resolución de Ticket (support_ticket_notes)
+ */
+export type SupportTicketNoteEntity = {
+  id: string;
+  ticket_id: string;
+  user_email?: string | null;
+  note: string;
+  hours_spent: number;
+  created_at: string;
+};
+
+/**
+ * Metadatos visuales de Severidad de Tickets
+ */
+export const TICKET_SEVERITY_LABELS: Record<TicketSeverity, { label: string; bgClass: string; textClass: string }> = {
+  critical: { label: 'Crítica (SLA < 2h)', bgClass: 'bg-rose-500/20 border-rose-500/40', textClass: 'text-rose-400' },
+  high: { label: 'Alta', bgClass: 'bg-amber-500/20 border-amber-500/40', textClass: 'text-amber-400' },
+  medium: { label: 'Media', bgClass: 'bg-sky-500/20 border-sky-500/40', textClass: 'text-sky-300' },
+  low: { label: 'Baja', bgClass: 'bg-slate-500/20 border-slate-500/40', textClass: 'text-slate-300' }
+};
+
+/**
+ * Metadatos visuales de Estados de Tickets
+ */
+export const TICKET_STATUS_LABELS: Record<TicketStatus, { label: string; bgClass: string; textClass: string }> = {
+  open: { label: 'Abierto', bgClass: 'bg-rose-500/20 border-rose-500/40', textClass: 'text-rose-400' },
+  in_progress: { label: 'En Proceso', bgClass: 'bg-indigo-500/20 border-indigo-500/40', textClass: 'text-indigo-300' },
+  resolved: { label: 'Resuelto', bgClass: 'bg-emerald-500/20 border-emerald-500/40', textClass: 'text-emerald-400' },
+  closed: { label: 'Cerrado', bgClass: 'bg-slate-700/40 border-slate-600/50', textClass: 'text-slate-400' }
+};

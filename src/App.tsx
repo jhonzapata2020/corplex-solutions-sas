@@ -23,6 +23,7 @@ import { AdminNotifications } from './components/admin/AdminNotifications';
 import { AdminQuotes } from './components/admin/AdminQuotes';
 import { AdminClients } from './components/admin/AdminClients';
 import { AdminProjects } from './components/admin/AdminProjects';
+import { AdminSupport } from './components/admin/AdminSupport';
 
 function PublicSite() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -114,6 +115,8 @@ export function App() {
         <Route path="quotes" element={<AdminQuotes />} />
         <Route path="clients" element={<AdminClients />} />
         <Route path="projects" element={<AdminProjects />} />
+        <Route path="support" element={<AdminSupport />} />
+        <Route path="tickets" element={<Navigate to="/admin/support" replace />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
 
