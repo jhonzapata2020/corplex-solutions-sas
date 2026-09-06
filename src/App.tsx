@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { AgentOperationsCenter } from './components/AgentOperationsCenter';
 import { AIAutomationSection } from './components/AIAutomationSection';
 import { AcademicCapabilities } from './components/AcademicCapabilities';
 import { CaseStudiesSection } from './components/CaseStudiesSection';
@@ -53,6 +54,9 @@ function PublicSite() {
         <main>
           {/* Hero Section */}
           <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
+
+          {/* Interactive Agent Operations Control Room */}
+          <AgentOperationsCenter />
 
           {/* Flagship Commercial Unit: Corplex AI Automation */}
           <AIAutomationSection onOpenQuoteModal={(title) => handleOpenQuoteModal(title)} />

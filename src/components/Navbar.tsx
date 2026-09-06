@@ -37,6 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
   const navLinks = [
     { href: '#inicio', label: 'Inicio', id: 'inicio' },
+    { href: '#centro-operaciones', label: 'Control Room ⚡', id: 'centro-operaciones', badge: 'LIVE' },
     { href: '#ai-automation', label: 'AI Automation', id: 'ai-automation', badge: 'NUEVO' },
     { href: '#servicios', label: 'Servicios', id: 'servicios' },
     { href: '#casos-exito', label: 'Portafolio', id: 'casos-exito' },
@@ -50,6 +51,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
   const topTabs = [
     { label: 'CORPLEX', color: 'border-t-4 border-[#ffd343]', active: true, href: '#inicio' },
+    { label: 'Control Room ⚡', color: 'border-t-4 border-emerald-400', active: false, href: '#centro-operaciones' },
     { label: 'AI Automation ✨', color: 'border-t-4 border-amber-300', active: false, href: '#ai-automation' },
     { label: 'Portafolio / Éxito 🚀', color: 'border-t-4 border-cyan-400', active: false, href: '#casos-exito' },
     { label: 'UNAD / ECBTI', color: 'border-t-4 border-emerald-400', active: false, href: '#enfoque-academico' },

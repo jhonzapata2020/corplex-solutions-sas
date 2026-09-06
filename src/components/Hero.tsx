@@ -70,7 +70,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal 
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
                     <span className="ml-2 font-bold text-slate-300">corplex_ai_core.py — Python 3.12</span>
                   </div>
-                  <span className="text-[#ffd343] font-bold">AI AGENT ENGINE :: ACTIVE</span>
+                  <span className="text-[#ffd343] font-bold">AGENT OPERATING DEMO :: LIVE SIMULATION</span>
                 </div>
 
                 {/* Interactive Code Snippet */}
@@ -83,13 +83,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal 
                     <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agent = AIAutomationEngine(workflow="Omnichannel Ingestion", llm="GPT-4o RAG")
                   </p>
                   <p className="text-[#38bdf8]">
-                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agent.connect_systems(crm="Active", erp="Synced", whatsapp="Connected 24/7")
+                    <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agent.connect_systems(crm="Active", erp="Synced", whatsapp="Flujo Demo Listo para Integrar")
                   </p>
                   <p className="text-slate-300">
                     <span className="text-[#ffd343]">&gt;&gt;&gt; </span>agent.run_automation(status="Automated without manual typing")
                   </p>
                   <p className="text-[#ffd343] font-bold pt-1">
-                    'Status: Active • Workflows Monitored • Systems Synchronized'
+                    '[MODO SIMULACIÓN INTERACTIVA] • Workflows Monitored • Systems Synchronized'
                   </p>
                 </div>
               </div>
@@ -98,13 +98,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal 
               <div className="pt-4 mt-4 border-t border-[#2b5b84]/60 flex items-center justify-between text-[11px] text-slate-400">
                 <span className="text-emerald-400 font-bold flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  Execution output verified
+                  Modo Simulación Control Room Activo
                 </span>
                 <a
-                  href="#ai-automation"
+                  href="#centro-operaciones"
                   className="text-[#ffd343] hover:underline font-bold cursor-pointer"
                 >
-                  Ver Diagnóstico IA →
+                  Ver Control Room ⚡ →
                 </a>
               </div>
 
@@ -124,10 +124,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal 
                   {currentTopic.description}
                 </p>
 
+                {/* Dual Hierarchical Hero CTAs */}
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  <a
+                    href="#centro-operaciones"
+                    className="px-5 py-2.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#0d1722] font-bold text-xs font-sans shadow-lg transition-all flex items-center gap-2"
+                  >
+                    <span>Ejecutar Demo Interactiva ⚡</span>
+                  </a>
+
+                  <a
+                    href="#portafolio"
+                    className="px-4 py-2.5 rounded-xl bg-[#142332] hover:bg-[#2b5b84] border border-[#4b7da5]/60 text-white font-bold text-xs font-sans transition-all flex items-center gap-1.5"
+                  >
+                    <span>Ver Portafolio en Vivo ↗</span>
+                  </a>
+                </div>
+
                 {/* Feature Highlight Link */}
                 <a
                   href={currentTopic.href}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ffd343] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-[#ffd343] hover:underline"
                 >
                   <span>{currentTopic.linkText}</span>
                   <ChevronRight className="w-4 h-4 text-[#ffd343]" />
