@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GraduationCap, CheckCircle2, Cpu, BarChart3, RefreshCw, Terminal } from 'lucide-react';
+import { GraduationCap, CheckCircle2, Cpu, BarChart3, RefreshCw, Terminal, ExternalLink } from 'lucide-react';
 
 export const AcademicCapabilities: React.FC = () => {
   const [simulatorValue, setSimulatorValue] = useState(75);
@@ -33,9 +33,19 @@ export const AcademicCapabilities: React.FC = () => {
             Ingeniería & Capacidad para Educación Superior
           </h2>
 
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-6">
             Plataformas y simuladores web interactivos creados para la Escuela de Ciencias Básicas, Tecnología e Ingeniería (ECBTI - UNAD) y semilleros de investigación.
           </p>
+
+          <a
+            href="https://simuladorunad.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#3775a9] hover:bg-[#2b5b84] text-white text-sm font-bold font-sans shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            <span>Abrir Simulador UNAD ↗</span>
+            <ExternalLink className="w-4 h-4" />
+          </a>
         </div>
 
         {/* 3 Technical Capacities Comparison Cards */}
@@ -51,8 +61,17 @@ export const AcademicCapabilities: React.FC = () => {
                 Prácticas de código, lógica de programación y modelos matemáticos ejecutados directo en el navegador sin descargas extra.
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-slate-200 text-[11px] font-mono-tech text-[#2b5b84] font-bold flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5" /> Estándar LTI / Web Embed
+            <div className="mt-4 pt-4 border-t border-slate-200 text-[11px] font-mono-tech text-[#2b5b84] font-bold flex items-center justify-between">
+              <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5" /> Estándar LTI / Web Embed</span>
+              <a
+                href="https://simuladorunad.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#3775a9] hover:text-[#1b3852] font-bold inline-flex items-center gap-1 hover:underline"
+              >
+                <span>Probar</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
           </div>
 
@@ -96,10 +115,19 @@ export const AcademicCapabilities: React.FC = () => {
               <h3 className="text-xl font-bold text-slate-900">Laboratorio Virtual ECBTI-LAB-01</h3>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-3">
               <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono-tech font-bold">
                 Status: Operational (18ms)
               </span>
+              <a
+                href="https://simuladorunad.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#3775a9] hover:bg-[#2b5b84] text-white text-xs font-bold font-sans shadow-sm transition-all duration-200"
+              >
+                <span>Abrir Simulador ↗</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
 

@@ -139,7 +139,7 @@ export async function fetchCaseStudies(): Promise<CaseStudyEntity[]> {
           summary: 'Plataforma interactiva de laboratorios docentes en tiempo real para prácticas de la Escuela de Ciencias Básicas, Tecnología e Ingeniería (ECBTI).',
           impact_metrics: '+5,000 Estudiantes beneficiados',
           metric_highlight: '99.9% Disponibilidad durante Exámenes Nacionales',
-          project_url: 'https://corplex-solutions-sas.vercel.app/#academico',
+          project_url: 'https://simuladorunad.vercel.app/',
           technologies: ['React 19', 'Canvas 2D/3D', 'AWS Lambda', 'Node.js', 'LTI Standard'],
           is_published: true,
           display_order: 1,

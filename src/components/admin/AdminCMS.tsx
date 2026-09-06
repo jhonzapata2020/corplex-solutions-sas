@@ -725,7 +725,7 @@ export const AdminCMS: React.FC = () => {
                   type="url"
                   value={caseUrl}
                   onChange={(e) => setCaseUrl(e.target.value)}
-                  placeholder="https://corplex-solutions-sas.vercel.app/..."
+                  placeholder="https://simuladorunad.vercel.app/"
                   className="w-full px-3 py-2 rounded-xl bg-[#142332] border border-[#2b5b84] text-xs text-white focus:outline-none focus:border-[#ffd343]"
                 />
               </div>
