@@ -98,6 +98,7 @@ export const CaseStudiesSection: React.FC = () => {
 
   return (
     <section id="casos-exito" className="py-20 relative bg-[#111d28] font-tech text-slate-100 border-t border-[#2b5b84]/50 overflow-hidden">
+      <div id="portafolio" className="absolute -top-24"></div>
       
       {/* Visual Ambient Glows */}
       <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#ffd343]/5 rounded-full blur-3xl pointer-events-none"></div>

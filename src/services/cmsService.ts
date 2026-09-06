@@ -185,6 +185,8 @@ export async function fetchCaseStudies(): Promise<CaseStudyEntity[]> {
   }
 }
 
+export const getCaseStudies = fetchCaseStudies;
+
 /**
  * Crear o Actualizar Caso de Éxito
  */
