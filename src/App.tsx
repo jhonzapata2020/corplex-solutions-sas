@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AIAutomationSection } from './components/AIAutomationSection';
 import { AcademicCapabilities } from './components/AcademicCapabilities';
+import { CaseStudiesSection } from './components/CaseStudiesSection';
 import { ServicesGrid } from './components/ServicesGrid';
 import { CloudArchitecture } from './components/CloudArchitecture';
 import { Methodology } from './components/Methodology';
@@ -58,6 +59,9 @@ function PublicSite() {
 
           {/* Educational & UNAD Section */}
           <AcademicCapabilities />
+
+          {/* Dynamic Portfolio & Case Studies Section (CMS Driven) */}
+          <CaseStudiesSection />
 
           {/* Services Catalog Bento Grid */}
           <ServicesGrid onSelectServiceForQuote={(title) => handleOpenQuoteModal(title)} />

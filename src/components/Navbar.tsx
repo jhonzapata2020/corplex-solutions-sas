@@ -15,7 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['inicio', 'ai-automation', 'servicios', 'soluciones', 'enfoque-academico', 'arquitectura-cloud', 'metodologia', 'cumplimiento', 'contacto'];
+      const sections = ['inicio', 'ai-automation', 'servicios', 'soluciones', 'enfoque-academico', 'casos-exito', 'arquitectura-cloud', 'metodologia', 'cumplimiento', 'contacto'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -39,7 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     { href: '#inicio', label: 'Inicio', id: 'inicio' },
     { href: '#ai-automation', label: 'AI Automation', id: 'ai-automation', badge: 'NUEVO' },
     { href: '#servicios', label: 'Servicios', id: 'servicios' },
-    { href: '#soluciones', label: 'Soluciones', id: 'soluciones' },
+    { href: '#casos-exito', label: 'Portafolio', id: 'casos-exito' },
     { href: '#enfoque-academico', label: 'Sector Educativo', id: 'enfoque-academico' },
     { href: '#arquitectura-cloud', label: 'Arquitectura Cloud', id: 'arquitectura-cloud' },
     { href: '#metodologia', label: 'Metodología', id: 'metodologia' },
@@ -51,9 +51,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const topTabs = [
     { label: 'CORPLEX', color: 'border-t-4 border-[#ffd343]', active: true, href: '#inicio' },
     { label: 'AI Automation ✨', color: 'border-t-4 border-amber-300', active: false, href: '#ai-automation' },
+    { label: 'Portafolio / Éxito 🚀', color: 'border-t-4 border-cyan-400', active: false, href: '#casos-exito' },
     { label: 'UNAD / ECBTI', color: 'border-t-4 border-emerald-400', active: false, href: '#enfoque-academico' },
     { label: 'Cloud AWS', color: 'border-t-4 border-sky-400', active: false, href: '#arquitectura-cloud' },
-    { label: 'Agrotech & IA', color: 'border-t-4 border-amber-400', active: false, href: '#servicios' },
     { label: 'Ficha Legal', color: 'border-t-4 border-rose-400', active: false, href: '#cumplimiento' },
     { label: 'Contacto', color: 'border-t-4 border-teal-400', active: false, href: '#contacto' }
   ];
