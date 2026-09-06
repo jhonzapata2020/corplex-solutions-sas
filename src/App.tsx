@@ -30,8 +30,17 @@ import { AdminCMS } from './components/admin/AdminCMS';
 import { AdminSettings } from './components/admin/AdminSettings';
 
 function PublicSite() {
+  const [isControlRoomOpen, setIsControlRoomOpen] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [selectedServiceTitle, setSelectedServiceTitle] = useState<string | undefined>(undefined);
+
+  const handleOpenControlRoom = () => {
+    setIsControlRoomOpen(true);
+  };
+
+  const handleCloseControlRoom = () => {
+    setIsControlRoomOpen(false);
+  };
 
   const handleOpenQuoteModal = (serviceTitle?: string) => {
     setSelectedServiceTitle(serviceTitle);
@@ -48,15 +57,18 @@ function PublicSite() {
       {/* Main Platform (Direct Load) */}
       <div className="animate-in fade-in duration-700">
         {/* Header & Navigation */}
-        <Navbar onOpenQuoteModal={() => handleOpenQuoteModal()} />
+        <Navbar
+          onOpenQuoteModal={() => handleOpenQuoteModal()}
+          onOpenControlRoom={handleOpenControlRoom}
+        />
 
         {/* Main Content Sections */}
         <main>
           {/* Hero Section */}
-          <Hero onOpenQuoteModal={() => handleOpenQuoteModal()} />
-
-          {/* Interactive Agent Operations Control Room */}
-          <AgentOperationsCenter />
+          <Hero
+            onOpenQuoteModal={() => handleOpenQuoteModal()}
+            onOpenControlRoom={handleOpenControlRoom}
+          />
 
           {/* Flagship Commercial Unit: Corplex AI Automation */}
           <AIAutomationSection onOpenQuoteModal={(title) => handleOpenQuoteModal(title)} />
@@ -89,6 +101,12 @@ function PublicSite() {
         {/* Floating Scroll-To-Top Button */}
         <ScrollToTop />
       </div>
+
+      {/* Agent Operations Control Room Workstation Modal */}
+      <AgentOperationsCenter
+        isOpen={isControlRoomOpen}
+        onClose={handleCloseControlRoom}
+      />
 
       {/* Interactive Quote Modal */}
       <QuoteModal

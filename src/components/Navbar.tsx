@@ -6,9 +6,10 @@ import { Logo } from './Logo';
 
 interface NavbarProps {
   onOpenQuoteModal: () => void;
+  onOpenControlRoom?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenControlRoom }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
   const [searchQuery, setSearchQuery] = useState('');
@@ -137,6 +138,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             <a
               key={link.id}
               href={link.href}
+              onClick={(e) => {
+                if (link.id === 'centro-operaciones' && onOpenControlRoom) {
+                  e.preventDefault();
+                  onOpenControlRoom();
+                }
+              }}
               className={`px-4 py-1.5 rounded-lg transition-all flex items-center gap-2 font-bold ${
                 activeSection === link.id
                   ? 'bg-[#1b3852] text-[#ffd343] shadow-inner border border-[#ffd343]/40'
@@ -162,7 +169,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               <a
                 key={link.id}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  if (link.id === 'centro-operaciones' && onOpenControlRoom) {
+                    e.preventDefault();
+                    onOpenControlRoom();
+                  }
+                }}
                 className={`px-3.5 py-2.5 rounded-lg text-xs font-bold flex items-center justify-between ${
                   activeSection === link.id
                     ? 'bg-[#2b5b84] text-[#ffd343]'

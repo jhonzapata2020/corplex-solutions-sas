@@ -3,9 +3,10 @@ import { ChevronRight } from 'lucide-react';
 
 interface HeroProps {
   onOpenQuoteModal: () => void;
+  onOpenControlRoom?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal, onOpenControlRoom }) => {
   const [activeSlide, setActiveSlide] = useState<number>(1);
 
   const slideTopics = [
@@ -100,12 +101,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal 
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   Modo Simulación Control Room Activo
                 </span>
-                <a
-                  href="#centro-operaciones"
-                  className="text-[#ffd343] hover:underline font-bold cursor-pointer"
+                <button
+                  onClick={() => onOpenControlRoom && onOpenControlRoom()}
+                  className="text-[#ffd343] hover:underline font-bold cursor-pointer bg-transparent border-none p-0"
                 >
                   Ver Control Room ⚡ →
-                </a>
+                </button>
               </div>
 
             </div>
@@ -126,12 +127,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal 
 
                 {/* Dual Hierarchical Hero CTAs */}
                 <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <a
-                    href="#centro-operaciones"
-                    className="px-5 py-2.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#0d1722] font-bold text-xs font-sans shadow-lg transition-all flex items-center gap-2"
+                  <button
+                    onClick={() => onOpenControlRoom && onOpenControlRoom()}
+                    className="px-5 py-2.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#0d1722] font-bold text-xs font-sans shadow-lg transition-all flex items-center gap-2 cursor-pointer border-none"
                   >
                     <span>Ejecutar Demo Interactiva ⚡</span>
-                  </a>
+                  </button>
 
                   <a
                     href="#portafolio"
