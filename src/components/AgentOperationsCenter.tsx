@@ -14,7 +14,8 @@ import {
   Cpu,
   X,
   Terminal,
-  Activity
+  Activity,
+  Home
 } from 'lucide-react';
 import { Logo } from './Logo';
 
@@ -142,8 +143,8 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
       {/* 1. TOP STUDIO HEADER BAR */}
       <header className="bg-[#0f1b29] border-b border-[#2b5b84]/60 px-4 sm:px-6 py-3 flex items-center justify-between z-10 shadow-md">
         
-        {/* Brand & Workstation Tag */}
-        <div className="flex items-center gap-3">
+        {/* Extremo Izquierdo: Logotipo Corplex + Sello AI AGENTS CONTROL ROOM + Badge Verde */}
+        <div className="flex items-center gap-3 flex-wrap">
           <div className="scale-90 origin-left">
             <Logo size="sm" />
           </div>
@@ -152,25 +153,41 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
             <span className="text-white font-bold tracking-tight">AI AGENTS CONTROL ROOM</span>
             <span className="text-[#ffd343] text-[10px] font-extrabold">WORKSTATION STUDIO MODE</span>
           </div>
+
+          <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-[#142332] border border-[#2b5b84] text-xs font-mono-tech ml-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-emerald-400 font-bold">MODO SIMULACIÓN OPERATIVA ACTIVO</span>
+          </div>
         </div>
 
-        {/* Live Status Indicator Badge */}
-        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#142332] border border-[#2b5b84] text-xs font-mono-tech">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span className="text-emerald-400 font-bold hidden md:inline">MODO SIMULACIÓN OPERATIVA ACTIVO</span>
-          <span className="text-slate-400 hidden lg:inline">|</span>
-          <span className="text-slate-300 text-[11px] hidden lg:inline">DEMO TRANSPARENTE EN TIEMPO REAL</span>
-        </div>
+        {/* Extremo Derecho: Botón Inicio, Tecla Rápida [Esc] y Botón Cierre ✕ */}
+        <div className="flex items-center gap-2">
+          
+          {/* Botón de Inicio / Volver */}
+          <button
+            onClick={onClose}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors cursor-pointer shadow-sm"
+            title="Volver al Sitio Web Principal"
+          >
+            <Home className="w-4 h-4 text-[#ffd343]" />
+            <span>Inicio</span>
+          </button>
 
-        {/* Close Workstation Button */}
-        <button
-          onClick={onClose}
-          className="px-3.5 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold font-mono-tech transition-all flex items-center gap-1.5 cursor-pointer"
-          title="Cerrar y volver al sitio web (Esc)"
-        >
-          <span>Cerrar (Esc)</span>
-          <X className="w-4 h-4 stroke-[2.5]" />
-        </button>
+          {/* Indicador visual Tecla Esc */}
+          <span className="hidden sm:inline-block px-2 py-1 rounded bg-[#142332] text-slate-400 font-mono-tech text-[10px] border border-[#2b5b84]">
+            Esc
+          </span>
+
+          {/* Botón de Cierre ✕ */}
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold font-mono-tech transition-all flex items-center justify-center cursor-pointer shadow-sm"
+            title="Cerrar (Esc)"
+          >
+            <X className="w-4 h-4 stroke-[2.5]" />
+          </button>
+
+        </div>
 
       </header>
 
