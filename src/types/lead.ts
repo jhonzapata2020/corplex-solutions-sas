@@ -437,7 +437,10 @@ export type CaseStudyEntity = {
   category: string;
   summary: string;
   impact_metrics?: string | null;
+  metric_highlight?: string | null;
   image_url?: string | null;
+  project_url?: string | null;
+  technologies?: string[] | null;
   is_published: boolean;
   display_order: number;
   created_at: string;

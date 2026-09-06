@@ -120,7 +120,7 @@ export async function toggleServiceStatus(id: string, isActive: boolean): Promis
 }
 
 /**
- * Consulta de Casos de Éxito
+ * Consulta de Casos de Éxito / Portafolio
  */
 export async function fetchCaseStudies(): Promise<CaseStudyEntity[]> {
   try {
@@ -133,13 +133,46 @@ export async function fetchCaseStudies(): Promise<CaseStudyEntity[]> {
       return [
         {
           id: 'cs-1',
-          title: 'Simuladores Educativos UNAD',
+          title: 'Simuladores Educativos & Laboratorios Virtuales UNAD',
           client_name: 'Universidad Nacional Abierta y a Distancia (UNAD)',
-          category: 'Simuladores Web & EdTech',
-          summary: 'Plataforma interactiva de laboratorio virtual para la gestión de prácticas universitarias.',
-          impact_metrics: 'Más de 5,000 estudiantes beneficiados',
+          category: 'EdTech & Simuladores',
+          summary: 'Plataforma interactiva de laboratorios docentes en tiempo real para prácticas de la Escuela de Ciencias Básicas, Tecnología e Ingeniería (ECBTI).',
+          impact_metrics: '+5,000 Estudiantes beneficiados',
+          metric_highlight: '99.9% Disponibilidad durante Exámenes Nacionales',
+          project_url: 'https://corplex-solutions-sas.vercel.app/#academico',
+          technologies: ['React 19', 'Canvas 2D/3D', 'AWS Lambda', 'Node.js', 'LTI Standard'],
           is_published: true,
           display_order: 1,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        },
+        {
+          id: 'cs-2',
+          title: 'Automatización Comercial & Agente IA RAG',
+          client_name: 'Red de Servicios Médicos & Salud',
+          category: 'IA & Automatización',
+          summary: 'Agente conversacional inteligente integrado con WhatsApp API para recepción, cualificación automática y agendamiento de pacientes.',
+          impact_metrics: '-70% Tiempo de respuesta comercial',
+          metric_highlight: 'ROI 4.2x en el primer trimestre de operación',
+          project_url: 'https://corplex-solutions-sas.vercel.app/#ai-automation',
+          technologies: ['Python', 'FastAPI', 'WhatsApp API', 'Make / n8n', 'PostgreSQL'],
+          is_published: true,
+          display_order: 2,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        },
+        {
+          id: 'cs-3',
+          title: 'Arquitectura Cloud AWS High-Availability & DevOps',
+          client_name: 'Grupo Logístico & Agroindustrial Urabá',
+          category: 'Cloud AWS & SLA',
+          summary: 'Migración de infraestructura local a AWS con EC2 Auto Scaling, RDS PostgreSQL cifrado y balanceo de carga para operaciones masivas.',
+          impact_metrics: 'Zero-Downtime en operaciones críticas',
+          metric_highlight: '< 15ms Latencia en consulta de inventarios',
+          project_url: 'https://corplex-solutions-sas.vercel.app/#servicios',
+          technologies: ['AWS EC2', 'RDS PostgreSQL', 'AWS ALB', 'Docker', 'Route 53'],
+          is_published: true,
+          display_order: 3,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         }
@@ -149,6 +182,55 @@ export async function fetchCaseStudies(): Promise<CaseStudyEntity[]> {
     return data as CaseStudyEntity[];
   } catch {
     return [];
+  }
+}
+
+/**
+ * Crear o Actualizar Caso de Éxito
+ */
+export async function saveCaseStudy(
+  caseStudy: Omit<CaseStudyEntity, 'created_at' | 'updated_at'> & { id?: string }
+): Promise<boolean> {
+  try {
+    const payload = {
+      title: caseStudy.title.trim(),
+      client_name: caseStudy.client_name.trim(),
+      category: caseStudy.category.trim(),
+      summary: caseStudy.summary.trim(),
+      impact_metrics: caseStudy.impact_metrics?.trim() || null,
+      metric_highlight: caseStudy.metric_highlight?.trim() || null,
+      project_url: caseStudy.project_url?.trim() || null,
+      technologies: caseStudy.technologies || [],
+      is_published: caseStudy.is_published,
+      display_order: caseStudy.display_order || 1,
+      updated_at: new Date().toISOString()
+    };
+
+    if (caseStudy.id && !caseStudy.id.startsWith('cs-')) {
+      const { error } = await supabase.from('case_studies').update(payload).eq('id', caseStudy.id);
+      return !error;
+    } else {
+      const { error } = await supabase.from('case_studies').insert([payload]);
+      return !error;
+    }
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Cambiar Estado de Publicación de Caso de Éxito
+ */
+export async function toggleCaseStudyStatus(id: string, isPublished: boolean): Promise<boolean> {
+  try {
+    if (id.startsWith('cs-')) return true;
+    const { error } = await supabase
+      .from('case_studies')
+      .update({ is_published: isPublished, updated_at: new Date().toISOString() })
+      .eq('id', id);
+    return !error;
+  } catch {
+    return false;
   }
 }
 
