@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, MessageCircle, Menu, X, Heart } from 'lucide-react';
+import { Search, MessageCircle, Menu, X, Heart, Lock } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
 import { Logo } from './Logo';
 
@@ -15,7 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['inicio', 'ai-automation', 'servicios', 'soluciones', 'enfoque-academico', 'casos-exito', 'arquitectura-cloud', 'metodologia', 'cumplimiento', 'contacto'];
+      const sections = ['inicio', 'centro-operaciones', 'servicios', 'casos-exito', 'contacto'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -38,70 +38,35 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const navLinks = [
     { href: '#inicio', label: 'Inicio', id: 'inicio' },
     { href: '#centro-operaciones', label: 'Control Room ⚡', id: 'centro-operaciones', badge: 'LIVE' },
-    { href: '#ai-automation', label: 'AI Automation', id: 'ai-automation', badge: 'NUEVO' },
     { href: '#servicios', label: 'Servicios', id: 'servicios' },
     { href: '#casos-exito', label: 'Portafolio', id: 'casos-exito' },
-    { href: '#enfoque-academico', label: 'Sector Educativo', id: 'enfoque-academico' },
-    { href: '#arquitectura-cloud', label: 'Arquitectura Cloud', id: 'arquitectura-cloud' },
-    { href: '#metodologia', label: 'Metodología', id: 'metodologia' },
-    { href: '#cumplimiento', label: 'Ficha Legal', id: 'cumplimiento' },
-    { href: '#contacto', label: 'Contacto', id: 'contacto' },
-    { href: '/admin/login', label: 'Acceso Admin 🔒', id: 'admin', isRouter: true }
-  ];
-
-  const topTabs = [
-    { label: 'CORPLEX', color: 'border-t-4 border-[#ffd343]', active: true, href: '#inicio' },
-    { label: 'Control Room ⚡', color: 'border-t-4 border-emerald-400', active: false, href: '#centro-operaciones' },
-    { label: 'AI Automation ✨', color: 'border-t-4 border-amber-300', active: false, href: '#ai-automation' },
-    { label: 'Portafolio / Éxito 🚀', color: 'border-t-4 border-cyan-400', active: false, href: '#casos-exito' },
-    { label: 'UNAD / ECBTI', color: 'border-t-4 border-emerald-400', active: false, href: '#enfoque-academico' },
-    { label: 'Cloud AWS', color: 'border-t-4 border-sky-400', active: false, href: '#arquitectura-cloud' },
-    { label: 'Ficha Legal', color: 'border-t-4 border-rose-400', active: false, href: '#cumplimiento' },
-    { label: 'Contacto', color: 'border-t-4 border-teal-400', active: false, href: '#contacto' }
+    { href: '#contacto', label: 'Contacto', id: 'contacto' }
   ];
 
   return (
     <header className="w-full bg-[#111d28] font-tech text-slate-100 shadow-2xl relative z-40 border-b border-[#2b5b84]/50">
       
-      {/* 1. Top Utility Header Bar */}
-      <div className="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-6 text-xs border-b border-[#2b5b84]/30">
-        <div className="flex items-center font-mono-tech">
-          {topTabs.map((tab, idx) => (
-            <a
-              key={idx}
-              href={tab.href}
-              className={`px-4 py-2.5 transition-colors flex items-center gap-1.5 ${tab.color} ${
-                tab.active
-                  ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner'
-                  : 'bg-[#111d28] text-slate-400 hover:text-white hover:bg-[#1b3852]/60'
-              }`}
-            >
-              <span>{tab.label}</span>
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-4 text-[11px] font-mono-tech text-slate-400">
-          <span className="flex items-center gap-1 text-emerald-400 font-bold">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            NIT {LEGAL_INFO.nit}
-          </span>
-          <span>Turbo, Urabá, Colombia</span>
-        </div>
-      </div>
-
-      {/* 2. Main Brand & Search Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Main Header Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         
-        {/* Official Logo */}
-        <a href="#inicio" className="flex items-center gap-3 group">
-          <Logo size="lg" />
-        </a>
+        {/* Corporate Brand Logo & Subtitle info */}
+        <div className="flex items-center gap-3">
+          <a href="#inicio" className="flex items-center gap-3 group">
+            <Logo size="lg" />
+          </a>
+          <div className="hidden lg:flex flex-col text-[11px] font-mono-tech text-slate-400 border-l border-[#2b5b84]/60 pl-3">
+            <span className="text-emerald-400 font-bold flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              NIT {LEGAL_INFO.nit}
+            </span>
+            <span className="text-slate-400 text-[10px]">Turbo, Urabá, Colombia</span>
+          </div>
+        </div>
 
-        {/* Action Controls & Search Box (Python.org style) */}
-        <div className="flex flex-wrap items-center gap-3">
+        {/* Action Controls & Search Box */}
+        <div className="flex flex-wrap items-center gap-2.5">
           
-          {/* Quote Button (Compact Python.org Donate Button Style) */}
+          {/* Quote Button */}
           <button
             onClick={onOpenQuoteModal}
             className="px-3.5 py-1.5 rounded-md bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs shadow-sm transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
@@ -115,10 +80,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             <Search className="w-4 h-4 text-slate-500 ml-2 mr-1" />
             <input
               type="text"
-              placeholder="Buscar servicios, cloud..."
+              placeholder="Buscar servicios..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent border-none text-xs text-slate-900 focus:outline-none w-36 md:w-44 px-1"
+              className="bg-transparent border-none text-xs text-slate-900 focus:outline-none w-28 md:w-36 px-1"
             />
             <button
               onClick={() => {
@@ -127,13 +92,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                   if (elem) elem.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="bg-[#2b5b84] hover:bg-[#1e415e] text-white font-bold text-[11px] px-3 py-1 rounded"
+              className="bg-[#2b5b84] hover:bg-[#1e415e] text-white font-bold text-[11px] px-2.5 py-0.5 rounded cursor-pointer"
             >
               IR
             </button>
           </div>
 
-          {/* Direct Circular WhatsApp Button */}
+          {/* WhatsApp Direct Link */}
           <a
             href="https://wa.me/573207105618"
             target="_blank"
@@ -143,6 +108,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           >
             <MessageCircle className="w-4 h-4 stroke-[2]" />
           </a>
+
+          {/* Discrete Lock Icon for Admin Access */}
+          <Link
+            to="/admin/login"
+            className="p-2 rounded-full bg-[#142332] hover:bg-[#1b3852] text-slate-400 hover:text-[#ffd343] border border-[#2b5b84] transition-all shadow-sm"
+            title="Acceso Administrativo 🔒"
+          >
+            <Lock className="w-4 h-4" />
+          </Link>
 
           {/* Mobile Drawer Trigger */}
           <button
@@ -156,39 +130,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
       </div>
 
-      {/* 3. Main Navigation Tab Bar */}
+      {/* 5 Strategic Main Navigation Links Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3">
-        <nav className="hidden md:flex items-center justify-around bg-python-nav-gradient rounded-xl px-2 py-1.5 border border-[#4b7da5]/40 text-xs font-medium shadow-lg">
-          {navLinks.map((link) => 
-            link.isRouter ? (
-              <Link
-                key={link.id}
-                to={link.href}
-                className="px-3.5 py-1.5 rounded-lg text-slate-200 hover:text-[#ffd343] hover:bg-[#1b3852]/50 transition-all flex items-center gap-1.5 font-medium"
-              >
-                <span>{link.label}</span>
-              </Link>
-            ) : (
-              <a
-                key={link.id}
-                href={link.href}
-                className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
-                  activeSection === link.id
-                    ? 'bg-[#1b3852] text-[#ffd343] font-bold shadow-inner border border-[#ffd343]/30'
-                    : link.id === 'ai-automation'
-                      ? 'text-[#ffd343] font-bold hover:bg-[#1b3852]/80 bg-[#142332]/50 border border-[#ffd343]/30'
-                      : 'text-slate-200 hover:text-white hover:bg-[#1b3852]/50'
-                }`}
-              >
-                <span>{link.label}</span>
-                {link.badge && (
-                  <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-[#ffd343] text-[#111d28] shadow-sm animate-pulse">
-                    {link.badge}
-                  </span>
-                )}
-              </a>
-            )
-          )}
+        <nav className="hidden md:flex items-center justify-center gap-2 lg:gap-4 bg-python-nav-gradient rounded-xl px-4 py-1.5 border border-[#4b7da5]/40 text-xs font-medium shadow-lg">
+          {navLinks.map((link) => (
+            <a
+              key={link.id}
+              href={link.href}
+              className={`px-4 py-1.5 rounded-lg transition-all flex items-center gap-2 font-bold ${
+                activeSection === link.id
+                  ? 'bg-[#1b3852] text-[#ffd343] shadow-inner border border-[#ffd343]/40'
+                  : 'text-slate-200 hover:text-white hover:bg-[#1b3852]/60'
+              }`}
+            >
+              <span>{link.label}</span>
+              {link.badge && (
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-emerald-500 text-slate-950 shadow-sm animate-pulse">
+                  {link.badge}
+                </span>
+              )}
+            </a>
+          ))}
         </nav>
       </div>
 
@@ -196,52 +158,48 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#1b3852] border-t border-[#2b5b84] p-4 font-tech">
           <div className="flex flex-col space-y-2">
-            {navLinks.map((link) => 
-              link.isRouter ? (
-                <Link
-                  key={link.id}
-                  to={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#111d28] flex items-center justify-between"
-                >
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3.5 py-2.5 rounded-lg text-xs font-bold flex items-center justify-between ${
+                  activeSection === link.id
+                    ? 'bg-[#2b5b84] text-[#ffd343]'
+                    : 'text-slate-300 hover:bg-[#111d28]'
+                }`}
+              >
+                <div className="flex items-center gap-2">
                   <span>{link.label}</span>
-                </Link>
-              ) : (
-                <a
-                  key={link.id}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center justify-between ${
-                    activeSection === link.id
-                      ? 'bg-[#2b5b84] text-[#ffd343] font-bold'
-                      : link.id === 'ai-automation'
-                        ? 'bg-[#142332] text-[#ffd343] font-bold border border-[#ffd343]/30'
-                        : 'text-slate-300 hover:bg-[#111d28]'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-[#ffd343] text-[#111d28]">
-                        {link.badge}
-                      </span>
-                    )}
-                  </div>
-                  {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-[#ffd343]"></span>}
-                </a>
-              )
-            )}
+                  {link.badge && (
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono-tech font-extrabold bg-emerald-500 text-slate-950">
+                      {link.badge}
+                    </span>
+                  )}
+                </div>
+                {activeSection === link.id && <span className="w-1.5 h-1.5 rounded-full bg-[#ffd343]"></span>}
+              </a>
+            ))}
 
-            <div className="pt-3 border-t border-[#2b5b84]">
+            <div className="pt-3 border-t border-[#2b5b84] flex items-center justify-between gap-3">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenQuoteModal();
                 }}
-                className="w-full py-2.5 rounded-md bg-[#ffd343] text-[#111d28] font-bold text-xs text-center"
+                className="flex-1 py-2.5 rounded-md bg-[#ffd343] text-[#111d28] font-bold text-xs text-center"
               >
                 Cotizar Proyecto
               </button>
+
+              <Link
+                to="/admin/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-md bg-[#142332] text-slate-300 text-xs font-bold border border-[#2b5b84] flex items-center gap-1.5"
+              >
+                <Lock className="w-3.5 h-3.5" />
+                <span>Admin</span>
+              </Link>
             </div>
           </div>
         </div>
