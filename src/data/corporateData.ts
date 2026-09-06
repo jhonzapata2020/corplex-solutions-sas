@@ -26,76 +26,58 @@ export const LEGAL_INFO: LegalData = {
 
 export const SERVICES_DATA: ServiceItem[] = [
   {
-    id: "agrotech-1",
+    id: "ai-automation-1",
     category: "ai",
-    categoryLabel: "Agrotech & IA",
-    title: "Agrotech, IoT & IA para Agricultura de Precisión",
-    shortDesc: "Software inteligente para gestión y monitoreo de cultivos (plátano, café, cítricos, frutales) con sensores IoT y modelos predictivos de IA.",
-    fullDesc: "Desarrollamos soluciones agrotech diseñadas para el campo colombiano. Integración con sensores de humedad de suelo, estaciones meteorológicas y pluviómetros. Algoritmos de IA para recomendaciones de riego, prevención de plagas/clima y trazabilidad de cosechas.",
-    icon: "Sprout",
+    categoryLabel: "OFERTA PILAR 1 · IA & AUTOMATIZACIÓN",
+    title: "Automatización de Atención & Cotización Comercial",
+    shortDesc: "Agentes de IA conversacionales (RAG), integración con WhatsApp API, cualificación de leads y automatización de cotizaciones comerciales con ROI medible.",
+    fullDesc: "Diseñamos e implementamos asistentes virtuales con IA entrenados con las reglas y catálogo de tu empresa. Capturan prospectos en tiempo real, cualifican necesidades, responden preguntas complejas e integran los datos directamente con tu CRM y WhatsApp corporativo sin intervención manual.",
+    icon: "Bot",
     features: [
-      "Monitoreo inteligente de cultivos (plátano, café, cítricos y frutales)",
-      "Integración IoT con sensores de suelo, humedad y pluviómetros",
-      "Modelos predictivos de IA para sugerencias de riego y nutrición",
-      "Alertas tempranas de prevención climática y fitosanitaria",
-      "Trazabilidad de cosecha y paneles de rendimiento por hectárea"
+      "Agentes conversacionales RAG entrenados con tu catálogo de productos y servicios",
+      "Integración directa con WhatsApp API corporativo y formularios web",
+      "Cualificación automática de leads y captura estructurada de requerimientos",
+      "Generación instantánea de cotizaciones estimadas y seguimiento automático",
+      "Medición en tiempo real de tiempo ahorrado y retorno de inversión (ROI)"
     ],
-    techBadges: ["Agrotech", "IoT Sensors", "AI Models", "Python", "React", "FastAPI"],
-    recommendedFor: "Productores agrícolas, Fincas bananeras/cafeteras, Asociaciones y Agroindustrias"
+    techBadges: ["Agentes IA RAG", "WhatsApp API", "Python / FastAPI", "Make / n8n", "Supabase DB"],
+    recommendedFor: "Equipos comerciales, Clínicas, Instituciones educativas y Pymes con alto flujo de consultas"
   },
   {
     id: "soft-1",
     category: "software",
-    categoryLabel: "Software Empresarial",
-    title: "Desarrollo de Software Empresarial & Web Apps a la Medida",
-    shortDesc: "Sistemas de gestión interna, inventarios, logística, tableros gerenciales (BI) y APIs RESTful en React, TypeScript y Node.js/Python.",
-    fullDesc: "Creamos software corporativo robusto para optimizar operaciones críticas, automatizar flujos de trabajo empresariales y conectar sistemas legados mediante APIs escalables.",
+    categoryLabel: "OFERTA PILAR 2 · SOFTWARE A LA MEDIDA",
+    title: "Desarrollo de Software Crítico a Medida",
+    shortDesc: "Plataformas web de alto rendimiento, sistemas ERP/CRM corporativos, simuladores interactivos UNAD y aplicaciones empresariales a la medida.",
+    fullDesc: "Construimos software corporativo modular en React 19 y TypeScript. Desde soluciones de gestión interna (ERP/CRM) e inventarios hasta simuladores web docentes y laboratorios virtuales para la UNAD / ECBTI con alto volumen de concurrencia.",
     icon: "Code2",
     features: [
-      "Frontend interactivo moderno con React & TypeScript",
-      "Backend estructurado y REST APIs en Node.js / Python",
-      "Módulos de gestión de inventarios, logística y facturación",
-      "Tableros de control gerencial BI en tiempo real",
-      "Diseño adaptativo con altos estándares de seguridad"
+      "Frontend interactivo moderno con React 19 y TypeScript 5.8",
+      "Sistemas ERP/CRM modulares para inventarios, logística y operaciones",
+      "Simuladores educativos y laboratorios virtuales interactivos para UNAD / ECBTI",
+      "APIs RESTful seguras e integración con bases de datos relacionales PostgreSQL",
+      "Paneles de control gerenciales e inteligencia de negocios (BI) en tiempo real"
     ],
-    techBadges: ["React", "TypeScript", "Node.js", "Python", "PostgreSQL", "REST API"],
-    recommendedFor: "Empresas, Pymes, Comercializadoras y Entidades Administrativas"
+    techBadges: ["React 19", "TypeScript", "Node.js / Python", "PostgreSQL", "Simuladores UNAD"],
+    recommendedFor: "Empresas, Pymes, Universidades (UNAD), Agroindustrias y Sector Público"
   },
   {
     id: "cloud-1",
     category: "cloud",
-    categoryLabel: "Cloud AWS & DevOps",
-    title: "Arquitectura Cloud AWS, DevOps & Monitoreo 24/7",
-    shortDesc: "Despliegue de alta disponibilidad en Amazon Web Services (EC2 Auto Scaling, RDS PostgreSQL, S3, ALB) y monitoreo continuo.",
-    fullDesc: "Diseñamos e implementamos infraestructura en la nube respaldada por AWS con 99.9% de disponibilidad, balanceo automático de carga y políticas de seguridad KMS.",
+    categoryLabel: "OFERTA PILAR 3 · CLOUD AWS & SOPORTE TI",
+    title: "Cloud Architecture, Seguridad & Soporte TI Administrado (SLA)",
+    shortDesc: "Infraestructura elástica en Amazon Web Services (EC2 Auto Scaling, RDS, ALB, S3), ciberseguridad, redes y Mesa de Ayuda TI con SLA garantizado.",
+    fullDesc: "Desplegamos y respaldamos la infraestructura tecnológica de tu organización en Amazon Web Services con 99.9% de disponibilidad garantizada. Ofrecemos además servicio de Mesa de Ayuda TI administrada para resolución priorizada de incidentes y mantenimiento preventivo.",
     icon: "Cloud",
     features: [
-      "Clusters Amazon EC2 con Auto Scaling dinámico",
-      "Bases de datos administradas RDS (PostgreSQL / MySQL) cifradas",
-      "Almacenamiento Amazon S3 y distribución CDN CloudFront",
-      "Balanceadores de carga Elastic Load Balancer (ALB)",
-      "Monitoreo continuo 24/7 y optimización de costos AWS"
+      "Arquitectura Serverless y EC2 Auto Scaling con 99.9% de disponibilidad",
+      "Bases de datos relacionales administradas RDS (PostgreSQL/MySQL) cifradas KMS",
+      "Estructuración de redes corporativas LAN/WiFi, WAF y ciberseguridad",
+      "Mantenimiento preventivo y correctivo de infraestructura tecnológica",
+      "Mesa de Ayuda TI con soporte técnico priorizado bajo Acuerdos SLA (<2h en críticas)"
     ],
-    techBadges: ["AWS EC2", "AWS RDS", "Amazon S3", "AWS ALB", "Route 53", "Docker"],
-    recommendedFor: "Comités de Proyectos TI, Plataformas de Tráfico Masivo y Empresas"
-  },
-  {
-    id: "edu-1",
-    category: "software",
-    categoryLabel: "Sector Educativo",
-    title: "Simuladores Interactivos & Sector Educativo / Institucional",
-    shortDesc: "Entornos web interactivos, simuladores de código, laboratorios virtuales y módulos académicos para universidades (UNAD) y sector público.",
-    fullDesc: "Construimos laboratorios virtuales y plataformas de formación práctica para la Escuela de Ciencias Básicas, Tecnología e Ingeniería (ECBTI - UNAD), semilleros de investigación y entes gubernamentales.",
-    icon: "GraduationCap",
-    features: [
-      "Simuladores web de conceptos de ingeniería y programación",
-      "Visualizaciones 2D/3D interactivas en canvas ejecutable",
-      "Módulos de trazabilidad para semilleros de investigación I+D+i",
-      "Integrable en LMS mediante estándares LTI / Web Embed",
-      "Soporte a picos masivos de estudiantes durante exámenes"
-    ],
-    techBadges: ["UNAD ECBTI", "Simuladores Web", "LTI Standard", "React", "Canvas 2D/3D"],
-    recommendedFor: "Universidades (UNAD), Institutos Técnicos, Grupos I+D+i y Entidades Públicas"
+    techBadges: ["AWS EC2", "AWS RDS PostgreSQL", "AWS ALB & WAF", "Mesa de Ayuda SLA", "Ciberseguridad"],
+    recommendedFor: "Comités TI, Empresas con tráfico masivo y Organizaciones que requieren soporte garantizado"
   }
 ];
 

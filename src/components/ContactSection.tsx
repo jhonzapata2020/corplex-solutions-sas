@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, ExternalLink, Lock } from 'lucide-react';
 import { LEGAL_INFO } from '../data/corporateData';
+import { PrivacyModal } from './PrivacyModal';
 import type { ContactFormData } from '../types';
 
 export const ContactSection: React.FC = () => {
@@ -14,6 +15,8 @@ export const ContactSection: React.FC = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [hasAcceptedPrivacy, setHasAcceptedPrivacy] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -24,6 +27,7 @@ export const ContactSection: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!hasAcceptedPrivacy) return;
     setIsSubmitting(true);
 
     setTimeout(() => {
@@ -269,12 +273,35 @@ export const ContactSection: React.FC = () => {
                   />
                 </div>
 
+                {/* Checkbox Ley 1581 de 2012 */}
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="privacy-consent-contact"
+                    required
+                    checked={hasAcceptedPrivacy}
+                    onChange={(e) => setHasAcceptedPrivacy(e.target.checked)}
+                    className="mt-0.5 w-4 h-4 rounded text-[#2b5b84] focus:ring-[#2b5b84] border-slate-300 cursor-pointer shrink-0"
+                  />
+                  <label htmlFor="privacy-consent-contact" className="text-xs text-slate-700 leading-snug cursor-pointer select-none">
+                    Autorizo el tratamiento de mis datos personales conforme a la Ley 1581 de 2012 y la{' '}
+                    <button
+                      type="button"
+                      onClick={() => setIsPrivacyOpen(true)}
+                      className="text-[#2b5b84] hover:underline font-mono-tech font-bold cursor-pointer inline-flex items-center gap-0.5"
+                    >
+                      <span>Política de Tratamiento de Datos de CORPLEX SOLUTIONS S.A.S.</span>
+                    </button>
+                    <span className="text-rose-600 font-bold ml-1">*</span>
+                  </label>
+                </div>
+
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
                   {/* Python.org PSF Banner Style Small Gold Button */}
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full sm:w-auto px-6 py-2.5 rounded-md bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs flex items-center justify-center gap-2 shadow-md disabled:opacity-50 cursor-pointer"
+                    disabled={isSubmitting || !hasAcceptedPrivacy}
+                    className="w-full sm:w-auto px-6 py-2.5 rounded-md bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs flex items-center justify-center gap-2 shadow-md disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all"
                   >
                     <span>{isSubmitting ? 'Procesando...' : 'Enviar Solicitud Institucional'}</span>
                     <Send className="w-4 h-4 text-[#111d28] stroke-[2]" />
@@ -293,6 +320,8 @@ export const ContactSection: React.FC = () => {
         </div>
 
       </div>
+
+      <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
     </section>
   );
 };

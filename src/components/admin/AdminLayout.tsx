@@ -63,7 +63,7 @@ export const AdminLayout: React.FC = () => {
     { label: 'Clientes Corporativos', path: '/admin/clients', icon: Building2 },
     { label: 'Proyectos de Ingeniería', path: '/admin/projects', icon: FolderGit2 },
     { label: 'Soporte TI / Mesa de Ayuda', path: '/admin/support', icon: LifeBuoy },
-    { label: 'Contenido Web', path: '/admin/cms', icon: Globe, badge: 'Fase 6' },
+    { label: 'Contenido Web (CMS)', path: '/admin/content', icon: Globe },
     { label: 'Configuración', path: '/admin/settings', icon: Settings }
   ];
 
@@ -74,6 +74,7 @@ export const AdminLayout: React.FC = () => {
     if (location.pathname === '/admin/clients') return 'Clientes Corporativos';
     if (location.pathname === '/admin/projects') return 'Control de Proyectos de Ingeniería';
     if (location.pathname === '/admin/support' || location.pathname === '/admin/tickets') return 'Soporte TI / Mesa de Ayuda';
+    if (location.pathname === '/admin/cms' || location.pathname === '/admin/content') return 'CMS de Contenido Web';
     if (location.pathname === '/admin/settings') return 'Configuración del Sistema';
     return 'Dashboard General';
   };

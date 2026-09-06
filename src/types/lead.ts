@@ -407,3 +407,85 @@ export const TICKET_STATUS_LABELS: Record<TicketStatus, { label: string; bgClass
   resolved: { label: 'Resuelto', bgClass: 'bg-emerald-500/20 border-emerald-500/40', textClass: 'text-emerald-400' },
   closed: { label: 'Cerrado', bgClass: 'bg-slate-700/40 border-slate-600/50', textClass: 'text-slate-400' }
 };
+
+/**
+ * Modelo de Servicio Web (site_services)
+ */
+export type SiteServiceEntity = {
+  id: string;
+  title: string;
+  slug: string;
+  icon_name?: string | null;
+  badge?: string | null;
+  short_description: string;
+  full_description?: string | null;
+  price_starting_at: number;
+  is_featured: boolean;
+  is_active: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+/**
+ * Modelo de Caso de Éxito (case_studies)
+ */
+export type CaseStudyEntity = {
+  id: string;
+  title: string;
+  client_name: string;
+  category: string;
+  summary: string;
+  impact_metrics?: string | null;
+  image_url?: string | null;
+  is_published: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+/**
+ * Modelo de Pregunta Frecuente (site_faqs)
+ */
+export type SiteFAQEntity = {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  is_active: boolean;
+  display_order: number;
+  created_at: string;
+};
+
+/**
+ * Modelo de Paquete y Plan Corporativo (site_packages)
+ */
+export type SitePackageEntity = {
+  id: string;
+  name: string;
+  subtitle?: string | null;
+  price_cop: number;
+  features: string[];
+  badge_text?: string | null;
+  is_popular: boolean;
+  is_active: boolean;
+  display_order: number;
+  created_at: string;
+};
+
+/**
+ * Modelo de Configuración Global (site_settings)
+ */
+export type SiteSettingsEntity = {
+  id: string;
+  company_name: string;
+  nit_tax_id: string;
+  contact_email: string;
+  contact_phone: string;
+  whatsapp_number: string;
+  address: string;
+  city_region: string;
+  default_tax_rate: number;
+  enable_email_alerts: boolean;
+  updated_at: string;
+};

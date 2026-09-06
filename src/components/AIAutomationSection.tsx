@@ -47,6 +47,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
   const [activeVerticalId, setActiveVerticalId] = useState<string>('salud');
   const [activeHowStepIndex, setActiveHowStepIndex] = useState<number>(0);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [hasAcceptedPrivacy, setHasAcceptedPrivacy] = useState(false);
   
   // Form State (Simplified 5-field form)
   const [formData, setFormData] = useState<AutomationFormData>({
@@ -123,6 +124,11 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
   const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
+
+    if (!hasAcceptedPrivacy) {
+      setFormError('Debes autorizar el tratamiento de tus datos personales conforme a la Ley 1581 de 2012 para continuar.');
+      return;
+    }
 
     // Protección Anti-Spam: Si el campo honeypot fue llenado por un bot
     if (honeypot.trim().length > 0) {
@@ -886,11 +892,37 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
                 />
               </div>
 
+              {/* Checkbox de Consentimiento Ley 1581 de 2012 */}
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="privacy-consent-ai"
+                  required
+                  checked={hasAcceptedPrivacy}
+                  onChange={(e) => {
+                    setHasAcceptedPrivacy(e.target.checked);
+                    if (formError) setFormError(null);
+                  }}
+                  className="mt-0.5 w-4 h-4 rounded text-[#2b5b84] focus:ring-[#2b5b84] border-slate-300 cursor-pointer shrink-0"
+                />
+                <label htmlFor="privacy-consent-ai" className="text-xs text-slate-700 leading-snug cursor-pointer select-none">
+                  Autorizo el tratamiento de mis datos personales conforme a la Ley 1581 de 2012 y la{' '}
+                  <button
+                    type="button"
+                    onClick={() => setIsPrivacyOpen(true)}
+                    className="text-[#2b5b84] hover:underline font-mono-tech font-bold cursor-pointer inline-flex items-center gap-0.5"
+                  >
+                    <span>Política de Tratamiento de Datos de CORPLEX SOLUTIONS S.A.S.</span>
+                  </button>
+                  <span className="text-rose-600 font-bold ml-1">*</span>
+                </label>
+              </div>
+
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 cursor-pointer"
+                  disabled={isSubmitting || !hasAcceptedPrivacy}
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#111d28] font-bold text-xs flex items-center justify-center gap-2 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all"
                 >
                   <span>{isSubmitting ? 'Procesando...' : 'Solicitar diagnóstico inicial'}</span>
                   <Send className="w-4 h-4 text-[#111d28]" />
