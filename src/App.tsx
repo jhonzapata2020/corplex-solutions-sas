@@ -15,6 +15,8 @@ import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
 import { ScrollToTop } from './components/ScrollToTop';
 
+import { ServicesPage } from './pages/ServicesPage';
+
 // Admin CRM Module Imports
 import { ProtectedRoute } from './components/admin/ProtectedRoute';
 import { AdminLogin } from './components/admin/AdminLogin';
@@ -124,6 +126,9 @@ export function App() {
     <Routes>
       {/* Ruta Pública Principal (Sitio Institucional) */}
       <Route path="/" element={<PublicSite />} />
+
+      {/* Página Dedicada de Servicios */}
+      <Route path="/servicios" element={<ServicesPage />} />
 
       {/* Acceso Administrativo (Login) */}
       <Route path="/admin/login" element={<AdminLogin />} />

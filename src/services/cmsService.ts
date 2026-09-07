@@ -302,3 +302,10 @@ export async function updateSiteSettings(settings: Partial<SiteSettingsEntity>):
     return false;
   }
 }
+
+/**
+ * Aliases de Exportación para consumo dinámico
+ */
+export const getFeaturedServices = fetchSiteServices;
+export const fetchFeaturedServices = fetchSiteServices;
+
