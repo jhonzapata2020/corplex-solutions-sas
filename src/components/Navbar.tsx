@@ -93,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenControlR
           <div className="hidden lg:flex flex-col text-[11px] font-mono-tech text-slate-400 border-l border-[#2b5b84]/60 pl-3">
             <span className="text-emerald-400 font-bold flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              NIT {LEGAL_INFO.nit}
+              Sistemas Activos 24/7
             </span>
             <span className="text-slate-400 text-[10px]">Turbo, Urabá, Colombia</span>
           </div>

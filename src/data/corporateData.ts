@@ -17,7 +17,7 @@ export const LEGAL_INFO: LegalData = {
   city: "Turbo",
   department: "Antioquia",
   country: "Colombia",
-  institutionalEmail: "triangelturbo@gmail.com",
+  institutionalEmail: "contacto@corplexsolutions.co",
   whatsapp1: "573207105618",
   whatsapp2: "573017304596",
   phone1Display: "+57 320 710 5618",

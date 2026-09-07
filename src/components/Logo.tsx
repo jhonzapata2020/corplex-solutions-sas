@@ -48,7 +48,7 @@ export const Logo: React.FC<LogoProps> = ({
 
           <div className={`flex items-center gap-1.5 text-gray-400 font-mono ${dim.sub}`}>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>NIT 902061373-5</span>
+            <span>Automatización & Software</span>
           </div>
         </div>
       )}

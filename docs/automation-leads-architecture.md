@@ -134,7 +134,7 @@ Cuando se construya el endpoint backend, deberán ejecutarse obligatoriamente la
 * **Cifrado en Tránsito:** Todo el tráfico entre frontend y backend debe transmitirse obligatoriamente sobre HTTPS / TLS 1.3.
 * **Cifrado en Reposo:** La base de datos debe contar con cifrado AES-256 en disco.
 * **Control de Accesos:** Acceso a los registros restringido exclusivamente al personal comercial autorizado mediante autenticación basada en roles (RBAC).
-* **Atención de Derechos de Titular:** Canal habilitado para atención de peticiones de actualización o supresión de datos vía `triangelturbo@gmail.com`.
+* **Atención de Derechos de Titular:** Canal habilitado para atención de peticiones de actualización o supresión de datos vía `contacto@corplexsolutions.co`.
 
 ---
 

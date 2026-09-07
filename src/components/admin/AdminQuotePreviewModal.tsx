@@ -83,7 +83,7 @@ export const AdminQuotePreviewModal: React.FC<AdminQuotePreviewModalProps> = ({
                 <p>Turbo, Urabá, Antioquia, Colombia</p>
                 <p className="flex items-center gap-1.5 pt-1">
                   <Mail className="w-3.5 h-3.5 text-slate-600" />
-                  <span>contacto@corplex.co | triangelturbo@gmail.com</span>
+                  <span>contacto@corplexsolutions.co | cotizaciones@corplexsolutions.co</span>
                 </p>
                 <p className="flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-slate-600" />

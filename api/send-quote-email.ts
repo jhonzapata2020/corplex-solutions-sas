@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // 1. Validar método HTTP estrictamente POST
   if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
@@ -15,29 +16,51 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       clientName,
       companyName,
       consecutive,
+      quoteNumber,
       concept,
       scope,
       subtotal,
       iva,
       total,
-      paymentTerms
+      paymentTerms,
+      hp_field,
+      honeypot
     } = req.body || {};
 
-    if (!clientEmail || typeof clientEmail !== 'string' || !clientEmail.includes('@')) {
+    // 2. Honeypot check para mitigar abuso por bots
+    if (
+      (hp_field && typeof hp_field === 'string' && hp_field.trim() !== '') ||
+      (honeypot && typeof honeypot === 'string' && honeypot.trim() !== '')
+    ) {
+      return res.status(200).json({
+        success: true,
+        message: 'Solicitud procesada correctamente.'
+      });
+    }
+
+    // 3. Validación server-side del payload
+    const formattedConsecutive = (consecutive || quoteNumber || '').toString().trim();
+    const formattedClientName = (clientName || '').toString().trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (
+      !clientEmail ||
+      typeof clientEmail !== 'string' ||
+      !emailRegex.test(clientEmail.trim()) ||
+      !formattedClientName ||
+      !formattedConsecutive
+    ) {
       return res.status(400).json({
-        success: false,
-        error: 'Bad Request',
-        message: 'No se especificó una dirección de correo válida para el cliente.'
+        error: 'Datos de cotización incompletos o inválidos'
       });
     }
 
     const apiKey = process.env.RESEND_API_KEY || process.env.VITE_RESEND_API_KEY;
     const fromSender = process.env.RESEND_FROM_EMAIL || 'Corplex Solutions <cotizaciones@corplexsolutions.co>';
-    const bccRecipients = process.env.RESEND_BCC_EMAIL ? [process.env.RESEND_BCC_EMAIL] : ['triangelturbo@gmail.com'];
+    const bccRecipients = process.env.RESEND_BCC_EMAIL ? [process.env.RESEND_BCC_EMAIL] : ['comercial@corplexsolutions.co'];
+    const replyToEmail = process.env.RESEND_REPLY_TO || 'comercial@corplexsolutions.co';
 
-    const formattedConsecutive = consecutive || 'CPX-QT-2026';
-    const formattedClientName = clientName || 'Estimado Cliente';
-    const formattedCompany = companyName ? ` (${companyName})` : '';
+    const formattedCompany = companyName ? ` (${companyName.toString().trim()})` : '';
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -115,9 +138,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(200).json({
         success: true,
         mode: 'simulation',
-        message: `Cotización ${formattedConsecutive} procesada correctamente en modo simulación. Para envío real a ${clientEmail}, configura RESEND_API_KEY en Vercel.`,
+        message: `Cotización ${formattedConsecutive} procesada correctamente en modo simulación. Para envío real a ${clientEmail.trim()}, configura RESEND_API_KEY en Vercel.`,
         consecutive: formattedConsecutive,
-        recipient: clientEmail,
+        recipient: clientEmail.trim(),
         bcc: bccRecipients
       });
     }
@@ -132,6 +155,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         from: fromSender,
         to: [clientEmail.trim()],
         bcc: bccRecipients,
+        reply_to: replyToEmail,
         subject: `Cotización Formal Corplex Solutions — ${formattedConsecutive}${formattedCompany}`,
         html: htmlContent
       })
@@ -143,15 +167,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       console.error('❌ Error de Resend API:', resendResponse.status, resendData);
       return res.status(resendResponse.status).json({
         success: false,
-        error: resendData?.name || 'ResendAPIError',
-        message: resendData?.message || `HTTP ${resendResponse.status}: Error devuelto por Resend API.`,
-        details: resendData
+        error: 'Error al procesar el envío de correo a través del servicio de mensajería.'
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: `Correo transaccional enviado exitosamente a ${clientEmail}.`,
+      message: `Correo transaccional enviado exitosamente a ${clientEmail.trim()}.`,
       consecutive: formattedConsecutive,
       resendId: resendData?.id
     });
@@ -160,8 +182,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.error('Excepción no controlada en Serverless Function:', error);
     return res.status(500).json({
       success: false,
-      error: 'Internal Server Error',
-      message: error instanceof Error ? error.message : 'Error desconocido procesando el envío de correo.'
+      error: 'Error interno del servidor al procesar la cotización.'
     });
   }
 }
