@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Bot,
   Sparkles,
@@ -48,6 +49,7 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
   const [activeHowStepIndex, setActiveHowStepIndex] = useState<number>(0);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [hasAcceptedPrivacy, setHasAcceptedPrivacy] = useState(false);
+  const location = useLocation();
   
   // Form State (Simplified 5-field form)
   const [formData, setFormData] = useState<AutomationFormData>({
@@ -57,6 +59,40 @@ export const AIAutomationSection: React.FC<AIAutomationSectionProps> = () => {
     bottleneck: '',
     sector: 'Salud y Clínicas'
   });
+
+  useEffect(() => {
+    const applyLeadHandoff = (data: { sector?: string; bottleneck?: string }) => {
+      if (!data) return;
+      let mappedSector = data.sector || '';
+      if (mappedSector.includes('Salud')) mappedSector = 'Salud y Clínicas';
+      else if (mappedSector.includes('Educación') || mappedSector.includes('EdTech') || mappedSector.includes('UNAD')) mappedSector = 'Educación Superior';
+      else if (mappedSector.includes('Comercial') || mappedSector.includes('Comercio') || mappedSector.includes('Ventas')) mappedSector = 'Comercio';
+
+      setFormData(prev => ({
+        ...prev,
+        sector: mappedSector || prev.sector,
+        bottleneck: data.bottleneck || prev.bottleneck
+      }));
+    };
+
+    try {
+      const stored = localStorage.getItem('corplex_lead_handoff');
+      if (stored) {
+        applyLeadHandoff(JSON.parse(stored));
+      }
+    } catch (_) {}
+
+    if (location.state && (location.state.sector || location.state.bottleneck)) {
+      applyLeadHandoff(location.state);
+    }
+
+    const handleCustomEvent = (e: CustomEvent) => {
+      if (e.detail) applyLeadHandoff(e.detail);
+    };
+
+    window.addEventListener('corplex_prefill_lead' as any, handleCustomEvent);
+    return () => window.removeEventListener('corplex_prefill_lead' as any, handleCustomEvent);
+  }, [location.state]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);

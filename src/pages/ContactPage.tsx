@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { QuoteModal } from '../components/QuoteModal';
@@ -30,7 +30,7 @@ export const ContactPage: React.FC = () => {
     fullName: '',
     email: '',
     institutionOrCompany: '',
-    requestType: 'Desarrollo de Software & Web Apps',
+    requestType: 'Automatización e Inteligencia Artificial',
     message: ''
   });
 
@@ -41,10 +41,38 @@ export const ContactPage: React.FC = () => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [selectedServiceTitle, setSelectedServiceTitle] = useState<string | undefined>(undefined);
   const [isControlRoomOpen, setIsControlRoomOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+
+    const applyLeadHandoff = (data: { sector?: string; bottleneck?: string }) => {
+      if (!data) return;
+      setFormData(prev => ({
+        ...prev,
+        requestType: data.sector ? `Automatización e Inteligencia Artificial (${data.sector})` : 'Automatización e Inteligencia Artificial',
+        message: data.bottleneck || prev.message
+      }));
+    };
+
+    try {
+      const stored = localStorage.getItem('corplex_lead_handoff');
+      if (stored) {
+        applyLeadHandoff(JSON.parse(stored));
+      }
+    } catch (_) {}
+
+    if (location.state && (location.state.sector || location.state.bottleneck)) {
+      applyLeadHandoff(location.state);
+    }
+
+    const handleCustomEvent = (e: CustomEvent) => {
+      if (e.detail) applyLeadHandoff(e.detail);
+    };
+
+    window.addEventListener('corplex_prefill_lead' as any, handleCustomEvent);
+    return () => window.removeEventListener('corplex_prefill_lead' as any, handleCustomEvent);
+  }, [location.state]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({

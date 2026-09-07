@@ -169,6 +169,18 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
   const handleProceedToDiagnosis = () => {
     clearAllTimeouts();
     setIsHandoffModalOpen(false);
+    
+    const leadContext = {
+      sector: selectedPreset.sector,
+      bottleneck: customMessage
+    };
+
+    try {
+      localStorage.setItem('corplex_lead_handoff', JSON.stringify(leadContext));
+    } catch (_) {}
+
+    window.dispatchEvent(new CustomEvent('corplex_prefill_lead', { detail: leadContext }));
+
     if (onSelectLeadData) {
       onSelectLeadData(selectedPreset.sector, customMessage);
     }
@@ -178,8 +190,19 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
       onOpenQuoteModal('Automatización Comercial con IA');
     } else {
       if (onClose && !isPage) onClose();
-      navigate('/contacto');
+      navigate('/contacto', { state: leadContext });
     }
+
+    setTimeout(() => {
+      const targetElement = document.getElementById('formulario-automatizacion') || document.getElementById('formulario-contacto') || document.getElementById('contacto');
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        const nameInput = targetElement.querySelector('input[name="fullName"], input[id="lead-fullname"]') as HTMLInputElement;
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 400);
+        }
+      }
+    }, 200);
   };
 
   const handleCloseAction = () => {
@@ -485,8 +508,8 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
                       REQUERIDA
                     </span>
                   </div>
-                  <p className="text-[10px] text-amber-200/90 font-sans">
-                    Badge Ámbar: Requiere validación comercial previa a contrato.
+                  <p className="text-[10px] text-amber-200/90 font-sans leading-relaxed">
+                    Supervisor humano valida alcance, políticas de seguridad y margen antes de formalizar la propuesta.
                   </p>
                 </div>
 
@@ -496,7 +519,9 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
             <div className="pt-3 mt-3 border-t border-[#2b5b84] text-[10px] font-mono-tech text-slate-400 flex items-center justify-between">
               <span>ESTADO DE PIPELINE:</span>
               <span className="text-emerald-400 font-bold">
-                {executionProgress === 5 ? '100% COMPLETADO' : `PROCESANDO (${executionProgress}/5)`}
+                {executionProgress === 5
+                  ? 'PIPELINE TÉCNICO COMPLETADO (5/5) • APROBACIÓN HUMANA REQUERIDA'
+                  : `PROCESANDO AGENTES (${executionProgress}/5)`}
               </span>
             </div>
           </div>
@@ -514,64 +539,177 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
                     <span className="text-[10px] text-slate-400">Outputs Generados</span>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono-tech px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
-                  REALTIME CRM OUTPUT
+                <span className="text-[9px] font-mono-tech px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30 shadow-sm">
+                  DATOS DE SIMULACIÓN OPERATIVA • Ambientes Sandbox
                 </span>
               </div>
 
-              {/* Tangible Cards */}
+              {/* Dynamic Tangible Cards by Sector Scenario */}
               <div className="space-y-3">
                 
-                {/* Lead CRM Card */}
-                <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
-                      <Database className="w-3 h-3 text-sky-400" />
-                      Lead Creado (`automation_leads`)
-                    </span>
-                    <span className="text-[10px] font-mono-tech px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">
-                      {selectedPreset.crmLeadId}
-                    </span>
-                  </div>
-                  <div className="space-y-0.5 text-xs text-slate-300 font-tech">
-                    <p><strong className="text-slate-400">Sector:</strong> {selectedPreset.sector}</p>
-                    <p><strong className="text-slate-400">Canal:</strong> WhatsApp / Omnicanal</p>
-                    <p><strong className="text-slate-400">Prioridad:</strong> <span className="text-amber-300 font-bold">Alta</span></p>
-                  </div>
-                </div>
+                {selectedPreset.id === 'educacion' ? (
+                  <>
+                    {/* Ticket Estudiantil Registrado */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <Database className="w-3 h-3 text-sky-400" />
+                          Ticket Estudiantil Registrado
+                        </span>
+                        <span className="text-[10px] font-mono-tech px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">
+                          {selectedPreset.crmLeadId}
+                        </span>
+                      </div>
+                      <div className="space-y-0.5 text-xs text-slate-300 font-tech">
+                        <p><strong className="text-slate-400">Evento / Maratón:</strong> Código UNAD / ECBTI</p>
+                        <p><strong className="text-slate-400">Estudiantes:</strong> 500 coordinados en vivo</p>
+                        <p><strong className="text-slate-400">Estado:</strong> <span className="text-emerald-400 font-bold">Cualificado para Certificación</span></p>
+                      </div>
+                    </div>
 
-                {/* Quotation Draft Card */}
-                <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
-                      <FileText className="w-3 h-3 text-[#ffd343]" />
-                      Cotización Borrador Preliminar
-                    </span>
-                    <span className="text-[10px] font-mono-tech text-[#ffd343] font-bold">
-                      ESTIMACIÓN
-                    </span>
-                  </div>
-                  <div className="space-y-0.5 text-xs text-slate-300 font-tech">
-                    <p><strong className="text-slate-400">Rango Estimado:</strong> <span className="text-[#ffd343] font-bold">{selectedPreset.estimatedRange}</span></p>
-                    <p><strong className="text-slate-400">Vigencia:</strong> 7 días calendario</p>
-                  </div>
-                </div>
+                    {/* Ruta de Atención Sugerida */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <FileText className="w-3 h-3 text-[#ffd343]" />
+                          Ruta de Atención Sugerida
+                        </span>
+                        <span className="text-[10px] font-mono-tech text-[#ffd343] font-bold">
+                          LTI CAMPUS UNAD
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-300 font-tech leading-relaxed">
+                        Ranking en vivo activo con emisión y entrega automática de certificados vía correo.
+                      </p>
+                    </div>
 
-                {/* Follow-up Task Card */}
-                <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
-                  <div className="flex items-center justify-between mb-0.5">
-                    <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-emerald-400" />
-                      Tarea de Seguimiento
-                    </span>
-                    <span className="text-[10px] font-mono-tech text-emerald-400 font-bold">
-                      +24 HORAS
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-300 font-tech">
-                    Asignada a Consultor Comercial Corplex para validación técnica.
-                  </p>
-                </div>
+                    {/* Tarea de Asignación a Coordinador */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-0.5">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-emerald-400" />
+                          Tarea de Asignación a Coordinador
+                        </span>
+                        <span className="text-[10px] font-mono-tech text-emerald-400 font-bold">
+                          DOCENTE UNAD
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-300 font-tech">
+                        Asignada a Coordinador Docente ECBTI para validación de créditos.
+                      </p>
+                    </div>
+                  </>
+                ) : selectedPreset.id === 'salud' ? (
+                  <>
+                    {/* Pre-agendamiento de Cita */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <Database className="w-3 h-3 text-emerald-400" />
+                          Pre-agendamiento de Cita
+                        </span>
+                        <span className="text-[10px] font-mono-tech px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
+                          {selectedPreset.crmLeadId}
+                        </span>
+                      </div>
+                      <div className="space-y-0.5 text-xs text-slate-300 font-tech">
+                        <p><strong className="text-slate-400">Clasificación:</strong> Cita Prioritaria Triage</p>
+                        <p><strong className="text-slate-400">Canal Validación:</strong> Correo / WhatsApp</p>
+                        <p><strong className="text-slate-400">Prioridad:</strong> <span className="text-emerald-400 font-bold">Alta</span></p>
+                      </div>
+                    </div>
+
+                    {/* Triage Operativo (Protección Ley 1581) */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <ShieldCheck className="w-3 h-3 text-sky-400" />
+                          Triage Operativo (Ley 1581)
+                        </span>
+                        <span className="text-[10px] font-mono-tech text-sky-300 font-bold">
+                          DATOS PROTEGIDOS
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-300 font-tech leading-relaxed">
+                        Anonimización de datos médicos y registro cifrado SSL/TLS sin almacenar HC sensible.
+                      </p>
+                    </div>
+
+                    {/* Confirmación de Recepción Médica */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-0.5">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-amber-400" />
+                          Confirmación de Recepción Médica
+                        </span>
+                        <span className="text-[10px] font-mono-tech text-amber-300 font-bold">
+                          AUDITORÍA
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-300 font-tech">
+                        Asignada a Recepción Médica / Auditoría de Clínica para confirmación de agenda.
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Lead CRM Card */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <Database className="w-3 h-3 text-sky-400" />
+                          Lead Creado (`automation_leads`)
+                        </span>
+                        <span className="text-[10px] font-mono-tech px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">
+                          {selectedPreset.crmLeadId}
+                        </span>
+                      </div>
+                      <div className="space-y-0.5 text-xs text-slate-300 font-tech">
+                        <p><strong className="text-slate-400">Sector:</strong> {selectedPreset.sector}</p>
+                        <p><strong className="text-slate-400">Canal:</strong> WhatsApp / Omnicanal</p>
+                        <p><strong className="text-slate-400">Prioridad:</strong> <span className="text-amber-300 font-bold">Alta</span></p>
+                      </div>
+                    </div>
+
+                    {/* Quotation Draft Card */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <FileText className="w-3 h-3 text-[#ffd343]" />
+                          Cotización Borrador Preliminar
+                        </span>
+                        <span className="text-[10px] font-mono-tech text-[#ffd343] font-bold">
+                          ESTIMACIÓN
+                        </span>
+                      </div>
+                      <div className="space-y-0.5 text-xs text-slate-300 font-tech">
+                        <p><strong className="text-slate-400">Rango Estimado:</strong> <span className="text-[#ffd343] font-bold">{selectedPreset.estimatedRange}</span></p>
+                        <p><strong className="text-slate-400">Vigencia:</strong> 7 días calendario</p>
+                      </div>
+                    </div>
+
+                    {/* Follow-up Task Card */}
+                    <div className="p-3 rounded-xl bg-[#0d1722] border border-[#2b5b84]">
+                      <div className="flex items-center justify-between mb-0.5">
+                        <span className="text-xs font-mono-tech font-bold text-slate-400 flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-emerald-400" />
+                          Tarea de Seguimiento
+                        </span>
+                        <span className="text-[10px] font-mono-tech text-emerald-400 font-bold">
+                          +24 HORAS
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-300 font-tech">
+                        Asignada a Consultor Comercial Corplex para validación técnica.
+                      </p>
+                    </div>
+                  </>
+                )}
+
+                {/* Footnote note */}
+                <p className="pt-1 text-[10px] font-mono-tech text-slate-400 italic leading-tight">
+                  *Estimación de referencia sujeta a diagnóstico formal. Supuestos: 1 canal de ingreso y orquestación base.*
+                </p>
 
               </div>
             </div>
@@ -604,7 +742,7 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
 
           <div className="flex items-center justify-center gap-1.5">
             <span className="text-slate-400">PRECISIÓN:</span>
-            <span className="text-[#ffd343] font-bold">96.4% Accuracy</span>
+            <span className="text-[#ffd343] font-bold">Confianza de clasificación: 96.4% (Benchmark interno)</span>
           </div>
 
           <div className="flex items-center justify-center gap-1.5">
