@@ -15,7 +15,8 @@ import {
   X,
   Terminal,
   Activity,
-  Home
+  Home,
+  Sparkles
 } from 'lucide-react';
 import { Logo } from './Logo';
 
@@ -79,13 +80,20 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
   const [executionProgress, setExecutionProgress] = useState<number>(5);
   const [executionTimeMs, setExecutionTimeMs] = useState<number>(1240);
 
+  // Conversion Hand-off Modal State
+  const [isHandoffModalOpen, setIsHandoffModalOpen] = useState<boolean>(false);
+
   // Lock body scroll and register Escape key listener
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        if (isHandoffModalOpen) {
+          setIsHandoffModalOpen(false);
+        } else {
+          onClose();
+        }
       }
     };
 
@@ -96,7 +104,7 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, isHandoffModalOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -121,7 +129,12 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
     }, 1150);
   };
 
-  const handleProceedToDiagnosis = () => {
+  const handleOpenHandoff = () => {
+    setIsHandoffModalOpen(true);
+  };
+
+  const handleConfirmHandoff = () => {
+    setIsHandoffModalOpen(false);
     if (onSelectLeadData) {
       onSelectLeadData(selectedPreset.sector, customMessage);
     }
@@ -521,7 +534,7 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
             {/* CTA Final */}
             <div className="pt-3 mt-3 border-t border-[#2b5b84]">
               <button
-                onClick={handleProceedToDiagnosis}
+                onClick={handleOpenHandoff}
                 className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#3775a9] to-[#2b5b84] hover:from-[#2b5b84] hover:to-[#1b3852] text-white font-bold text-xs font-sans flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer border border-[#ffd343]/50"
               >
                 <span>Quiero este flujo en mi empresa (Solicitar Diagnóstico)</span>
@@ -560,6 +573,80 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
 
         </div>
       </footer>
+
+      {/* 4. LEAD HAND-OFF CONVERSION POPUP MODAL */}
+      {isHandoffModalOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="bg-[#142332] rounded-3xl border border-[#ffd343]/60 shadow-2xl max-w-lg w-full p-6 sm:p-8 relative text-slate-100 font-tech">
+            
+            {/* Botón de Cierre ✕ */}
+            <button
+              onClick={() => setIsHandoffModalOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-full bg-[#1b3852] hover:bg-[#2b5b84] text-slate-400 hover:text-white transition-all cursor-pointer border border-[#2b5b84]"
+              title="Cerrar modal"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Header Modal */}
+            <div className="text-center mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-[#1b3852] border border-[#ffd343]/60 text-[#ffd343] flex items-center justify-center mx-auto mb-3 shadow-md">
+                <Sparkles className="w-7 h-7" />
+              </div>
+              
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                ¡Flujo Simulado con Éxito! ⚡
+              </h3>
+              <p className="text-slate-300 text-xs sm:text-sm">
+                Estás a un paso de implementar esta automatización en tu empresa.
+              </p>
+            </div>
+
+            {/* Resumen Informativo de Parámetros Precargados */}
+            <div className="bg-[#0d1722] rounded-2xl p-4 border border-[#2b5b84] space-y-2 mb-6 font-tech text-xs">
+              <div className="text-[11px] font-mono-tech text-[#ffd343] font-bold uppercase tracking-wider mb-1">
+                PARÁMETROS PRECARGADOS PARA TU DIAGNÓSTICO:
+              </div>
+              
+              <div className="flex items-center justify-between text-slate-300">
+                <span className="text-slate-400 font-mono-tech">Sector Seleccionado:</span>
+                <span className="font-bold text-sky-300 bg-[#1b3852] px-2 py-0.5 rounded text-[11px] border border-[#2b5b84]">{selectedPreset.sector}</span>
+              </div>
+
+              <div className="flex items-start justify-between text-slate-300 gap-2">
+                <span className="text-slate-400 font-mono-tech whitespace-nowrap">Caso Probado:</span>
+                <span className="font-sans text-slate-200 text-right line-clamp-2 text-[11px] italic">
+                  "{customMessage}"
+                </span>
+              </div>
+            </div>
+
+            {/* Mensaje Orientador */}
+            <p className="text-xs text-slate-300 leading-relaxed mb-6">
+              Hemos preparado estos parámetros para tu diagnóstico inicial sin costo. Al continuar, serás redirigido al formulario oficial donde podrás ingresar tus datos bajo la Ley 1581 de 2012 para que nuestro equipo técnico agende tu sesión.
+            </p>
+
+            {/* Botones de Acción */}
+            <div className="space-y-3">
+              <button
+                onClick={handleConfirmHandoff}
+                className="w-full py-3 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#0d1722] font-bold text-xs font-sans flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+              >
+                <span>Continuar al Formulario de Diagnóstico 🚀</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={() => setIsHandoffModalOpen(false)}
+                className="w-full py-2 rounded-xl bg-transparent hover:bg-[#1b3852]/60 text-slate-400 hover:text-slate-200 text-xs font-medium transition-all cursor-pointer"
+              >
+                Seguir explorando la demo
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </div>
   );
