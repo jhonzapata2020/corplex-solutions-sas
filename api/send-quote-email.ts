@@ -1,4 +1,4 @@
-﻿import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -32,7 +32,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const apiKey = process.env.RESEND_API_KEY || process.env.VITE_RESEND_API_KEY;
-    const fromSender = process.env.RESEND_FROM_EMAIL || 'Corplex Solutions <onboarding@resend.dev>';
+    const fromSender = process.env.RESEND_FROM_EMAIL || 'Corplex Solutions <cotizaciones@corplexsolutions.co>';
+    const bccRecipients = process.env.RESEND_BCC_EMAIL ? [process.env.RESEND_BCC_EMAIL] : ['triangelturbo@gmail.com'];
 
     const formattedConsecutive = consecutive || 'CPX-QT-2026';
     const formattedClientName = clientName || 'Estimado Cliente';
@@ -102,7 +103,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           </div>
           <div class="footer">
             CORPLEX SOLUTIONS S.A.S. • Calle 50 # 45-20, Medellín, Colombia<br>
-            Línea Comercial: +57 320 710 5618 • contacto@corplex.co • www.corplex.co
+            Línea Comercial: +57 320 710 5618 • cotizaciones@corplexsolutions.co • www.corplexsolutions.co
           </div>
         </div>
       </body>
@@ -114,9 +115,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(200).json({
         success: true,
         mode: 'simulation',
-        message: `Cotización ${formattedConsecutive} procesada correctamente. Para envío real a ${clientEmail}, configura RESEND_API_KEY en Vercel.`,
+        message: `Cotización ${formattedConsecutive} procesada correctamente en modo simulación. Para envío real a ${clientEmail}, configura RESEND_API_KEY en Vercel.`,
         consecutive: formattedConsecutive,
-        recipient: clientEmail
+        recipient: clientEmail,
+        bcc: bccRecipients
       });
     }
 
@@ -128,7 +130,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       body: JSON.stringify({
         from: fromSender,
-        to: [clientEmail],
+        to: [clientEmail.trim()],
+        bcc: bccRecipients,
         subject: `Cotización Formal Corplex Solutions — ${formattedConsecutive}${formattedCompany}`,
         html: htmlContent
       })
@@ -137,11 +140,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const resendData = await resendResponse.json().catch(() => null);
 
     if (!resendResponse.ok) {
-      console.error('Error de Resend API:', resendResponse.status, resendData);
+      console.error('❌ Error de Resend API:', resendResponse.status, resendData);
       return res.status(resendResponse.status).json({
         success: false,
         error: resendData?.name || 'ResendAPIError',
-        message: resendData?.message || 'Error enviado por la API de Resend al procesar el correo.',
+        message: resendData?.message || `HTTP ${resendResponse.status}: Error devuelto por Resend API.`,
         details: resendData
       });
     }
