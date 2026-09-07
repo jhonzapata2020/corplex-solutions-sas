@@ -16,6 +16,7 @@ import { QuoteModal } from './components/QuoteModal';
 import { ScrollToTop } from './components/ScrollToTop';
 
 import { ServicesPage } from './pages/ServicesPage';
+import { ContactPage } from './pages/ContactPage';
 
 // Admin CRM Module Imports
 import { ProtectedRoute } from './components/admin/ProtectedRoute';
@@ -129,6 +130,9 @@ export function App() {
 
       {/* Página Dedicada de Servicios */}
       <Route path="/servicios" element={<ServicesPage />} />
+
+      {/* Página Dedicada de Contacto */}
+      <Route path="/contacto" element={<ContactPage />} />
 
       {/* Acceso Administrativo (Login) */}
       <Route path="/admin/login" element={<AdminLogin />} />
