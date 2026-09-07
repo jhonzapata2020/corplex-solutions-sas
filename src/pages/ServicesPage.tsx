@@ -135,7 +135,7 @@ export const ServicesPage: React.FC = () => {
                 NUESTROS 3 PILARES FUNDAMENTALES
               </span>
               <h2 className="text-2xl sm:text-4xl font-bold text-white mb-4">
-                Capacidad Técnica Probada
+                Soluciones de Ingeniería & Arquitectura Empresarial
               </h2>
             </div>
 
@@ -148,10 +148,10 @@ export const ServicesPage: React.FC = () => {
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">1. Automatización Comercial IA</h3>
                 <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                  Agentes conversacionales inteligentes integrados con WhatsApp API, CRM Supabase y sistemas legacy sin tipeo manual.
+                  Ecosistemas de agentes autónomos integrados con canales omnicanal oficiales (WhatsApp Business API), sistemas CRM corporativos y plataformas core legadas para la orquestación integral del ciclo de ventas y atención.
                 </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-emerald-400 font-bold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> ROI 4.2x Estimado
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Eficiencia Operativa Escalable
                 </div>
               </div>
 
