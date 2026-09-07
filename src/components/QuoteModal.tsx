@@ -133,7 +133,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
 
     } catch (err) {
       console.error('Error procesando el registro en Supabase:', err);
-      setErrorMsg('Ocurrió una interrupción de red al registrar en BD, pero puedes continuar abriendo WhatsApp.');
+      setErrorMsg('Ocurrió un inconveniente de conexión, pero puedes continuar tu solicitud directamente por WhatsApp.');
       
       const waUrl = generateWhatsAppMessage(generatedId);
       window.open(waUrl, '_blank', 'noopener,noreferrer');
@@ -172,16 +172,16 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
           </div>
         </div>
 
-        {/* Confirmación de Guardado Exitoso en Supabase */}
+        {/* Confirmación de Guardado Exitoso */}
         {leadSubmitted ? (
           <div className="space-y-6 py-4">
             <div className="p-6 rounded-2xl bg-[#0d1722] border border-emerald-500/40 text-center space-y-3">
               <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30">
                 <CheckCircle className="w-6 h-6" />
               </div>
-              <h4 className="text-lg font-bold text-white">¡Cotización Registrada en Supabase!</h4>
+              <h4 className="text-lg font-bold text-white">¡Solicitud de Cotización Radicada con Éxito!</h4>
               <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-                Tu solicitud fue guardada con éxito en nuestro CRM. Se ha abierto una conversación en WhatsApp para atención personalizada de inmediato.
+                Hemos recibido los requerimientos de tu proyecto y asignado tu caso al equipo de consultoría técnica. Puedes continuar la conversación por WhatsApp para atención inmediata o esperar nuestro contacto formal.
               </p>
 
               {radicadoId && (
@@ -200,7 +200,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
                 className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
               >
                 <Send className="w-4 h-4" />
-                <span>Re-abrir Chat en WhatsApp ({LEGAL_INFO.phone1Display})</span>
+                <span>Continuar por WhatsApp ({LEGAL_INFO.phone1Display})</span>
               </a>
 
               <button
@@ -208,7 +208,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
                 onClick={handleResetForm}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#142332] hover:bg-[#2b5b84] text-slate-300 text-xs font-bold border border-[#2b5b84] cursor-pointer"
               >
-                Nueva Cotización
+                Crear Otra Cotización
               </button>
             </div>
           </div>
@@ -369,12 +369,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
                 {isSubmitting ? (
                   <>
                     <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>Guardando en Supabase y abriendo WhatsApp...</span>
+                    <span>Radicando solicitud y conectando con WhatsApp...</span>
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>Guardar Lead & Enviar a WhatsApp ({LEGAL_INFO.phone1Display})</span>
+                    <span>Radicar Solicitud & Enviar a WhatsApp ({LEGAL_INFO.phone1Display})</span>
                   </>
                 )}
               </button>
