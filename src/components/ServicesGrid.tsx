@@ -183,8 +183,8 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
                 <div className="p-2 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-sky-600 shrink-0" />
                   <div>
-                    <span className="text-[#2b5b84] block font-bold">AWS 99.9%</span>
-                    <span className="text-slate-500 text-[10px]">Alta Disponibilidad</span>
+                    <span className="text-[#2b5b84] block font-bold">Objetivo 99.9%</span>
+                    <span className="text-slate-500 text-[10px]">Sujeto a SLA</span>
                   </div>
                 </div>
                 <div className="p-2 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center gap-1.5">

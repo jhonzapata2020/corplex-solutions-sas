@@ -54,7 +54,7 @@ export const CaseStudiesSection: React.FC = () => {
       summary: 'Agente conversacional inteligente integrado con WhatsApp API para recepción, cualificación automática y agendamiento de pacientes.',
       impact_metrics: '-70% Tiempo de respuesta comercial',
       metric_highlight: 'ROI 4.2x en el primer trimestre de operación',
-      project_url: 'https://corplex-solutions-sas.vercel.app/#ai-automation',
+      project_url: 'https://www.corplexsolutions.co/#ai-automation',
       technologies: ['Python', 'FastAPI', 'WhatsApp API', 'Make / n8n', 'PostgreSQL'],
       is_published: true,
       display_order: 3,

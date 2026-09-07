@@ -67,10 +67,10 @@ export const SERVICES_DATA: ServiceItem[] = [
     categoryLabel: "OFERTA PILAR 3 · CLOUD AWS & SOPORTE TI",
     title: "Cloud Architecture, Seguridad & Soporte TI Administrado (SLA)",
     shortDesc: "Infraestructura elástica en Amazon Web Services (EC2 Auto Scaling, RDS, ALB, S3), ciberseguridad, redes y Mesa de Ayuda TI con SLA garantizado.",
-    fullDesc: "Desplegamos y respaldamos la infraestructura tecnológica de tu organización en Amazon Web Services con 99.9% de disponibilidad garantizada. Ofrecemos además servicio de Mesa de Ayuda TI administrada para resolución priorizada de incidentes y mantenimiento preventivo.",
+    fullDesc: "Desplegamos y respaldamos la infraestructura tecnológica de tu organización en Amazon Web Services con objetivo de disponibilidad de hasta 99.9%, sujeto a arquitectura y SLA contratado. Ofrecemos además servicio de Mesa de Ayuda TI administrada para resolución priorizada de incidentes y mantenimiento preventivo.",
     icon: "Cloud",
     features: [
-      "Arquitectura Serverless y EC2 Auto Scaling con 99.9% de disponibilidad",
+      "Arquitectura Serverless y EC2 Auto Scaling con objetivo de disponibilidad de hasta 99.9% (sujeto a SLA)",
       "Bases de datos relacionales administradas RDS (PostgreSQL/MySQL) cifradas KMS",
       "Estructuración de redes corporativas LAN/WiFi, WAF y ciberseguridad",
       "Mantenimiento preventivo y correctivo de infraestructura tecnológica",
@@ -129,7 +129,7 @@ export const ACADEMIC_FEATURES: AcademicFeature[] = [
       "Resistencia a picos de tráfico con monitoreo sintético en tiempo real"
     ],
     statsNumber: "99.9%",
-    statsLabel: "Disponibilidad Garantizada",
+    statsLabel: "Objetivo de Disponibilidad (SLA)",
     icon: "ShieldCheck",
     demoType: "concurrency"
   }

@@ -231,8 +231,6 @@ export const AdminQuoteModal: React.FC<AdminQuoteModalProps> = ({
           paymentTerms: paymentTerms
         };
 
-        console.log('🚀 Disparando envío de correo transaccional:', emailPayload);
-
         try {
           const res = await fetch('/api/send-quote-email', {
             method: 'POST',
@@ -241,7 +239,6 @@ export const AdminQuoteModal: React.FC<AdminQuoteModalProps> = ({
           });
 
           const resData = await res.json().catch(() => null);
-          console.log('📩 Respuesta del endpoint de correo:', res.status, resData);
 
           if (!res.ok || (resData && resData.success === false)) {
             const apiError = resData?.message || resData?.error || `HTTP ${res.status}: Error al enviar correo.`;

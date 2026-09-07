@@ -134,8 +134,6 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
         paymentTerms: '50% anticipado con la orden de compra, 50% al finalizar la entrega y pruebas de aceptación.'
       };
 
-      console.log('🚀 Disparando envío de correo transaccional desde QuoteModal:', emailPayload);
-
       try {
         const res = await fetch('/api/send-quote-email', {
           method: 'POST',
@@ -144,7 +142,6 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
         });
 
         const resData = await res.json().catch(() => null);
-        console.log('📩 Respuesta del endpoint de correo desde QuoteModal:', res.status, resData);
 
         if (!res.ok || (resData && resData.success === false)) {
           console.warn('⚠️ Alerta del servidor de correo:', resData?.message || res.status);

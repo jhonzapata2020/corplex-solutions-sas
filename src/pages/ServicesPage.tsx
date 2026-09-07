@@ -179,7 +179,7 @@ export const ServicesPage: React.FC = () => {
                   Infraestructura elástica en Amazon Web Services (EC2, RDS PostgreSQL cifrado, ALB) con monitoreo 24/7.
                 </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-emerald-400 font-bold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> 99.9% Uptime Garantizado
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Objetivo de disponibilidad de hasta 99.9%, sujeto a arquitectura y SLA contratado
                 </div>
               </div>
 
@@ -370,9 +370,9 @@ export const ServicesPage: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-[#2b5b84]/60 flex items-center justify-between text-[11px] font-mono-tech text-slate-400">
-                    <span>0% Alucinación</span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
+                  <div className="pt-3 border-t border-[#2b5b84]/60 flex items-center justify-between text-[11px] font-mono-tech text-slate-400 gap-2">
+                    <span>Reglas deterministas para precios y validación humana en decisiones críticas</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                   </div>
                 </div>
 
