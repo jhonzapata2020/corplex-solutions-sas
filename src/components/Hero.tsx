@@ -102,12 +102,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal,
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   Modo Simulación Control Room Activo
                 </span>
-                <button
-                  onClick={() => onOpenControlRoom && onOpenControlRoom()}
+                <Link
+                  to="/control-room"
                   className="text-[#ffd343] hover:underline font-bold cursor-pointer bg-transparent border-none p-0"
                 >
                   Ver Control Room ⚡ →
-                </button>
+                </Link>
               </div>
 
             </div>

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { AgentOperationsCenter } from './components/AgentOperationsCenter';
 import { AIAutomationSection } from './components/AIAutomationSection';
 import { AcademicCapabilities } from './components/AcademicCapabilities';
 import { CaseStudiesSection } from './components/CaseStudiesSection';
@@ -34,17 +33,8 @@ import { AdminCMS } from './components/admin/AdminCMS';
 import { AdminSettings } from './components/admin/AdminSettings';
 
 function PublicSite() {
-  const [isControlRoomOpen, setIsControlRoomOpen] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [selectedServiceTitle, setSelectedServiceTitle] = useState<string | undefined>(undefined);
-
-  const handleOpenControlRoom = () => {
-    setIsControlRoomOpen(true);
-  };
-
-  const handleCloseControlRoom = () => {
-    setIsControlRoomOpen(false);
-  };
 
   const handleOpenQuoteModal = (serviceTitle?: string) => {
     setSelectedServiceTitle(serviceTitle);
@@ -63,7 +53,6 @@ function PublicSite() {
         {/* Header & Navigation */}
         <Navbar
           onOpenQuoteModal={() => handleOpenQuoteModal()}
-          onOpenControlRoom={handleOpenControlRoom}
         />
 
         {/* Main Content Sections */}
@@ -71,7 +60,6 @@ function PublicSite() {
           {/* Hero Section */}
           <Hero
             onOpenQuoteModal={() => handleOpenQuoteModal()}
-            onOpenControlRoom={handleOpenControlRoom}
           />
 
           {/* Flagship Commercial Unit: Corplex AI Automation */}
