@@ -25,6 +25,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenControlR
       setActiveSection('contacto');
       return;
     }
+    if (location.pathname === '/control-room' || location.pathname === '/centro-operaciones') {
+      setActiveSection('centro-operaciones');
+      return;
+    }
 
     const handleScroll = () => {
       const sections = ['inicio', 'centro-operaciones', 'servicios', 'casos-exito', 'contacto'];
@@ -49,16 +53,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenControlR
 
   const navLinks = [
     { href: location.pathname === '/' ? '#inicio' : '/', to: '/', label: 'Inicio', id: 'inicio', isRouter: location.pathname !== '/' },
-    { href: '#centro-operaciones', to: '/#centro-operaciones', label: 'Control Room ⚡', id: 'centro-operaciones', badge: 'LIVE', isRouter: false },
+    { href: '/control-room', to: '/control-room', label: 'Control Room ⚡', id: 'centro-operaciones', badge: 'LIVE', isRouter: true },
     { href: '/servicios', to: '/servicios', label: 'Servicios', id: 'servicios', isRouter: true },
     { href: location.pathname === '/' ? '#casos-exito' : '/#casos-exito', to: '/#casos-exito', label: 'Portafolio', id: 'casos-exito', isRouter: location.pathname !== '/' },
     { href: '/contacto', to: '/contacto', label: 'Contacto', id: 'contacto', isRouter: true }
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
-    if (link.id === 'centro-operaciones' && onOpenControlRoom) {
+    if (link.id === 'centro-operaciones' && (location.pathname === '/control-room' || location.pathname === '/centro-operaciones')) {
       e.preventDefault();
-      onOpenControlRoom();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 

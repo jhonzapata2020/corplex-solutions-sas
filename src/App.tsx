@@ -17,6 +17,7 @@ import { ScrollToTop } from './components/ScrollToTop';
 
 import { ServicesPage } from './pages/ServicesPage';
 import { ContactPage } from './pages/ContactPage';
+import { ControlRoomPage } from './pages/ControlRoomPage';
 
 // Admin CRM Module Imports
 import { ProtectedRoute } from './components/admin/ProtectedRoute';
@@ -105,12 +106,6 @@ function PublicSite() {
         <ScrollToTop />
       </div>
 
-      {/* Agent Operations Control Room Workstation Modal */}
-      <AgentOperationsCenter
-        isOpen={isControlRoomOpen}
-        onClose={handleCloseControlRoom}
-      />
-
       {/* Interactive Quote Modal */}
       <QuoteModal
         key={selectedServiceTitle || 'default-quote-modal'}
@@ -133,6 +128,10 @@ export function App() {
 
       {/* Página Dedicada de Contacto */}
       <Route path="/contacto" element={<ContactPage />} />
+
+      {/* Página Dedicada de Control Room Workstation ⚡ */}
+      <Route path="/control-room" element={<ControlRoomPage />} />
+      <Route path="/centro-operaciones" element={<ControlRoomPage />} />
 
       {/* Acceso Administrativo (Login) */}
       <Route path="/admin/login" element={<AdminLogin />} />

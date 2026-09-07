@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   MessageSquare,
   Mail,
@@ -62,19 +63,24 @@ const PRESET_MESSAGES: PresetOption[] = [
 ];
 
 interface AgentOperationsCenterProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
   onSelectLeadData?: (sector: string, bottleneck: string) => void;
+  isPage?: boolean;
+  onOpenQuoteModal?: (serviceTitle?: string) => void;
 }
 
 export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
-  isOpen,
+  isOpen = true,
   onClose,
-  onSelectLeadData
+  onSelectLeadData,
+  isPage = false,
+  onOpenQuoteModal
 }) => {
   const [selectedPreset, setSelectedPreset] = useState<PresetOption>(PRESET_MESSAGES[0]);
   const [activeChannel, setActiveChannel] = useState<'whatsapp' | 'email' | 'web'>('whatsapp');
   const [customMessage, setCustomMessage] = useState<string>(PRESET_MESSAGES[0].message);
+  const navigate = useNavigate();
   
   // Execution Simulation State
   const [isExecuting, setIsExecuting] = useState<boolean>(false);
@@ -99,9 +105,9 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
     };
   }, []);
 
-  // Lock body scroll and register Escape key listener
+  // Lock body scroll and register Escape key listener (only in modal mode)
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || isPage) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -109,7 +115,7 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
           setIsHandoffModalOpen(false);
         } else {
           clearAllTimeouts();
-          onClose();
+          if (onClose) onClose();
         }
       }
     };
@@ -122,9 +128,9 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
       window.removeEventListener('keydown', handleKeyDown);
       clearAllTimeouts();
     };
-  }, [isOpen, isHandoffModalOpen, onClose]);
+  }, [isOpen, isHandoffModalOpen, onClose, isPage]);
 
-  if (!isOpen) return null;
+  if (!isOpen && !isPage) return null;
 
   const handleSelectPreset = (preset: PresetOption) => {
     clearAllTimeouts();
@@ -167,28 +173,35 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
       onSelectLeadData(selectedPreset.sector, customMessage);
     }
     
-    // Close workstation modal first, then smooth scroll to automation form
-    onClose();
+    if (onOpenQuoteModal) {
+      if (onClose && !isPage) onClose();
+      onOpenQuoteModal('Automatización Comercial con IA');
+    } else {
+      if (onClose && !isPage) onClose();
+      navigate('/contacto');
+    }
+  };
 
-    setTimeout(() => {
-      const targetElement = document.getElementById('formulario-automatizacion') || document.getElementById('contacto');
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
+  const handleCloseAction = () => {
+    clearAllTimeouts();
+    if (onClose && !isPage) {
+      onClose();
+    } else {
+      navigate('/');
+    }
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#070e17]/95 backdrop-blur-md flex flex-col overflow-hidden text-slate-100 font-tech animate-in fade-in duration-200">
+    <div className={isPage ? "w-full bg-[#070e17] text-slate-100 font-tech animate-in fade-in duration-200" : "fixed inset-0 z-50 bg-[#070e17]/95 backdrop-blur-md flex flex-col overflow-hidden text-slate-100 font-tech animate-in fade-in duration-200"}>
       
       {/* 1. TOP STUDIO HEADER BAR */}
       <header className="bg-[#0f1b29] border-b border-[#2b5b84]/60 px-4 sm:px-6 py-3 flex items-center justify-between z-10 shadow-md">
         
         {/* Extremo Izquierdo: Logotipo Corplex + Sello AI AGENTS CONTROL ROOM + Badge Verde */}
         <div className="flex items-center gap-3 flex-wrap">
-          <div className="scale-90 origin-left">
+          <Link to="/" className="scale-90 origin-left">
             <Logo size="sm" />
-          </div>
+          </Link>
           
           <div className="hidden sm:flex flex-col border-l border-[#2b5b84]/60 pl-3 font-mono-tech text-xs">
             <span className="text-white font-bold tracking-tight">AI AGENTS CONTROL ROOM</span>
@@ -205,28 +218,33 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
         <div className="flex items-center gap-2">
           
           {/* Botón de Inicio / Volver */}
-          <button
-            onClick={onClose}
+          <Link
+            to="/"
+            onClick={handleCloseAction}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors cursor-pointer shadow-sm"
             title="Volver al Sitio Web Principal"
           >
             <Home className="w-4 h-4 text-[#ffd343]" />
             <span>Inicio</span>
-          </button>
+          </Link>
 
-          {/* Indicador visual Tecla Esc */}
-          <span className="hidden sm:inline-block px-2 py-1 rounded bg-[#142332] text-slate-400 font-mono-tech text-[10px] border border-[#2b5b84]">
-            Esc
-          </span>
+          {!isPage && (
+            <>
+              {/* Indicador visual Tecla Esc */}
+              <span className="hidden sm:inline-block px-2 py-1 rounded bg-[#142332] text-slate-400 font-mono-tech text-[10px] border border-[#2b5b84]">
+                Esc
+              </span>
 
-          {/* Botón de Cierre ✕ */}
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold font-mono-tech transition-all flex items-center justify-center cursor-pointer shadow-sm"
-            title="Cerrar (Esc)"
-          >
-            <X className="w-4 h-4 stroke-[2.5]" />
-          </button>
+              {/* Botón de Cierre ✕ */}
+              <button
+                onClick={handleCloseAction}
+                className="p-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold font-mono-tech transition-all flex items-center justify-center cursor-pointer shadow-sm"
+                title="Cerrar (Esc)"
+              >
+                <X className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            </>
+          )}
 
         </div>
 

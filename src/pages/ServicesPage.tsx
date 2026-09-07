@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { QuoteModal } from '../components/QuoteModal';
 import { ScrollToTop } from '../components/ScrollToTop';
-import { AgentOperationsCenter } from '../components/AgentOperationsCenter';
 import { fetchSiteServices } from '../services/cmsService';
 import type { SiteServiceEntity } from '../types/lead';
 import {
@@ -111,12 +111,12 @@ export const ServicesPage: React.FC = () => {
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <button
-                onClick={() => setIsControlRoomOpen(true)}
+              <Link
+                to="/control-room"
                 className="px-6 py-3 rounded-xl bg-[#142332] hover:bg-[#1b3852] border border-[#2b5b84] text-white font-bold text-sm transition-all flex items-center gap-2 cursor-pointer"
               >
                 <span>Probar Agentes en Control Room ⚡</span>
-              </button>
+              </Link>
             </div>
 
           </div>
@@ -320,12 +320,6 @@ export const ServicesPage: React.FC = () => {
 
       {/* Scroll to Top */}
       <ScrollToTop />
-
-      {/* Control Room Workstation Modal */}
-      <AgentOperationsCenter
-        isOpen={isControlRoomOpen}
-        onClose={() => setIsControlRoomOpen(false)}
-      />
 
       {/* Quote Modal */}
       <QuoteModal

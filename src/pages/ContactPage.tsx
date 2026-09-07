@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { QuoteModal } from '../components/QuoteModal';
 import { ScrollToTop } from '../components/ScrollToTop';
-import { AgentOperationsCenter } from '../components/AgentOperationsCenter';
 import { PrivacyModal } from '../components/PrivacyModal';
 import { LEGAL_INFO } from '../data/corporateData';
 import { submitLead } from '../services/leadService';
@@ -137,13 +137,13 @@ export const ContactPage: React.FC = () => {
                 <span>WhatsApp Prioritario 24/7</span>
               </a>
 
-              <button
-                onClick={() => setIsControlRoomOpen(true)}
+              <Link
+                to="/control-room"
                 className="px-6 py-3 rounded-xl bg-[#142332] hover:bg-[#1b3852] border border-[#2b5b84] text-white font-bold text-sm transition-all flex items-center gap-2 cursor-pointer"
               >
                 <Bot className="w-4 h-4 text-[#ffd343]" />
                 <span>Probar Agentes en Control Room ⚡</span>
-              </button>
+              </Link>
             </div>
 
           </div>
@@ -473,12 +473,6 @@ export const ContactPage: React.FC = () => {
 
       {/* Privacy Policy Modal */}
       <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
-
-      {/* Control Room Workstation Modal */}
-      <AgentOperationsCenter
-        isOpen={isControlRoomOpen}
-        onClose={() => setIsControlRoomOpen(false)}
-      />
 
       {/* Quote Modal */}
       <QuoteModal

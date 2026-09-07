@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
 interface HeroProps {
@@ -127,12 +128,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal: _onOpenQuoteModal,
 
                 {/* Dual Hierarchical Hero CTAs */}
                 <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <button
-                    onClick={() => onOpenControlRoom && onOpenControlRoom()}
+                  <Link
+                    to="/control-room"
                     className="px-5 py-2.5 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#0d1722] font-bold text-xs font-sans shadow-lg transition-all flex items-center gap-2 cursor-pointer border-none"
                   >
                     <span>Ejecutar Demo Interactiva ⚡</span>
-                  </button>
+                  </Link>
 
                   <a
                     href="#portafolio"
