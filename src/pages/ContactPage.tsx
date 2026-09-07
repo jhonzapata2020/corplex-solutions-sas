@@ -202,7 +202,7 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   <p className="text-xs text-slate-300 mb-6 leading-relaxed">
-                    Atención personalizada para gerentes de tecnología, coordinadores académicos de la UNAD y directores de proyectos empresariales.
+                    Canal directo de enlace técnico y consultoría estratégica para líderes de innovación, directores de tecnología y organizaciones que escalan su infraestructura con soluciones de software e inteligencia artificial.
                   </p>
 
                   <div className="flex flex-col gap-3">
