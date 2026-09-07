@@ -151,7 +151,7 @@ export const ServicesPage: React.FC = () => {
                   Ecosistemas de agentes autónomos integrados con canales omnicanal oficiales (WhatsApp Business API), sistemas CRM corporativos y plataformas core legadas para la orquestación integral del ciclo de ventas y atención.
                 </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-emerald-400 font-bold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Eficiencia Operativa Escalable
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Integración Omnicanal & Core CRM
                 </div>
               </div>
 
@@ -165,7 +165,7 @@ export const ServicesPage: React.FC = () => {
                   Sistemas ERP/CRM corporativos, plataformas web de alta concurrencia y aplicaciones cloud nativas diseñadas para operar lógica de negocio compleja con máxima resiliencia.
                 </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-sky-300 font-bold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> React 19 & TypeScript
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Arquitectura Agnóstica & Cloud Nativa
                 </div>
               </div>
 
@@ -179,7 +179,7 @@ export const ServicesPage: React.FC = () => {
                   Infraestructura elástica en Amazon Web Services (EC2, RDS PostgreSQL cifrado, ALB) con monitoreo 24/7.
                 </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-emerald-400 font-bold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Objetivo de disponibilidad de hasta 99.9%, sujeto a arquitectura y SLA contratado
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Alta Disponibilidad & Resiliencia Cloud (SLA)
                 </div>
               </div>
 

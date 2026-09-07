@@ -130,7 +130,7 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
                 {selectedModule === 'erp' && (
                   <div className="space-y-1 text-slate-800">
                     <div className="text-[#2b5b84] font-bold">✓ ERP/CRM & Web Apps Modulares</div>
-                    <div className="text-[11px] text-slate-600">React 19 + TypeScript + REST APIs PostgreSQL.</div>
+                    <div className="text-[11px] text-slate-600">Arquitectura Cloud Nativa + REST APIs & PostgreSQL.</div>
                   </div>
                 )}
 
