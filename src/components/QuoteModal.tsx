@@ -118,7 +118,42 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
         });
       }
 
-      // 2. Disparar evento para refresco en tiempo real del CRM
+      // 2. Disparar correo transaccional vía /api/send-quote-email
+      const emailToSend = clientInfo.email.trim() || 'cotizaciones@corplexsolutions.co';
+
+      const emailPayload = {
+        clientEmail: emailToSend,
+        clientName: clientInfo.name.trim(),
+        companyName: clientInfo.org.trim(),
+        consecutive: generatedId,
+        concept: `Cotización TI: ${projectType}`,
+        scope: problemDescription,
+        subtotal: `$${estimatedPrice.toLocaleString('es-CO')} COP`,
+        iva: `Incluido / Según Régimen`,
+        total: `$${estimatedPrice.toLocaleString('es-CO')} COP`,
+        paymentTerms: '50% anticipado con la orden de compra, 50% al finalizar la entrega y pruebas de aceptación.'
+      };
+
+      console.log('🚀 Disparando envío de correo transaccional desde QuoteModal:', emailPayload);
+
+      try {
+        const res = await fetch('/api/send-quote-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(emailPayload)
+        });
+
+        const resData = await res.json().catch(() => null);
+        console.log('📩 Respuesta del endpoint de correo desde QuoteModal:', res.status, resData);
+
+        if (!res.ok || (resData && resData.success === false)) {
+          console.warn('⚠️ Alerta del servidor de correo:', resData?.message || res.status);
+        }
+      } catch (emailErr) {
+        console.error('❌ Error de conexión al endpoint de correo:', emailErr);
+      }
+
+      // 3. Disparar evento para refresco en tiempo real del CRM y mostrar vista de confirmación (SIN abrir WhatsApp automáticamente)
       window.dispatchEvent(new CustomEvent('corplex_refresh_leads'));
       window.dispatchEvent(new CustomEvent('corplex_lead_created', {
         detail: { name: clientInfo.name, company: clientInfo.org }
@@ -127,16 +162,9 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
       setRadicadoId(generatedId);
       setLeadSubmitted(true);
 
-      // 3. Abrir WhatsApp en nueva pestaña
-      const waUrl = generateWhatsAppMessage(generatedId);
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-
     } catch (err) {
       console.error('Error procesando el registro en Supabase:', err);
-      setErrorMsg('Ocurrió un inconveniente de conexión, pero puedes continuar tu solicitud directamente por WhatsApp.');
-      
-      const waUrl = generateWhatsAppMessage(generatedId);
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
+      setErrorMsg('Ocurrió un inconveniente de conexión al procesar la solicitud, pero puedes comunicarte con nuestro equipo comercial por WhatsApp.');
     } finally {
       setIsSubmitting(false);
     }
@@ -369,12 +397,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
                 {isSubmitting ? (
                   <>
                     <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>Radicando solicitud y conectando con WhatsApp...</span>
+                    <span>Radicando solicitud y procesando correo...</span>
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>Radicar Solicitud & Enviar a WhatsApp ({LEGAL_INFO.phone1Display})</span>
+                    <span>Radicar Solicitud de Cotización</span>
                   </>
                 )}
               </button>
