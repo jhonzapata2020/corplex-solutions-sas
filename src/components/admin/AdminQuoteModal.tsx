@@ -231,22 +231,38 @@ export const AdminQuoteModal: React.FC<AdminQuoteModalProps> = ({
           paymentTerms: paymentTerms
         };
 
+        console.log('🚀 Disparando envío de correo transaccional:', emailPayload);
+
         try {
-          await fetch('/api/send-quote-email', {
+          const res = await fetch('/api/send-quote-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(emailPayload)
           });
-        } catch (emailErr) {
-          console.warn('Advertencia en disparo de correo transaccional:', emailErr);
-        }
 
-        const msg = `Cotización ${quoteConsecutive} generada y enviada exitosamente al correo del cliente.`;
-        setSuccessToast(msg);
+          const resData = await res.json().catch(() => null);
+          console.log('📩 Respuesta del endpoint de correo:', res.status, resData);
+
+          if (!res.ok || (resData && resData.success === false)) {
+            const apiError = resData?.message || resData?.error || `HTTP ${res.status}: Error al enviar correo.`;
+            console.error('❌ Error devuelto por el servidor de correo:', apiError);
+            setError(`Advertencia de Envío: Cotización creada en BD, pero el servidor de correo devolvió: "${apiError}"`);
+            setSuccessToast(`Cotización ${quoteConsecutive} guardada en BD. Alerta de Correo: ${apiError}`);
+          } else {
+            const modeInfo = resData?.mode === 'simulation' ? ' (Modo Simulación Activo)' : '';
+            const msg = `Cotización ${quoteConsecutive} generada y enviada exitosamente al correo del cliente${modeInfo}.`;
+            setSuccessToast(msg);
+          }
+        } catch (emailErr) {
+          console.error('❌ Error de red conectando al endpoint /api/send-quote-email:', emailErr);
+          const networkMsg = emailErr instanceof Error ? emailErr.message : 'No se pudo conectar con la API de correo';
+          setError(`Cotización guardada en BD, pero no se pudo contactar el servidor de correo: ${networkMsg}`);
+          setSuccessToast(`Cotización ${quoteConsecutive} guardada. (Nota: fallo de red al contactar servidor de correo: ${networkMsg})`);
+        }
 
         setTimeout(() => {
           onSuccess(resultQuote);
-        }, 1600);
+        }, 2200);
       } else {
         onSuccess(resultQuote);
       }
