@@ -143,6 +143,13 @@ export const AdminQuotes: React.FC = () => {
     setLoadingHistory(false);
   };
 
+  const formatCOP = (val: number) =>
+    new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      maximumFractionDigits: 0
+    }).format(val);
+
   return (
     <div className="space-y-6 font-tech">
       
@@ -180,62 +187,68 @@ export const AdminQuotes: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Total Cotizado */}
-        <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md">
+        <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md min-w-0 overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono-tech text-slate-400 font-bold">TOTAL COTIZADO</span>
-            <div className="p-2 rounded-xl bg-[#142332] text-sky-400">
+            <div className="p-2 rounded-xl bg-[#142332] text-sky-400 shrink-0">
               <FileText className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4">
-            <span className="text-2xl sm:text-3xl font-extrabold text-white">
-              ${totalQuotedValue.toLocaleString('es-CO')}
-            </span>
-            <span className="text-[11px] text-slate-400 block mt-0.5">Monto bruto acumulado</span>
+          <div className="mt-4 min-w-0">
+            <div className="text-xl lg:text-2xl font-bold tracking-tight text-white truncate">
+              <span className="text-sm lg:text-base font-semibold text-slate-400 mr-1">$</span>
+              {formatCOP(totalQuotedValue).replace('$', '').trim()}
+            </div>
+            <span className="text-[11px] text-slate-400 block mt-0.5 truncate">Monto bruto acumulado</span>
           </div>
         </div>
 
         {/* Cotizaciones Aceptadas */}
-        <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md">
+        <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md min-w-0 overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono-tech text-slate-400 font-bold">ACEPTADAS (GANADAS)</span>
-            <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400">
+            <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 shrink-0">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4">
-            <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400">
-              ${acceptedTotalValue.toLocaleString('es-CO')}
-            </span>
-            <span className="text-[11px] text-slate-400 block mt-0.5">{acceptedCount} propuestas aprobadas</span>
+          <div className="mt-4 min-w-0">
+            <div className="text-xl lg:text-2xl font-bold tracking-tight text-emerald-400 truncate">
+              <span className="text-sm lg:text-base font-semibold text-slate-400 mr-1">$</span>
+              {formatCOP(acceptedTotalValue).replace('$', '').trim()}
+            </div>
+            <span className="text-[11px] text-slate-400 block mt-0.5 truncate">{acceptedCount} propuestas aprobadas</span>
           </div>
         </div>
 
         {/* En Evaluación / Enviadas */}
-        <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md">
+        <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md min-w-0 overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono-tech text-slate-400 font-bold">EN EVALUACIÓN</span>
-            <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400">
+            <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400 shrink-0">
               <Clock className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4">
-            <span className="text-2xl sm:text-3xl font-extrabold text-purple-300">{sentCount}</span>
-            <span className="text-[11px] text-slate-400 block mt-0.5">Propuestas en poder del cliente</span>
+          <div className="mt-4 min-w-0">
+            <div className="text-xl lg:text-2xl font-bold tracking-tight text-purple-300 truncate">
+              {sentCount}
+            </div>
+            <span className="text-[11px] text-slate-400 block mt-0.5 truncate">Propuestas en poder del cliente</span>
           </div>
         </div>
 
         {/* Borradores */}
-        <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md">
+        <div className="p-5 rounded-2xl bg-[#1b3852] border border-[#2b5b84] flex flex-col justify-between shadow-md min-w-0 overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono-tech text-slate-400 font-bold">BORRADORES</span>
-            <div className="p-2 rounded-xl bg-slate-500/20 text-slate-400">
+            <div className="p-2 rounded-xl bg-slate-500/20 text-slate-400 shrink-0">
               <Edit className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4">
-            <span className="text-2xl sm:text-3xl font-extrabold text-slate-300">{draftCount}</span>
-            <span className="text-[11px] text-slate-400 block mt-0.5">Cotizaciones en preparación</span>
+          <div className="mt-4 min-w-0">
+            <div className="text-xl lg:text-2xl font-bold tracking-tight text-slate-300 truncate">
+              {draftCount}
+            </div>
+            <span className="text-[11px] text-slate-400 block mt-0.5 truncate">Cotizaciones en preparación</span>
           </div>
         </div>
 
