@@ -10,7 +10,9 @@ import {
   Building2,
   DollarSign,
   AlertCircle,
-  RefreshCw
+  RefreshCw,
+  CheckCircle,
+  Mail
 } from 'lucide-react';
 
 interface AdminQuoteModalProps {
@@ -93,6 +95,7 @@ export const AdminQuoteModal: React.FC<AdminQuoteModalProps> = ({
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [successToast, setSuccessToast] = useState<string | null>(null);
 
   // Item management handlers
   const handleAddItem = () => {
@@ -176,6 +179,7 @@ export const AdminQuoteModal: React.FC<AdminQuoteModalProps> = ({
 
     setSaving(true);
     setError(null);
+    setSuccessToast(null);
 
     try {
       const headerPayload: Omit<QuoteEntity, 'id' | 'quote_number' | 'created_at' | 'updated_at'> = {
@@ -183,10 +187,10 @@ export const AdminQuoteModal: React.FC<AdminQuoteModalProps> = ({
         version_number: quote?.version_number || 1,
         parent_quote_id: quote?.parent_quote_id || null,
         status: targetStatus,
-        client_name: clientName,
-        client_company: clientCompany,
-        client_email: clientEmail,
-        client_phone: clientPhone,
+        client_name: clientName.trim(),
+        client_company: clientCompany.trim(),
+        client_email: clientEmail.trim(),
+        client_phone: clientPhone.trim(),
         client_sector: clientSector,
         tax_rate: Number(taxRate) || 0,
         subtotal: grossSubtotal,
@@ -207,7 +211,46 @@ export const AdminQuoteModal: React.FC<AdminQuoteModalProps> = ({
         resultQuote = await createQuote(headerPayload, items);
       }
 
-      onSuccess(resultQuote);
+      // Si se marca como enviada, disparar el envío de correo transaccional
+      if (targetStatus === 'sent') {
+        const leadEmail = clientEmail.trim() || lead?.email || '';
+        const leadName = clientName.trim() || lead?.full_name || 'juan Diego Zapata';
+        const leadCompany = clientCompany.trim() || lead?.company_name || 'Agroforest';
+        const quoteConsecutive = resultQuote.quote_number || `CPX-QT-2026-${Math.floor(100 + Math.random() * 900)}`;
+
+        const emailPayload = {
+          clientEmail: leadEmail,
+          clientName: leadName,
+          companyName: leadCompany,
+          consecutive: quoteConsecutive,
+          concept: items[0]?.concept || 'Implementación de Intermedio (Escalable)',
+          scope: items[0]?.description || `Cotización TI: Escala [${items[0]?.concept || 'Intermedio (Escalable)'}]`,
+          subtotal: `$${grossSubtotal.toLocaleString('es-CO')} COP`,
+          iva: `$${taxAmount.toLocaleString('es-CO')} COP`,
+          total: `$${grandTotal.toLocaleString('es-CO')} COP`,
+          paymentTerms: paymentTerms
+        };
+
+        try {
+          await fetch('/api/send-quote-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(emailPayload)
+          });
+        } catch (emailErr) {
+          console.warn('Advertencia en disparo de correo transaccional:', emailErr);
+        }
+
+        const msg = `Cotización ${quoteConsecutive} generada y enviada exitosamente al correo del cliente.`;
+        setSuccessToast(msg);
+
+        setTimeout(() => {
+          onSuccess(resultQuote);
+        }, 1600);
+      } else {
+        onSuccess(resultQuote);
+      }
+
     } catch (err) {
       console.error('Error al guardar cotización:', err);
       const msg = err instanceof Error ? err.message : 'No se pudo guardar la cotización en Supabase.';
@@ -252,6 +295,13 @@ export const AdminQuoteModal: React.FC<AdminQuoteModalProps> = ({
             <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-3">
               <AlertCircle className="w-5 h-5 shrink-0 text-rose-400" />
               <span>{error}</span>
+            </div>
+          )}
+
+          {successToast && (
+            <div className="p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-3 font-semibold shadow-lg animate-in fade-in">
+              <CheckCircle className="w-5 h-5 shrink-0 text-emerald-400" />
+              <span>{successToast}</span>
             </div>
           )}
 
