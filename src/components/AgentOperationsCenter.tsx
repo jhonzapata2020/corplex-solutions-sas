@@ -16,7 +16,8 @@ import {
   Terminal,
   Activity,
   Home,
-  Sparkles
+  Sparkles,
+  Rocket
 } from 'lucide-react';
 import { Logo } from './Logo';
 
@@ -534,7 +535,8 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
             {/* CTA Final */}
             <div className="pt-3 mt-3 border-t border-[#2b5b84]">
               <button
-                onClick={handleOpenHandoff}
+                type="button"
+                onClick={() => setIsHandoffModalOpen(true)}
                 className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#3775a9] to-[#2b5b84] hover:from-[#2b5b84] hover:to-[#1b3852] text-white font-bold text-xs font-sans flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer border border-[#ffd343]/50"
               >
                 <span>Quiero este flujo en mi empresa (Solicitar Diagnóstico)</span>
@@ -574,73 +576,61 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
         </div>
       </footer>
 
-      {/* 4. LEAD HAND-OFF CONVERSION POPUP MODAL */}
+      {/* 4. LEAD HAND-OFF CONVERSION POPUP MODAL (DIRECT ROOT CHILD) */}
       {isHandoffModalOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-          <div className="bg-[#142332] rounded-3xl border border-[#ffd343]/60 shadow-2xl max-w-lg w-full p-6 sm:p-8 relative text-slate-100 font-tech">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="relative w-full max-w-lg bg-[#0b1320] border border-amber-500/40 rounded-2xl p-6 shadow-2xl text-left animate-in fade-in zoom-in-95 duration-200 font-tech">
             
-            {/* Botón de Cierre ✕ */}
-            <button
-              onClick={() => setIsHandoffModalOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-full bg-[#1b3852] hover:bg-[#2b5b84] text-slate-400 hover:text-white transition-all cursor-pointer border border-[#2b5b84]"
-              title="Cerrar modal"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            {/* Header Modal */}
-            <div className="text-center mb-6">
-              <div className="w-14 h-14 rounded-2xl bg-[#1b3852] border border-[#ffd343]/60 text-[#ffd343] flex items-center justify-center mx-auto mb-3 shadow-md">
-                <Sparkles className="w-7 h-7" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                <Rocket className="w-6 h-6" />
               </div>
-              
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
-                ¡Flujo Simulado con Éxito! ⚡
-              </h3>
-              <p className="text-slate-300 text-xs sm:text-sm">
-                Estás a un paso de implementar esta automatización en tu empresa.
-              </p>
-            </div>
-
-            {/* Resumen Informativo de Parámetros Precargados */}
-            <div className="bg-[#0d1722] rounded-2xl p-4 border border-[#2b5b84] space-y-2 mb-6 font-tech text-xs">
-              <div className="text-[11px] font-mono-tech text-[#ffd343] font-bold uppercase tracking-wider mb-1">
-                PARÁMETROS PRECARGADOS PARA TU DIAGNÓSTICO:
-              </div>
-              
-              <div className="flex items-center justify-between text-slate-300">
-                <span className="text-slate-400 font-mono-tech">Sector Seleccionado:</span>
-                <span className="font-bold text-sky-300 bg-[#1b3852] px-2 py-0.5 rounded text-[11px] border border-[#2b5b84]">{selectedPreset.sector}</span>
-              </div>
-
-              <div className="flex items-start justify-between text-slate-300 gap-2">
-                <span className="text-slate-400 font-mono-tech whitespace-nowrap">Caso Probado:</span>
-                <span className="font-sans text-slate-200 text-right line-clamp-2 text-[11px] italic">
-                  "{customMessage}"
-                </span>
+              <div>
+                <h3 className="text-lg font-bold text-white">¡Flujo Simulado con Éxito! ⚡</h3>
+                <p className="text-xs text-slate-400">Paso previo para implementar la automatización en tu empresa</p>
               </div>
             </div>
 
-            {/* Mensaje Orientador */}
-            <p className="text-xs text-slate-300 leading-relaxed mb-6">
-              Hemos preparado estos parámetros para tu diagnóstico inicial sin costo. Al continuar, serás redirigido al formulario oficial donde podrás ingresar tus datos bajo la Ley 1581 de 2012 para que nuestro equipo técnico agende tu sesión.
-            </p>
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 mb-4 space-y-2 text-xs">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400">Sector seleccionado:</span>
+                <span className="font-semibold text-cyan-400">{selectedPreset?.sector || 'Comercial & Ventas'}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400">Tiempo de respuesta estimado:</span>
+                <span className="font-semibold text-emerald-400">&lt; 1 día hábil</span>
+              </div>
+              <div className="text-slate-300 pt-2 border-t border-slate-800/80 leading-relaxed">
+                Hemos preparado estos parámetros. Al continuar, serás redirigido al formulario oficial para registrar tus datos de contacto conforme a la Ley 1581 de 2012 y coordinar tu diagnóstico técnico.
+              </div>
+            </div>
 
-            {/* Botones de Acción */}
-            <div className="space-y-3">
+            <div className="flex flex-col sm:flex-row gap-2.5">
               <button
-                onClick={handleConfirmHandoff}
-                className="w-full py-3 rounded-xl bg-[#ffd343] hover:bg-[#ffc520] text-[#0d1722] font-bold text-xs font-sans flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                type="button"
+                onClick={() => {
+                  setIsHandoffModalOpen(false);
+                  if (onSelectLeadData) {
+                    onSelectLeadData(selectedPreset.sector, customMessage);
+                  }
+                  onClose();
+                  setTimeout(() => {
+                    const target = document.getElementById('formulario-automatizacion') || document.getElementById('contacto');
+                    if (target) {
+                      target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100);
+                }}
+                className="flex-1 py-2.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-lg shadow-amber-400/20 cursor-pointer"
               >
-                <span>Continuar al Formulario de Diagnóstico 🚀</span>
-                <ArrowRight className="w-4 h-4" />
+                Continuar al Formulario de Diagnóstico 🚀
               </button>
-
               <button
+                type="button"
                 onClick={() => setIsHandoffModalOpen(false)}
-                className="w-full py-2 rounded-xl bg-transparent hover:bg-[#1b3852]/60 text-slate-400 hover:text-slate-200 text-xs font-medium transition-all cursor-pointer"
+                className="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs transition-colors cursor-pointer"
               >
-                Seguir explorando la demo
+                Seguir en la Demo
               </button>
             </div>
 
