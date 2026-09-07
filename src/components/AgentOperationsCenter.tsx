@@ -81,8 +81,8 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
   const [executionProgress, setExecutionProgress] = useState<number>(5);
   const [executionTimeMs, setExecutionTimeMs] = useState<number>(1240);
 
-  // Conversion Hand-off Modal State
-  const [isHandoffModalOpen, setIsHandoffModalOpen] = useState<boolean>(false);
+  // Contextual Tooltip State (Activated when pipeline finishes)
+  const [showHandoffTooltip, setShowHandoffTooltip] = useState<boolean>(true);
 
   // Lock body scroll and register Escape key listener
   useEffect(() => {
@@ -90,11 +90,7 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (isHandoffModalOpen) {
-          setIsHandoffModalOpen(false);
-        } else {
-          onClose();
-        }
+        onClose();
       }
     };
 
@@ -105,7 +101,7 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, isHandoffModalOpen, onClose]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -117,6 +113,7 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
   };
 
   const triggerSimulation = () => {
+    setShowHandoffTooltip(false);
     setIsExecuting(true);
     setExecutionProgress(1);
 
@@ -127,20 +124,16 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
       setExecutionProgress(5);
       setIsExecuting(false);
       setExecutionTimeMs(Math.floor(1100 + Math.random() * 300));
+      setShowHandoffTooltip(true);
     }, 1150);
   };
 
-  const handleOpenHandoff = () => {
-    setIsHandoffModalOpen(true);
-  };
-
-  const handleConfirmHandoff = () => {
-    setIsHandoffModalOpen(false);
+  const handleProceedToDiagnosis = () => {
     if (onSelectLeadData) {
       onSelectLeadData(selectedPreset.sector, customMessage);
     }
     
-    // Close modal first, then smooth scroll to automation form
+    // Close workstation modal first, then smooth scroll to automation form
     onClose();
 
     setTimeout(() => {
@@ -534,14 +527,27 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
 
             {/* CTA Final */}
             <div className="pt-3 mt-3 border-t border-[#2b5b84]">
-              <button
-                type="button"
-                onClick={() => setIsHandoffModalOpen(true)}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#3775a9] to-[#2b5b84] hover:from-[#2b5b84] hover:to-[#1b3852] text-white font-bold text-xs font-sans flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer border border-[#ffd343]/50"
-              >
-                <span>Quiero este flujo en mi empresa (Solicitar Diagnóstico)</span>
-                <ArrowRight className="w-4 h-4 text-[#ffd343]" />
-              </button>
+              <div className="relative inline-block w-full">
+                
+                {/* Popover / Tooltip Flotante */}
+                {showHandoffTooltip && (
+                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-max max-w-xs bg-amber-400 text-slate-950 px-3 py-1.5 rounded-xl shadow-2xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 animate-bounce z-20 pointer-events-none">
+                    <span>✨ ¡Flujo completado! Inicia el contacto de tu empresa aquí</span>
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-solid border-t-amber-400 border-t-8 border-x-transparent border-x-8 border-b-0" />
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={handleProceedToDiagnosis}
+                  className={`w-full py-2.5 rounded-xl bg-gradient-to-r from-[#3775a9] to-[#2b5b84] hover:from-[#2b5b84] hover:to-[#1b3852] text-white font-bold text-xs font-sans flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer border border-[#ffd343]/50 ${
+                    showHandoffTooltip ? 'ring-4 ring-amber-400 shadow-xl shadow-amber-400/40 scale-[1.02]' : ''
+                  }`}
+                >
+                  <span>Quiero este flujo en mi empresa (Solicitar Diagnóstico)</span>
+                  <ArrowRight className="w-4 h-4 text-[#ffd343]" />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -575,68 +581,6 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
 
         </div>
       </footer>
-
-      {/* 4. LEAD HAND-OFF CONVERSION POPUP MODAL (DIRECT ROOT CHILD) */}
-      {isHandoffModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="relative w-full max-w-lg bg-[#0b1320] border border-amber-500/40 rounded-2xl p-6 shadow-2xl text-left animate-in fade-in zoom-in-95 duration-200 font-tech">
-            
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
-                <Rocket className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white">¡Flujo Simulado con Éxito! ⚡</h3>
-                <p className="text-xs text-slate-400">Paso previo para implementar la automatización en tu empresa</p>
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 mb-4 space-y-2 text-xs">
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Sector seleccionado:</span>
-                <span className="font-semibold text-cyan-400">{selectedPreset?.sector || 'Comercial & Ventas'}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Tiempo de respuesta estimado:</span>
-                <span className="font-semibold text-emerald-400">&lt; 1 día hábil</span>
-              </div>
-              <div className="text-slate-300 pt-2 border-t border-slate-800/80 leading-relaxed">
-                Hemos preparado estos parámetros. Al continuar, serás redirigido al formulario oficial para registrar tus datos de contacto conforme a la Ley 1581 de 2012 y coordinar tu diagnóstico técnico.
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-2.5">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsHandoffModalOpen(false);
-                  if (onSelectLeadData) {
-                    onSelectLeadData(selectedPreset.sector, customMessage);
-                  }
-                  onClose();
-                  setTimeout(() => {
-                    const target = document.getElementById('formulario-automatizacion') || document.getElementById('contacto');
-                    if (target) {
-                      target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }, 100);
-                }}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-lg shadow-amber-400/20 cursor-pointer"
-              >
-                Continuar al Formulario de Diagnóstico 🚀
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsHandoffModalOpen(false)}
-                className="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs transition-colors cursor-pointer"
-              >
-                Seguir en la Demo
-              </button>
-            </div>
-
-          </div>
-        </div>
-      )}
 
     </div>
   );
