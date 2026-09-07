@@ -162,7 +162,7 @@ export const ServicesPage: React.FC = () => {
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">2. Software Crítico a la Medida</h3>
                 <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                  Sistemas ERP/CRM corporativos, plataformas web interactivas y simuladores docentes para la UNAD / ECBTI.
+                  Sistemas ERP/CRM corporativos, plataformas web de alta concurrencia y aplicaciones cloud nativas diseñadas para operar lógica de negocio compleja con máxima resiliencia.
                 </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-sky-300 font-bold flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" /> React 19 & TypeScript
