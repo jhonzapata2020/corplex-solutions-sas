@@ -149,10 +149,10 @@ export const AgentOperationsCenter: React.FC<AgentOperationsCenterProps> = ({
       setIsExecuting(false);
       setExecutionTimeMs(Math.floor(1100 + Math.random() * 300));
 
-      // Programar retraso exacto de 3000ms (3s) para observacion antes de emerger el popup
+      // Programar retraso exacto de 2000ms (2s) para observacion antes de emerger el popup
       const tModal = setTimeout(() => {
         setIsHandoffModalOpen(true);
-      }, 3000);
+      }, 2000);
 
       timeoutsRef.current.push(tModal);
     }, 1150);
