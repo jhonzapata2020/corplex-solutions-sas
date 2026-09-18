@@ -4,12 +4,14 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { QuoteModal } from '../components/QuoteModal';
 import { ScrollToTop } from '../components/ScrollToTop';
+import { CommerceSection } from '../components/CommerceSection';
 import { fetchSiteServices } from '../services/cmsService';
 import type { SiteServiceEntity } from '../types/lead';
 import {
   Bot,
   Code2,
   Cloud,
+  ShoppingCart,
   Cpu,
   Zap,
   ShieldCheck,
@@ -126,60 +128,82 @@ export const ServicesPage: React.FC = () => {
           </div>
         </section>
 
-        {/* 3 PILARES ESTRATÉGICOS */}
+        {/* 4 PILARES ESTRATÉGICOS */}
         <section className="py-16 bg-[#142332] border-b border-[#2b5b84]/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div className="text-center max-w-3xl mx-auto mb-12">
               <span className="text-xs font-mono-tech text-[#ffd343] font-bold uppercase tracking-wider block mb-2">
-                NUESTROS 3 PILARES FUNDAMENTALES
+                NUESTROS 4 PILARES FUNDAMENTALES
               </span>
               <h2 className="text-2xl sm:text-4xl font-bold text-white mb-4">
                 Soluciones de Ingeniería & Arquitectura Empresarial
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               
               {/* Pilar 1 */}
-              <div className="bg-[#0d1722] p-6 rounded-2xl border border-[#2b5b84] hover:border-[#ffd343]/60 transition-all duration-300 shadow-md">
-                <div className="p-3 rounded-xl bg-[#1b3852] text-[#ffd343] w-fit mb-4 border border-[#ffd343]/30">
-                  <Bot className="w-6 h-6" />
+              <div className="bg-[#0d1722] p-6 rounded-2xl border border-[#2b5b84] hover:border-[#ffd343]/60 transition-all duration-300 shadow-md flex flex-col justify-between">
+                <div>
+                  <div className="p-3 rounded-xl bg-[#1b3852] text-[#ffd343] w-fit mb-4 border border-[#ffd343]/30">
+                    <Bot className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">1. Automatización Comercial IA</h3>
+                  <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                    Ecosistemas de agentes autónomos integrados con canales omnicanal oficiales (WhatsApp Business API), sistemas CRM corporativos y plataformas core legadas.
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">1. Automatización Comercial IA</h3>
-                <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                  Ecosistemas de agentes autónomos integrados con canales omnicanal oficiales (WhatsApp Business API), sistemas CRM corporativos y plataformas core legadas para la orquestación integral del ciclo de ventas y atención.
-                </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-emerald-400 font-bold flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Integración Omnicanal & Core CRM
                 </div>
               </div>
 
               {/* Pilar 2 */}
-              <div className="bg-[#0d1722] p-6 rounded-2xl border border-[#2b5b84] hover:border-sky-400/60 transition-all duration-300 shadow-md">
-                <div className="p-3 rounded-xl bg-[#1b3852] text-sky-400 w-fit mb-4 border border-sky-400/30">
-                  <Code2 className="w-6 h-6" />
+              <div className="bg-[#0d1722] p-6 rounded-2xl border border-[#2b5b84] hover:border-sky-400/60 transition-all duration-300 shadow-md flex flex-col justify-between">
+                <div>
+                  <div className="p-3 rounded-xl bg-[#1b3852] text-sky-400 w-fit mb-4 border border-sky-400/30">
+                    <Code2 className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">2. Software Crítico a la Medida</h3>
+                  <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                    Sistemas ERP/CRM corporativos, plataformas web de alta concurrencia y aplicaciones cloud nativas para lógica de negocio compleja.
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">2. Software Crítico a la Medida</h3>
-                <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                  Sistemas ERP/CRM corporativos, plataformas web de alta concurrencia y aplicaciones cloud nativas diseñadas para operar lógica de negocio compleja con máxima resiliencia.
-                </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-sky-300 font-bold flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Arquitectura Agnóstica & Cloud Nativa
                 </div>
               </div>
 
               {/* Pilar 3 */}
-              <div className="bg-[#0d1722] p-6 rounded-2xl border border-[#2b5b84] hover:border-emerald-400/60 transition-all duration-300 shadow-md">
-                <div className="p-3 rounded-xl bg-[#1b3852] text-emerald-400 w-fit mb-4 border border-emerald-400/30">
-                  <Cloud className="w-6 h-6" />
+              <div className="bg-[#0d1722] p-6 rounded-2xl border border-[#2b5b84] hover:border-emerald-400/60 transition-all duration-300 shadow-md flex flex-col justify-between">
+                <div>
+                  <div className="p-3 rounded-xl bg-[#1b3852] text-emerald-400 w-fit mb-4 border border-emerald-400/30">
+                    <Cloud className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">3. Cloud AWS & Soporte SLA</h3>
+                  <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                    Infraestructura elástica en AWS (EC2 Auto Scaling, RDS PostgreSQL cifrado, ALB) con monitoreo y soporte 24/7.
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">3. Cloud AWS & Soporte SLA</h3>
-                <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                  Infraestructura elástica en Amazon Web Services (EC2, RDS PostgreSQL cifrado, ALB) con monitoreo 24/7.
-                </p>
                 <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-emerald-400 font-bold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Alta Disponibilidad & Resiliencia Cloud (SLA)
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Alta Disponibilidad & Resiliencia Cloud
+                </div>
+              </div>
+
+              {/* Pilar 4 */}
+              <div className="bg-[#0d1722] p-6 rounded-2xl border border-[#2b5b84] hover:border-amber-400/60 transition-all duration-300 shadow-md flex flex-col justify-between">
+                <div>
+                  <div className="p-3 rounded-xl bg-[#1b3852] text-amber-400 w-fit mb-4 border border-amber-400/30">
+                    <ShoppingCart className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">4. Corplex Commerce</h3>
+                  <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                    Tiendas online, cobros seguros (Wompi, Mercado Pago API), inventario por variantes/sedes y automatización de pedidos por WhatsApp.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-[#2b5b84] text-[11px] font-mono-tech text-amber-400 font-bold flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Ventas Automáticas & Pedidos API
                 </div>
               </div>
 
@@ -187,6 +211,9 @@ export const ServicesPage: React.FC = () => {
 
           </div>
         </section>
+
+        {/* CORPLEX COMMERCE SHOWCASE */}
+        <CommerceSection onSelectServiceForQuote={handleSelectServiceForQuote} />
 
         {/* ARQUITECTURA TÉCNICA Y FLUJO OPERATIVO */}
         <section className="py-16 sm:py-24 bg-[#09111a] border-b border-[#2b5b84]/50 relative overflow-hidden">

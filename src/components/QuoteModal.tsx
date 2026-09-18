@@ -258,6 +258,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
                 onChange={(e) => setProjectType(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-[#142332] border border-[#2b5b84] text-slate-100 text-xs focus:outline-none focus:border-[#ffd343] font-sans"
               >
+                <option value="Corplex Commerce: Tienda, Pagos & WhatsApp">Corplex Commerce: Tienda, Pagos & WhatsApp</option>
                 <option value="Desarrollo de Software & Web Apps">Desarrollo de Software & Web Apps</option>
                 <option value="Corplex AI Automation - Diagnóstico & Piloto">Corplex AI Automation - Diagnóstico & Piloto</option>
                 <option value="Arquitectura Cloud AWS & DevOps">Arquitectura Cloud AWS & DevOps</option>
@@ -298,11 +299,11 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, preSele
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
                   'Despliegue Cloud AWS',
+                  'Pasarela Pagos Wompi/MercadoPago',
+                  'Ventas por WhatsApp API',
                   'API REST & Base de Datos',
                   'Autenticación & Permisos',
-                  'Simulador Gráfico Interactivo',
-                  'Soporte & SLA Continuo 24/7',
-                  'Integración LTI / LMS'
+                  'Soporte & SLA Continuo 24/7'
                 ].map((addon) => {
                   const isSelected = selectedAddons.includes(addon);
                   return (

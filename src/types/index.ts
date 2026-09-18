@@ -1,6 +1,6 @@
 export type ServiceItem = {
   id: string;
-  category: 'software' | 'cloud' | 'ai' | 'infrastructure';
+  category: 'software' | 'cloud' | 'ai' | 'infrastructure' | 'commerce';
   categoryLabel: string;
   title: string;
   shortDesc: string;
@@ -138,6 +138,27 @@ export type AutomationFormData = {
   bottleneck: string;
   sector?: string;
   selectedPackage?: string;
+};
+
+export type CommerceCard = {
+  id: string;
+  title: string;
+  description: string;
+  idealFor: string;
+  includes: string[];
+  ctaButtonText: string;
+  iconName: string;
+  badge?: string;
+};
+
+export type CommercePackage = {
+  id: string;
+  name: string;
+  tagline: string;
+  scope: string;
+  targetClient: string;
+  features: string[];
+  isPopular?: boolean;
 };
 
 export * from './lead';

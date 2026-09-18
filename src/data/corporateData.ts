@@ -1,4 +1,4 @@
-import type { LegalData, ServiceItem, CloudNode, MethodologyStep, AcademicFeature } from '../types';
+import type { LegalData, ServiceItem, CloudNode, MethodologyStep, AcademicFeature, CommerceCard, CommercePackage } from '../types';
 
 export const LEGAL_INFO: LegalData = {
   companyName: "CORPLEX SOLUTIONS S.A.S.",
@@ -78,6 +78,191 @@ export const SERVICES_DATA: ServiceItem[] = [
     ],
     techBadges: ["AWS EC2", "AWS RDS PostgreSQL", "AWS ALB & WAF", "Mesa de Ayuda SLA", "Ciberseguridad"],
     recommendedFor: "Comités TI, Empresas con tráfico masivo y Organizaciones que requieren soporte garantizado"
+  },
+  {
+    id: "commerce-1",
+    category: "commerce",
+    categoryLabel: "OFERTA PILAR 4 · CORPLEX COMMERCE",
+    title: "Corplex Commerce: Ventas Automáticas & Gestión de Pedidos",
+    shortDesc: "Tiendas online profesionales, pasarelas de pago (Wompi, Mercado Pago), automatización por WhatsApp, inventario en tiempo real e integración CRM.",
+    fullDesc: "Corplex Commerce es la solución integral para crear tiendas online, procesar pagos seguros, gestionar inventario por variantes/sedes, automatizar notificaciones de despacho y conectar el flujo completo con tu CRM y WhatsApp Business API.",
+    icon: "ShoppingCart",
+    features: [
+      "Tienda online responsive con catálogo, carrito y checkout desacoplado seguro",
+      "Integración de pasarelas de pago locales (Wompi, Mercado Pago API, PSE, Tarjetas)",
+      "Procesamiento e idempotencia de pedidos con alertas automáticas a operaciones",
+      "Ventas conversacionales y catálogo inteligente integrado con WhatsApp API",
+      "Sincronización directa con CRM comercial para retención y carritos abandonados"
+    ],
+    techBadges: ["Ecommerce API", "Checkout Wompi/MercadoPago", "WhatsApp API", "Control Inventario", "CRM Recompra"],
+    recommendedFor: "Tiendas de moda, alimentos, tecnología, ferreterías, agroindustrias y comercios B2B"
+  }
+];
+
+export const COMMERCE_CARDS: CommerceCard[] = [
+  {
+    id: "card-store",
+    title: "Tienda online para cualquier negocio",
+    description: "Crea una tienda profesional con catálogo, carrito, checkout fluido y diseño adaptable a celulares.",
+    idealFor: "Tiendas de ropa, alimentos empacados, tecnología, belleza, hogar y comercio especializado.",
+    includes: [
+      "Catálogo dinámico & variantes (talla, color, presentación)",
+      "Carrito de compras intuitivo y checkout responsive",
+      "SEO técnico optimizado por producto y categoría",
+      "Dominio corporativo con certificado de seguridad HTTPS"
+    ],
+    ctaButtonText: "Crear mi tienda",
+    iconName: "ShoppingBag",
+    badge: "Core Ecommerce"
+  },
+  {
+    id: "card-whatsapp",
+    title: "Ventas automáticas por WhatsApp",
+    description: "Permite que tus clientes consulten productos, reciban recomendaciones y avancen hacia el pedido desde WhatsApp.",
+    idealFor: "Negocios con alto volumen de consultas y ventas conversacionales directas.",
+    includes: [
+      "Catálogo conversacional inteligente 24/7",
+      "Consulta inmediata de disponibilidad y stock",
+      "Generación automática de links de pago y pedidos",
+      "Transferencia transparente a asesor cuando hay excepciones"
+    ],
+    ctaButtonText: "Automatizar ventas",
+    iconName: "MessageCircle",
+    badge: "WhatsApp API"
+  },
+  {
+    id: "card-payments",
+    title: "Pagos y pedidos online",
+    description: "Recibe pagos seguros, genera el registro de pedidos y notifica automáticamente al cliente y a tu equipo.",
+    idealFor: "Comercios que requieren cobranza automatizada sin almacenar datos sensibles de tarjetas.",
+    includes: [
+      "Integración oficial con Wompi y Mercado Pago API",
+      "Confirmaciones de pago por webhooks validados",
+      "Radicado y número de pedido único con estado logístico",
+      "Notificaciones automáticas por correo y WhatsApp"
+    ],
+    ctaButtonText: "Activar pagos",
+    iconName: "CreditCard",
+    badge: "Pagos Seguros"
+  },
+  {
+    id: "card-inventory",
+    title: "Inventario y control de productos",
+    description: "Controla existencias, variantes, reservas durante el checkout y alertas de stock desde un panel centralizado.",
+    idealFor: "Negocios con múltiples sedes, bodegas o catálogos con alto número de variantes.",
+    includes: [
+      "Reserva temporal de stock durante la transacción",
+      "Stock mínimo configurable con alertas tempranas",
+      "Control detallado por variante (talla, color, SKU)",
+      "Ajustes manuales e historial auditables"
+    ],
+    ctaButtonText: "Organizar inventario",
+    iconName: "Package",
+    badge: "Control de Stock"
+  },
+  {
+    id: "card-crm",
+    title: "CRM para clientes y recompra",
+    description: "Convierte compradores ocasionales en clientes recurrentes con seguimiento, segmentación y campañas autorizadas.",
+    idealFor: "Equipos comerciales y marketing enfocados en retención y valor de vida del cliente (LTV).",
+    includes: [
+      "Perfil unificado del comprador e historial de compras",
+      "Seguimiento y recuperación de carritos abandonados",
+      "Automatizaciones de recompra y venta cruzada (cross-selling)",
+      "Segmentación por frecuencia y monto de consumo"
+    ],
+    ctaButtonText: "Conectar CRM",
+    iconName: "Users",
+    badge: "Fidelización CRM"
+  },
+  {
+    id: "card-b2b",
+    title: "Ecommerce B2B y pedidos empresariales",
+    description: "Gestiona clientes mayoristas, listas de precios especiales, solicitudes de cotización y pedidos recurrentes.",
+    idealFor: "Distribuidores, fabricantes, importadores y proveedores institucionales.",
+    includes: [
+      "Precios y condiciones comerciales por cliente/categoría",
+      "Flujos de aprobación y asignaciones de crédito",
+      "Solicitud de cotizaciones e integración empresarial",
+      "Portal autoservicio corporativo para compras masivas"
+    ],
+    ctaButtonText: "Vender a empresas",
+    iconName: "Building2",
+    badge: "Portal Mayorista"
+  }
+];
+
+export const COMMERCE_PACKAGES: CommercePackage[] = [
+  {
+    id: "pkg-start",
+    name: "Commerce Start",
+    tagline: "Esencial para iniciar ventas digitales organizadas",
+    scope: "Tienda, catálogo, carrito, dominio corporativo, configuración inicial y capacitación.",
+    targetClient: "Emprendedores y pequeños comercios que venden principalmente por redes sociales.",
+    features: [
+      "Catálogo de hasta 100 productos",
+      "Carrito y checkout simplificado",
+      "Notificación de pedido por email/WhatsApp",
+      "Diseño responsive mobile-first",
+      "Capacitación inicial operativa"
+    ]
+  },
+  {
+    id: "pkg-sell",
+    name: "Commerce Sell",
+    tagline: "Ventas y cobros automáticos sin fricción",
+    scope: "Commerce Start + pasarela de pagos, gestión de pedidos, notificaciones y panel administrativo.",
+    targetClient: "Tiendas que quieren vender y cobrar online de forma ordenada y automatizada.",
+    features: [
+      "Integración pasarela Wompi / Mercado Pago API",
+      "Panel de gestión de pedidos e inventario",
+      "Notificaciones de estado de compra al cliente",
+      "Alertas de preparación al equipo interno",
+      "Soporte técnico y respaldos periódicos"
+    ],
+    isPopular: true
+  },
+  {
+    id: "pkg-growth",
+    name: "Commerce Growth",
+    tagline: "Escala comercial con CRM y carritos abandonados",
+    scope: "Commerce Sell + CRM comercial, inventario avanzado, recuperación de carritos y analítica.",
+    targetClient: "Negocios en crecimiento con volumen constante de pedidos y equipo comercial.",
+    features: [
+      "CRM de clientes y recuperación de carritos",
+      "Control de inventario por sede/bodega",
+      "Campañas automáticas de recompra",
+      "Dashboard de conversión y métricas",
+      "Asistente conversacional IA opcional"
+    ]
+  },
+  {
+    id: "pkg-b2b",
+    name: "Commerce B2B",
+    tagline: "Ventas mayoristas e institucionales simplificadas",
+    scope: "Catálogo mayorista, precios diferenciados, aprobaciones de crédito y cotizaciones empresariales.",
+    targetClient: "Distribuidores, fabricantes, importadores y proveedores institucionales.",
+    features: [
+      "Listas de precios personalizadas por cliente",
+      "Flujo de aprobación y cotizaciones corporativas",
+      "Condiciones comerciales y cupos de crédito",
+      "Portal autoservicio corporativo B2B",
+      "Integración con ERP o sistema contable"
+    ]
+  },
+  {
+    id: "pkg-omnichannel",
+    name: "Commerce Omnichannel",
+    tagline: "Integración total multi-canal y soporte prioritario",
+    scope: "Tienda, WhatsApp API, tienda física, inventario multi-sede, logística y soporte SLA.",
+    targetClient: "Empresas consolidadas con múltiples canales de venta y operación compleja.",
+    features: [
+      "Sincronización de inventario multi-sede en tiempo real",
+      "WhatsApp Business API con asistentes IA",
+      "Integración logística y pasarelas múltiples",
+      "Soporte priorizado con SLA de respuesta (<2h)",
+      "Desarrollos de módulos personalizados"
+    ]
   }
 ];
 

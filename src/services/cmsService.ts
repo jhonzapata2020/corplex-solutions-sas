@@ -60,6 +60,20 @@ export async function fetchSiteServices(): Promise<SiteServiceEntity[]> {
           display_order: 3,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
+        },
+        {
+          id: 'svc-4',
+          title: 'Corplex Commerce & Ventas Automáticas',
+          slug: 'corplex-commerce',
+          icon_name: 'ShoppingCart',
+          badge: 'Ecommerce API',
+          short_description: 'Tiendas online, cobros seguros Wompi/MercadoPago, pedidos por WhatsApp e inventario.',
+          price_starting_at: 2200000,
+          is_featured: true,
+          is_active: true,
+          display_order: 4,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
         }
       ];
     }

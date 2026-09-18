@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code2, Cloud, Bot, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Code2, Cloud, Bot, ShoppingCart, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 interface ServicesGridProps {
   onSelectServiceForQuote: (serviceTitle: string) => void;
@@ -33,12 +33,12 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
           </h2>
 
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Tres pilares fundamentales diseñados para optimizar operaciones, escalar plataformas digitales y garantizar continuidad en la nube.
+            Cuatro pilares fundamentales diseñados para automatizar ventas, construir software crítico, potenciar el comercio electrónico y garantizar continuidad en la nube.
           </p>
         </div>
 
-        {/* Bento Grid Layout - 3 Pillar Commercial Offers */}
-        <div id="soluciones" className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        {/* Bento Grid Layout - 4 Pillar Commercial Offers */}
+        <div id="soluciones" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           
           {/* Pilar 1: Automatización de Atención & Cotización Comercial */}
           <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-amber-400 transition-all duration-300 flex flex-col justify-between group">
@@ -202,6 +202,53 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
               className="w-full py-2.5 rounded-lg bg-[#2b5b84] hover:bg-[#1b3852] text-white font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm group"
             >
               <span>Cotizar Cloud & Soporte SLA</span>
+              <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform stroke-[2]" />
+            </button>
+          </div>
+
+          {/* Pilar 4: Corplex Commerce & Ecommerce Inteligente */}
+          <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-amber-500 transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700">
+                  <ShoppingCart className="w-7 h-7 stroke-[1.75]" />
+                </div>
+                <span className="text-[11px] font-mono-tech px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-bold">
+                  PILAR 4 // COMMERCE & PEDIDOS
+                </span>
+              </div>
+
+              <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-amber-700 transition-colors">
+                4. Corplex Commerce & Ventas Automáticas
+              </h3>
+
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
+                Tiendas online conectadas con pasarelas de pago (Wompi, Mercado Pago API), inventario en tiempo real, seguimiento por WhatsApp y CRM.
+              </p>
+
+              <div className="grid grid-cols-2 gap-2 p-3.5 bg-slate-50 rounded-xl border border-slate-200 mb-6 font-mono-tech text-[11px]">
+                <div className="p-2 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+                  <div>
+                    <span className="text-amber-800 block font-bold">Checkout API</span>
+                    <span className="text-slate-500 text-[10px]">Wompi / MercadoPago</span>
+                  </div>
+                </div>
+                <div className="p-2 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <div>
+                    <span className="text-emerald-700 block font-bold">WhatsApp Sync</span>
+                    <span className="text-slate-500 text-[10px]">Pedidos & CRM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => onSelectServiceForQuote('Corplex Commerce: Ventas Automáticas & Gestión de Pedidos')}
+              className="w-full py-2.5 rounded-lg bg-[#2b5b84] hover:bg-[#1b3852] text-white font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm group"
+            >
+              <span>Cotizar Corplex Commerce</span>
               <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform stroke-[2]" />
             </button>
           </div>
