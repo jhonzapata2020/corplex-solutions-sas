@@ -59,6 +59,10 @@ export const ServicesPage: React.FC = () => {
     setIsQuoteModalOpen(true);
   };
 
+  const handleSelectServiceForQuote = (title: string) => {
+    handleOpenQuoteModal(title);
+  };
+
   const handleCloseQuoteModal = () => {
     setIsQuoteModalOpen(false);
     setSelectedServiceTitle(undefined);

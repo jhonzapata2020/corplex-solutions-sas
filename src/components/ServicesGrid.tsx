@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Code2, Cloud, Bot, ShoppingCart, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 interface ServicesGridProps {
@@ -253,6 +254,89 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectServiceForQu
             </button>
           </div>
 
+        </div>
+
+        {/* Featured Corplex Commerce Highlight Cards (Portales Destacados) */}
+        <div className="mt-16 pt-12 border-t border-slate-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <span className="text-xs font-mono-tech text-amber-700 font-bold uppercase tracking-wider block mb-1">
+                PRODUCTO DESTACADO · CORPLEX COMMERCE
+              </span>
+              <h3 className="text-2xl font-bold text-slate-900">
+                Soluciones Destacadas de Ecommerce & Ventas
+              </h3>
+            </div>
+            <Link
+              to="/servicios#commerce"
+              className="inline-flex items-center gap-2 text-xs font-bold font-mono-tech text-[#2b5b84] hover:text-[#1b3852] bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-lg border border-slate-300 transition-colors w-fit"
+            >
+              <span>Ver Catálogo Completo & Paquetes Commerce</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1 */}
+            <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-amber-400 transition-all shadow-sm flex flex-col justify-between">
+              <div>
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono-tech font-bold bg-amber-100 text-amber-800 border border-amber-300 inline-block mb-3">
+                  Core Ecommerce
+                </span>
+                <h4 className="text-base font-bold text-slate-900 mb-2">Tienda online para cualquier negocio</h4>
+                <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                  Crea una tienda profesional con catálogo, carrito, checkout fluido y diseño adaptable a celular.
+                </p>
+              </div>
+              <button
+                onClick={() => onSelectServiceForQuote('Corplex Commerce: Tienda online para cualquier negocio')}
+                className="w-full py-2 rounded-lg bg-white hover:bg-amber-50 text-slate-800 font-bold text-xs border border-slate-300 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <span>Crear mi tienda</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* Card 2 */}
+            <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-amber-400 transition-all shadow-sm flex flex-col justify-between">
+              <div>
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono-tech font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 inline-block mb-3">
+                  WhatsApp Business API
+                </span>
+                <h4 className="text-base font-bold text-slate-900 mb-2">Ventas automáticas por WhatsApp</h4>
+                <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                  Permite que tus clientes consulten productos, reciban recomendaciones y gestionen pedidos desde WhatsApp.
+                </p>
+              </div>
+              <button
+                onClick={() => onSelectServiceForQuote('Corplex Commerce: Ventas automáticas por WhatsApp')}
+                className="w-full py-2 rounded-lg bg-white hover:bg-emerald-50 text-slate-800 font-bold text-xs border border-slate-300 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <span>Automatizar ventas</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-amber-400 transition-all shadow-sm flex flex-col justify-between">
+              <div>
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono-tech font-bold bg-sky-100 text-sky-800 border border-sky-300 inline-block mb-3">
+                  Pagos Wompi / MercadoPago
+                </span>
+                <h4 className="text-base font-bold text-slate-900 mb-2">Pagos y pedidos online</h4>
+                <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                  Recibe pagos seguros, genera el registro de pedidos y notifica automáticamente al cliente y a tu equipo.
+                </p>
+              </div>
+              <button
+                onClick={() => onSelectServiceForQuote('Corplex Commerce: Pagos y pedidos online')}
+                className="w-full py-2 rounded-lg bg-white hover:bg-sky-50 text-slate-800 font-bold text-xs border border-slate-300 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <span>Activar pagos</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
         </div>
 
       </div>
