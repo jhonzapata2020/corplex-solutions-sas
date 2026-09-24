@@ -40,7 +40,8 @@ export async function submitLead(leadData: LeadFormData) {
   }
 
   // Método 2: Fallback directo mediante fetch HTTP a la API REST de Supabase
-  const targetUrl = 'https://ehfejbgzronpllbeyzqj.supabase.co/rest/v1/automation_leads';
+  const baseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL || 'https://grfjnmpkoezeyhjhrzkw.supabase.co';
+  const targetUrl = `${baseUrl}/rest/v1/automation_leads`;
   const apiKey = 'sb_publishable_FSpWxlR-VroEmMKOV2Tl9w_p2tpOcJJ';
 
   const res = await fetch(targetUrl, {
